@@ -1,0 +1,551 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ignore="http://www.galasoft.ch/ignore"
+        xmlns:ViewModel="clr-namespace:AppCBMP.ViewModel"
+        xmlns:helpers="clr-namespace:AppCBMP.Helpers"
+        x:Class="AppCBMP.View.RegistrationView"
+        mc:Ignorable="d ignore"
+        Height="1455.475"
+        Width="1200">
+    <Window.DataContext>
+        <Binding Path="Registration"
+                 Source="{StaticResource Locator}" />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1" />
+            <ColumnDefinition Width="1.5*" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="1"
+                      Grid.Column="1">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="Width"
+                                Value="200" />
+                        <Setter Property="Height"
+                                Value="40" />
+                        <Setter Property="Margin"
+                                Value="5" />
+                        <Setter Property="FontSize"
+                                Value="20" />
+                        <Setter Property="FontWeight"
+                                Value="Bold" />
+                        <Setter Property="HorizontalAlignment"
+                                Value="Left" />
+                        <Setter Property="VerticalAlignment"
+                                Value="Center" />
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Right" />
+                        <Setter Property="VerticalContentAlignment"
+                                Value="Center" />
+                    </Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="Width"
+                                Value="200" />
+                        <Setter Property="Height"
+                                Value="40" />
+                        <Setter Property="Margin"
+                                Value="5" />
+                        <Setter Property="FontSize"
+                                Value="20" />
+                        <Setter Property="HorizontalAlignment"
+                                Value="Left" />
+                        <Setter Property="VerticalAlignment"
+                                Value="Center" />
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Left" />
+                        <Setter Property="VerticalContentAlignment"
+                                Value="Center" />
+                        <Setter Property="Validation.ErrorTemplate"
+                                Value="{DynamicResource ErrorToolTipTemplate1}" />
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError"
+                                     Value="True">
+                                <Setter Property="ToolTip"
+                                        Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
+                            </Trigger>
+                            <Trigger Property="IsFocused"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        Value="AliceBlue" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style TargetType="{x:Type ComboBox}">
+                        <Setter Property="Width"
+                                Value="200" />
+                        <Setter Property="Height"
+                                Value="40" />
+                        <Setter Property="Margin"
+                                Value="5" />
+                        <Setter Property="FontSize"
+                                Value="20" />
+                        <Setter Property="HorizontalAlignment"
+                                Value="Left" />
+                        <Setter Property="VerticalAlignment"
+                                Value="Center" />
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Left" />
+                        <Setter Property="VerticalContentAlignment"
+                                Value="Center" />
+                        <Setter Property="Validation.ErrorTemplate"
+                                Value="{DynamicResource ErrorToolTipTemplate1}" />
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError"
+                                     Value="True">
+                                <Setter Property="ToolTip"
+                                        Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused"
+                                     Value="True">
+                                <Setter Property="IsDropDownOpen"
+                                        Value="True" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocusWithin"
+                                     Value="True">
+                                <Setter Property="IsDropDownOpen"
+                                        Value="True" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Width"
+                                Value="200" />
+                        <Setter Property="Height"
+                                Value="40" />
+                        <Setter Property="Margin"
+                                Value="5" />
+                        <Setter Property="FontSize"
+                                Value="20" />
+                    </Style>
+                    <Style TargetType="ListBox">
+                        <Setter Property="Width"
+                                Value="300" />
+                        <Setter Property="Height"
+                                Value="120" />
+                        <Setter Property="Margin"
+                                Value="5" />
+                        <Setter Property="FontSize"
+                                Value="10" />
+                        <Setter Property="HorizontalAlignment"
+                                Value="Left" />
+                        <Setter Property="VerticalAlignment"
+                                Value="Center" />
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Left" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0"
+                       Grid.Row="0"
+                       Content="PESEL:" />
+                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
+                         Grid.Column="1"
+                         Grid.Row="0">
+                    <Binding Path="Registration.PeselTxtField"
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             NotifyOnSourceUpdated="True"
+                             NotifyOnTargetUpdated="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <helpers:PeselValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+
+                <Label Grid.Column="0"
+                       Grid.Row="1"
+                       Content="Imie:" />
+                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
+                         Grid.Column="1"
+                         Grid.Row="1">
+                    <Binding Path="Registration.CurrentlyRegisteredPerson.FirstName"
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             NotifyOnSourceUpdated="True"
+                             NotifyOnTargetUpdated="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <helpers:CharsValidationRule CharSet=" "
+                                                         PropertyName="Imie" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+
+                <Label Grid.Column="0"
+                       Grid.Row="2"
+                       Content="Nazwisko:" />
+                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
+                         Grid.Column="1"
+                         Grid.Row="2">
+                    <Binding Path="Registration.CurrentlyRegisteredPerson.LastName"
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             NotifyOnSourceUpdated="True"
+                             NotifyOnTargetUpdated="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <helpers:CharsValidationRule CharSet=" -"
+                                                         PropertyName="Nazwisko" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+
+                <Label Grid.Column="0"
+                       Grid.Row="3"
+                       Content="Miejsce urodzenia:" />
+                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
+                         Grid.Column="1"
+                         Grid.Row="3">
+                    <Binding Path="Registration.CurrentlyRegisteredPerson.BirthPlace"
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             NotifyOnSourceUpdated="True"
+                             NotifyOnTargetUpdated="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <helpers:CharsValidationRule CharSet=" -"
+                                                         PropertyName="Miejsce urodzenia" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+
+                <Label Grid.Column="0"
+                       Grid.Row="4"
+                       Content="Kod:" />
+                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
+                         Grid.Column="1"
+                         Grid.Row="4">
+                    <Binding Path="Registration.CurrentlyRegisteredPerson.PostCode"
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             NotifyOnSourceUpdated="True"
+                             NotifyOnTargetUpdated="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <helpers:PostCodeValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+
+                <Label Grid.Column="0"
+                       Grid.Row="5"
+                       Content="Miejscowość:" />
+                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
+                         Grid.Column="1"
+                         Grid.Row="5">
+                    <Binding Path="Registration.CurrentlyRegisteredPerson.City"
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             NotifyOnSourceUpdated="True"
+                             NotifyOnTargetUpdated="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <helpers:CharsValidationRule CharSet=" -"
+                                                         PropertyName="Miejscowość" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+
+                <Label Grid.Column="0"
+                       Grid.Row="6"
+                       Content="Ulica:" />
+                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
+                         Grid.Column="1"
+                         Grid.Row="6">
+                    <Binding Path="Registration.CurrentlyRegisteredPerson.Street"
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             NotifyOnSourceUpdated="True"
+                             NotifyOnTargetUpdated="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <helpers:CharsValidationRule CharSet=" -123456789"
+                                                         PropertyName="Ulica" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+
+                <Label Grid.Column="0"
+                       Grid.Row="7"
+                       Content="Numer domu:" />
+                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
+                         Grid.Column="1"
+                         Grid.Row="7">
+                    <Binding Path="Registration.CurrentlyRegisteredPerson.HouseNumber"
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             NotifyOnSourceUpdated="True"
+                             NotifyOnTargetUpdated="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <helpers:CharsValidationRule CharSet=" /123456789"
+                                                         PropertyName="Ulica" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+
+                <Label Grid.Column="0"
+                       Grid.Row="8"
+                       Content="Numer mieszkania:" />
+                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
+                         Grid.Column="1"
+                         Grid.Row="8">
+                    <Binding Path="Registration.CurrentlyRegisteredPerson.ApartmentNumber"
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             NotifyOnSourceUpdated="True"
+                             NotifyOnTargetUpdated="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <helpers:OnlyDigitsRule PropertyName="Numer mieszkania" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+
+                <Label Grid.Column="0"
+                       Grid.Row="9"
+                       Content="Wykształcenie" />
+                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
+                         Grid.Column="1"
+                         Grid.Row="9">
+                    <Binding Path="Registration.CurrentlyRegisteredPerson.Education"
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             NotifyOnSourceUpdated="True"
+                             NotifyOnTargetUpdated="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <helpers:CharsValidationRule PropertyName="Wykształcenie"
+                                                         CharSet="" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+
+                <Label Grid.Column="0"
+                       Grid.Row="10"
+                       Content="Telefon" />
+                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
+                         Grid.Column="1"
+                         Grid.Row="10">
+                    <Binding Path="Registration.CurrentlyRegisteredPerson.PhoneNumber"
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged"
+                             NotifyOnSourceUpdated="True"
+                             NotifyOnTargetUpdated="True"
+                             NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <helpers:PhoneValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+
+                <Label Grid.Column="0"
+                       Grid.Row="11"
+                       Content="Frima:" />
+                <ComboBox ItemsSource="{Binding Registration.Companies, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                          IsEditable="True"
+                          DisplayMemberPath="Name"
+                          Grid.Column="1"
+                          Grid.Row="11"
+                          ShouldPreserveUserEnteredPrefix="True"
+                          IsTextSearchEnabled="False"
+                          Background="AliceBlue"
+                          Text="{Binding Registration.CompanyTxtField, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
+
+                <Label Grid.Column="0"
+                       Grid.Row="12"
+                       Content="Skierowanie:" />
+                <ComboBox ItemsSource="{Binding Registration.Referrals, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                          IsEditable="True"
+                          DisplayMemberPath="Name"
+                          Grid.Column="1"
+                          Grid.Row="12"
+                          ShouldPreserveUserEnteredPrefix="True"
+                          IsTextSearchEnabled="False"
+                          Background="AliceBlue"
+                          Text="{Binding Registration.ReferralTxtField, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
+
+                <Label Grid.Column="0"
+                       Grid.Row="13"
+                       Content="Stanowisko"></Label>
+                <TextBox Grid.Column="1"
+                         Grid.Row="13"
+                         Text="{Binding Registration.PositionTxtField, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
+                <ListBox Grid.Column="1"
+                         Grid.Row="14"
+                         ItemsSource="{Binding Registration.Positions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Margin"
+                                                Value="5" />
+                                        <Setter Property="VerticalContentAlignment"
+                                                Value="Center" />
+                                        <Setter Property="HorizontalContentAlignment"
+                                                Value="Right" />
+                                    </Style>
+                                </StackPanel.Resources>
+                                <Label Content="{Binding Name}"
+                                       Width="100"
+                                       Height="30"
+                                       FontSize="12" />
+                                <Button Content="Dodaj stanowisko"></Button>
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Label Grid.Column="0"
+                       Grid.Row="15"
+                       Content="Dodane stanowiska:"></Label>
+                <ListBox Grid.Column="1"
+                         Grid.Row="15">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <!--                                    ToDo-->
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+
+                <!--               POMYSŁ-->
+                <ComboBox Grid.Column="1"
+                          Grid.Row="16"
+                          SelectedItem="{Binding Registration.TypeOfExamination, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem x:Name="MP"
+                                  Content="Medycyna Pracy" />
+                    <ComboBoxItem x:Name="P"
+                                  Content="Pracodawca" />
+                    <ComboBoxItem x:Name="CD"
+                                  Content="Kierowca C/D" />
+                    <ComboBoxItem x:Name="Other"
+                                  Content="Inne" />
+                </ComboBox>
+
+
+                <Grid Grid.Column="1"
+                      Grid.Row="17">
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type RadioButton}">
+                            <Setter Property="Margin"
+                                    Value="5" />
+                            <Setter Property="Width"
+                                    Value="200" />
+                            <Setter Property="Height"
+                                    Value="40" />
+                            <Setter Property="FontSize"
+                                    Value="20" />
+                            <Setter Property="HorizontalAlignment"
+                                    Value="Left" />
+                            <Setter Property="VerticalAlignment"
+                                    Value="Center" />
+                            <Setter Property="HorizontalContentAlignment"
+                                    Value="Left" />
+                            <Setter Property="VerticalContentAlignment"
+                                    Value="Center" />
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.Style>
+                        <Style TargetType="{x:Type Grid}">
+                            <Setter Property="Visibility"
+                                    Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSelected, ElementName=Other}"
+                                             Value="True">
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <RadioButton  Grid.Row="0"
+                                  Content="Alkoholowe" />
+                    <RadioButton  Grid.Row="1"
+                                  Content="Broń" />
+                    <RadioButton  Grid.Row="2"
+                                  Content="Powypadkowe" />
+                </Grid>
+
+
+
+
+                <Button Command="{Binding AddPersonToDbCommand}"
+                        Grid.Column="1"
+                        Grid.Row="18"
+                        Content="Dodaj osobę do listy" />
+
+            </Grid>
+        </ScrollViewer>
+        <ListBox ItemsSource="{Binding Registration.Persons}"
+                 Grid.Column="2"
+                 Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Margin"
+                                        Value="5" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <Label Content="{Binding FirstName}" />
+                        <Label Content="{Binding LastName}"
+                               FontWeight="Bold" />
+                        <StackPanel Orientation="Vertical">
+                            <Button Content="Drukuj" />
+                            <Button Content="Fakturuj" />
+                        </StackPanel>
+
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>

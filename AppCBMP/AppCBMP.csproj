@@ -36,6 +36,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight, Version=5.2.0.37222, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.2.0.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
       <Private>True</Private>
@@ -53,6 +61,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.2.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -75,12 +84,41 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DAL\AppDataContext.cs" />
+    <Compile Include="DAL\Persistence\UnitOfWork.cs" />
+    <Compile Include="DAL\Repositories\CompanyRepository.cs" />
+    <Compile Include="DAL\Repositories\PersonRepository.cs" />
+    <Compile Include="DAL\Repositories\PositionRepository.cs" />
+    <Compile Include="DAL\Repositories\PsychologicalExaminationRepository.cs" />
+    <Compile Include="DAL\Repositories\ReferralRepository.cs" />
     <Compile Include="Design\DesignDataService.cs" />
-    <Compile Include="Model\DataItem.cs" />
-    <Compile Include="Model\DataService.cs" />
-    <Compile Include="Model\IDataService.cs" />
+    <Compile Include="Helpers\CharsValidationRule.cs" />
+    <Compile Include="Helpers\OnlyDigitsRule.cs" />
+    <Compile Include="Helpers\PeselValidationRule.cs" />
+    <Compile Include="Helpers\PhoneValidationRule.cs" />
+    <Compile Include="Helpers\PostCodeValidationRule.cs" />
+    <Compile Include="Migrations\201609061714459_InitialBigMigration.cs" />
+    <Compile Include="Migrations\201609061714459_InitialBigMigration.Designer.cs">
+      <DependentUpon>201609061714459_InitialBigMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Company.cs" />
+    <Compile Include="Model\Data\DataItem.cs" />
+    <Compile Include="Model\Data\DataService.cs" />
+    <Compile Include="Model\Data\IDataService.cs" />
+    <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\Position.cs" />
+    <Compile Include="Model\PsychologicalExamination.cs" />
+    <Compile Include="Model\PsychologicalExaminationType.cs" />
+    <Compile Include="Model\Referral.cs" />
+    <Compile Include="Model\Registration.cs" />
+    <Compile Include="Model\Service.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\RegistrationVievModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\RegistrationView.xaml.cs">
+      <DependentUpon>RegistrationView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -97,6 +135,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\RegistrationView.xaml">
+      <SubType>Form</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -112,6 +154,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201609061714459_InitialBigMigration.resx">
+      <DependentUpon>201609061714459_InitialBigMigration.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -126,6 +171,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

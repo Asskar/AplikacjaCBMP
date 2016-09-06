@@ -39,6 +39,7 @@ namespace AppCBMP.ViewModel
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<RegistrationViewModel>();
         }
 
         /// <summary>
@@ -47,13 +48,9 @@ namespace AppCBMP.ViewModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
+        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
+
+        public RegistrationViewModel Registration => ServiceLocator.Current.GetInstance<RegistrationViewModel>();
 
         /// <summary>
         /// Cleans up all the resources.
