@@ -22,6 +22,7 @@ namespace AppCBMP.DAL.Repositories
         {
             return _context.Persons.Single(p => p.Id == id);
         }
+
         public Person Add(Person person)
         {
             if (_context.Persons.Any(p => p.Pesel == person.Pesel))
@@ -34,31 +35,21 @@ namespace AppCBMP.DAL.Repositories
         {
             return _context.Persons.Any(p => p.Pesel == pesel);
         }
+
         public bool CheckIfPersonExists(int id)
         {
             return _context.Persons.Any(p => p.Id == id);
         }
 
-        public ICollection<Company> GetPersonCompanies(Person person)
+        public IEnumerable<Company> GetPersonCompanies(Person person)
         {
-            if (CheckIfPersonExists(person.Id))
-            {
-                return _context.Persons.First(p => p.Id == person.Id).
-                    Companies.ToList();
-            }
-            else
-            {
-                return new List<Company>();
-            }
-
-
             return CheckIfPersonExists(person.Id)
                 ? _context.Persons.First(p => p.Id == person.Id).
                     Companies.ToList()
                 : new List<Company>();
         }
 
-        public ICollection<Referral> GetPersonReferrals(Person person)
+        public IEnumerable<Referral> GetPersonReferrals(Person person)
         {
             return CheckIfPersonExists(person.Id)
                ? _context.Persons.First(p => p.Id == person.Id).
@@ -66,7 +57,7 @@ namespace AppCBMP.DAL.Repositories
                : new List<Referral>();
         }
 
-        public ICollection<Service> GetPersonServices(Person person)
+        public IEnumerable<Service> GetPersonServices(Person person)
         {
             return CheckIfPersonExists(person.Id)
                ? _context.Persons.First(p => p.Id == person.Id).

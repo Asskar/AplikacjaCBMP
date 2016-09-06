@@ -21,13 +21,13 @@ namespace AppCBMP.DAL.Repositories
             return referral;
         }
 
-        public ICollection<Referral> GetFilterdReferrals(string filter)
+        public IEnumerable<Referral> GetFilterdReferrals(string filter)
         {
             return _context.Referrals.Where(r => r.Name.Contains(filter)).
                 ToList();
         }
 
-        public ICollection<Referral> GetAllReferrals()
+        public IEnumerable<Referral> GetAllReferrals()
         {
             return _context.Referrals.ToList();
         }

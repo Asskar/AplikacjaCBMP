@@ -24,9 +24,13 @@ namespace AppCBMP.DAL.Repositories
                 ToList();
         }
 
+        public bool CheckIfExists(Company company)
+        {
+            return _context.Companies.Any(c => c.Name == company.Name);
+        }
         public Company AddCompany(Company company)
         {
-            if (_context.Companies.Any(c => c.Name == company.Name))
+            if (CheckIfExists(company))
                 return _context.Companies.Single(c => c.Name == company.Name);
             _context.Companies.Add(company);
             return company;

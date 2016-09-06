@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using AppCBMP.DAL.Persistence;
@@ -15,23 +16,23 @@ namespace AppCBMP.Model
         private string _peselTxtField;
         private string _typeOfExamination;
         private Person _currentlyRegisteredPerson;
-        private ObservableCollection<Person> _persons;
-        private ObservableCollection<Company> _companies;
-        private ObservableCollection<Referral> _referrals;
-        private ObservableCollection<Position> _positions;
+        private List<Person> _persons;
+        private List<Company> _companies;
+        private List<Referral> _referrals;
+        private List<Position> _positions;
 
         public Registration(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _currentlyRegisteredPerson = new Person
             {
-                Companies = new ObservableCollection<Company>(),
-                Refrrals = new ObservableCollection<Referral>(),
-                Services = new ObservableCollection<Service>()
+                Companies = new List<Company>(),
+                Refrrals = new List<Referral>(),
+                Services = new List<Service>()
             };
-            Persons = new ObservableCollection<Person>();
-            Companies = new ObservableCollection<Company>(_unitOfWork.Company.GetAllCompanies());
-            Positions = new ObservableCollection<Position>(_unitOfWork.Position.GetAllPositions());
+            _persons = new List<Person>();
+            _companies = new List<Company>(_unitOfWork.Company.GetAllCompanies());
+            _positions = new List<Position>(_unitOfWork.Position.GetAllPositions());
         }
 
 
@@ -41,22 +42,22 @@ namespace AppCBMP.Model
             set { Set(() => CurrentlyRegisteredPerson, ref _currentlyRegisteredPerson, value); }
         }
 
-        public ObservableCollection<Person> Persons
+        public List<Person> Persons
         {
             get { return _persons; }
             set { Set(() => Persons, ref _persons, value); }
         }
-        public ObservableCollection<Company> Companies
+        public List<Company> Companies
         {
             get { return _companies; }
             set { Set(() => Companies, ref _companies, value); }
         }
-        public ObservableCollection<Referral> Referrals
+        public List<Referral> Referrals
         {
             get { return _referrals; }
             set { Set(() => Referrals, ref _referrals, value); }
         }
-        public ObservableCollection<Position> Positions
+        public List<Position> Positions
         {
             get { return _positions; }
             set { Set(() => Positions, ref _positions, value); }
@@ -74,9 +75,9 @@ namespace AppCBMP.Model
             set
             {
                 Set(() => PeselTxtField, ref _peselTxtField, value);
-                if (PeselTxtField.Length == 11 && _unitOfWork.Person.CheckIfPersonExists(_peselTxtField))
-                    CurrentlyRegisteredPerson = _unitOfWork.Person.GetPerson(PeselTxtField);
-                CurrentlyRegisteredPerson.Pesel = PeselTxtField;
+                if (_peselTxtField.Length == 11 && _unitOfWork.Person.CheckIfPersonExists(_peselTxtField))
+                    _currentlyRegisteredPerson = _unitOfWork.Person.GetPerson(PeselTxtField);
+                _currentlyRegisteredPerson.Pesel = PeselTxtField;
 
             }
         }
@@ -90,14 +91,15 @@ namespace AppCBMP.Model
                 {
                     if (value.Length == _companyTxtField.Length + 1
                         || value.Length == _companyTxtField.Length - 1)
-                        Companies =
-                            new ObservableCollection<Company>(_unitOfWork.Company.GetFilterdCompanies(value));
+                        _companies =
+                            _unitOfWork.Company.GetFilterdCompanies(value).ToList();
                     else if (value == string.Empty)
-                        Companies =
-                            new ObservableCollection<Company>(_unitOfWork.Company.GetAllCompanies());
+                        _companies =
+                            _unitOfWork.Company.GetAllCompanies().
+                                ToList();
                 }
                 else
-                    Companies = new ObservableCollection<Company>(_unitOfWork.Company.GetAllCompanies());
+                    _companies = _unitOfWork.Company.GetAllCompanies().ToList();
                 Set(() => CompanyTxtField, ref _companyTxtField, value);
             }
         }
@@ -111,14 +113,14 @@ namespace AppCBMP.Model
                 {
                     if (value.Length == _referralTxtField.Length + 1
                         || value.Length == _referralTxtField.Length - 1)
-                        Referrals =
-                            new ObservableCollection<Referral>(_unitOfWork.Referral.GetFilterdReferrals(value));
+                        _referrals =
+                           _unitOfWork.Referral.GetFilterdReferrals(value).ToList();
                     else if (value == string.Empty)
-                        Referrals =
-                            new ObservableCollection<Referral>(_unitOfWork.Referral.GetAllReferrals());
+                        _referrals =
+                           _unitOfWork.Referral.GetAllReferrals().ToList();
                 }
                 else
-                    Referrals = new ObservableCollection<Referral>(_unitOfWork.Referral.GetAllReferrals());
+                    _referrals = _unitOfWork.Referral.GetAllReferrals().ToList();
                 Set(() => ReferralTxtField, ref _referralTxtField, value);
             }
         }
@@ -132,21 +134,21 @@ namespace AppCBMP.Model
                     if (value.Length == _positionTxtField.Length + 1
                         || value.Length == _positionTxtField.Length - 1)
                         Positions =
-                            new ObservableCollection<Position>(_unitOfWork.Position.GetFilterdPositions(value));
+                            _unitOfWork.Position.GetFilterdPositions(value).ToList();
                     else if (value == string.Empty)
                         Positions =
-                            new ObservableCollection<Position>(_unitOfWork.Position.GetAllPositions());
+                            _unitOfWork.Position.GetAllPositions().ToList();
                 }
                 else
-                    Positions = new ObservableCollection<Position>(_unitOfWork.Position.GetAllPositions());
+                    _unitOfWork.Position.GetAllPositions().ToList();
                 Set(() => PositionTxtField, ref _positionTxtField, value);
             }
         }
 
         private void AddOrSelectPerson()
         {
-            CurrentlyRegisteredPerson = _unitOfWork.Person.Add(CurrentlyRegisteredPerson);
-            Persons.Add(CurrentlyRegisteredPerson);
+            _currentlyRegisteredPerson = _unitOfWork.Person.Add(CurrentlyRegisteredPerson);
+            _persons.Add(CurrentlyRegisteredPerson);
             _unitOfWork.Complete();
         }
 
@@ -201,7 +203,12 @@ namespace AppCBMP.Model
 
             _unitOfWork.Complete();
 
-            CurrentlyRegisteredPerson = new Person();
+            _currentlyRegisteredPerson = new Person
+            {
+                Companies = new List<Company>(),
+                Refrrals = new List<Referral>(),
+                Services = new List<Service>()
+            };
 
         }
     }
