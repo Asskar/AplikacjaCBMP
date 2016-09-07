@@ -20,6 +20,7 @@ namespace AppCBMP.Model
         private List<Company> _companies;
         private List<Referral> _referrals;
         private List<Position> _positions;
+        private List<Position> _currentlyRegisteredPersonPositions;
 
         public Registration(UnitOfWork unitOfWork)
         {
@@ -61,6 +62,11 @@ namespace AppCBMP.Model
         {
             get { return _positions; }
             set { Set(() => Positions, ref _positions, value); }
+        }
+        public List<Position> CurrentlyRegisteredPersonPositions
+        {
+            get { return _currentlyRegisteredPersonPositions; }
+            set { Set(() => CurrentlyRegisteredPersonPositions, ref _currentlyRegisteredPersonPositions, value); }
         }
 
 
@@ -155,7 +161,7 @@ namespace AppCBMP.Model
         private void AddNewCompanyForPerson()
         {
             CurrentlyRegisteredPerson.Companies =
-                _unitOfWork.Person.GetPersonCompanies(CurrentlyRegisteredPerson);
+                _unitOfWork.Person.GetPersonCompanies(CurrentlyRegisteredPerson).ToList();
             CurrentlyRegisteredPerson.Companies.Add(
                 _unitOfWork.Company.AddCompany(new Company() { Name = CompanyTxtField }));
         }
@@ -163,7 +169,7 @@ namespace AppCBMP.Model
         private void AddNewReferralForPerson()
         {
             CurrentlyRegisteredPerson.Refrrals =
-               _unitOfWork.Person.GetPersonReferrals(CurrentlyRegisteredPerson);
+               _unitOfWork.Person.GetPersonReferrals(CurrentlyRegisteredPerson).ToList();
             CurrentlyRegisteredPerson.Refrrals.Add(
                 _unitOfWork.Referral.AddReferral(new Referral() { Name = ReferralTxtField }));
         }
@@ -171,7 +177,7 @@ namespace AppCBMP.Model
         private void AddNewServiceForPerson()
         {
             _currentlyRegisteredPerson.Services =
-                _unitOfWork.Person.GetPersonServices(_currentlyRegisteredPerson);
+                _unitOfWork.Person.GetPersonServices(_currentlyRegisteredPerson).ToList();
             Company company = _currentlyRegisteredPerson.Companies.First(c => c.Name == CompanyTxtField);
             Referral referral = _currentlyRegisteredPerson.Refrrals.First(r => r.Name == ReferralTxtField);
             PsychologicalExaminationType pEType =

@@ -45,7 +45,7 @@ namespace AppCBMP.DAL.Repositories
         {
             return CheckIfPersonExists(person.Id)
                 ? _context.Persons.First(p => p.Id == person.Id).
-                    Companies.ToList()
+                    Companies
                 : new List<Company>();
         }
 
@@ -53,7 +53,7 @@ namespace AppCBMP.DAL.Repositories
         {
             return CheckIfPersonExists(person.Id)
                ? _context.Persons.First(p => p.Id == person.Id).
-                   Refrrals.ToList()
+                   Refrrals
                : new List<Referral>();
         }
 
@@ -61,7 +61,7 @@ namespace AppCBMP.DAL.Repositories
         {
             return CheckIfPersonExists(person.Id)
                ? _context.Persons.First(p => p.Id == person.Id).
-                   Services.ToList()
+                   Services
                : new List<Service>();
         }
     }

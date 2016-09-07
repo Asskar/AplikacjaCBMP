@@ -405,49 +405,52 @@
                 <Label Grid.Column="0"
                        Grid.Row="13"
                        Content="Stanowisko"></Label>
-                <TextBox Grid.Column="1"
-                         Grid.Row="13"
-                         Text="{Binding Registration.PositionTxtField, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
-                <ListBox Grid.Column="1"
-                         Grid.Row="14"
-                         ItemsSource="{Binding Registration.Positions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel.Resources>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Margin"
-                                                Value="5" />
-                                        <Setter Property="VerticalContentAlignment"
-                                                Value="Center" />
-                                        <Setter Property="HorizontalContentAlignment"
-                                                Value="Right" />
-                                    </Style>
-                                </StackPanel.Resources>
-                                <Label Content="{Binding Name}"
-                                       Width="100"
-                                       Height="30"
-                                       FontSize="12" />
-                                <Button Content="Dodaj stanowisko"></Button>
+                <StackPanel Grid.Column="1" Grid.Row="13" Orientation="Horizontal">
+                    <TextBox 
+                             Text="{Binding Registration.PositionTxtField, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
+                    <Button Content="Dodaj Stanowisko"/>
+                </StackPanel>
 
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-
+                <Grid Grid.Column="1"
+                      Grid.Row="14">
+                    <Grid.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Width" Value="100"/>
+                            <Setter Property="Height" Value="140"/>
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="FontSize" Value="20"></Setter>
+                        </Style>
+                        <Style TargetType="ListBox">
+                            <Setter Property="Width"
+                                    Value="300" />
+                            <Setter Property="Height"
+                                    Value="140" />
+                            <Setter Property="Margin"
+                                    Value="5" />
+                            <Setter Property="FontSize"
+                                    Value="20"></Setter>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox Name="PositionsListBox"
+                             Grid.Column="0"
+                             DisplayMemberPath="Name"
+                             ItemsSource="{Binding Registration.Positions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
+                    
+                        <Button Content="DODAJ" Grid.Column="1"
+                                Command="{Binding AddPositionToListCommand}" CommandParameter="{Binding ElementName=PositionsListBox, Path=SelectedItem}"/>
+                </Grid>
                 <Label Grid.Column="0"
                        Grid.Row="15"
                        Content="Dodane stanowiska:"></Label>
-                <ListBox Grid.Column="1"
-                         Grid.Row="15">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel>
-                                <!--                                    ToDo-->
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <TextBlock Grid.Column="1" 
+                         Grid.Row="15"
+                           Text="{Binding PositionsAsString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
+                    
+                </TextBlock>
 
 
                 <!--               POMYSŁ-->

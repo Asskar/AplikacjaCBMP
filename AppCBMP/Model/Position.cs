@@ -8,5 +8,6 @@ namespace AppCBMP.Model
         public string Name { get; set; }
 
         public ICollection<PsychologicalExamination> PsychologicalExaminations { get; set; }
+
     }
 }
