@@ -32,6 +32,7 @@ namespace AppCBMP.ViewModel
             _removePersonFromListCommand = new RelayCommand<Person>(RemovePersonFromList);
             _printPersonCommand = new RelayCommand<Person>(PrintPerson);
             _addPersonToInvoiceCommand = new RelayCommand<Person>(AddPersonToInvoice);
+            _addNewPositionToListCommand= new RelayCommand<string>(AddNewPositionToList);
         }
 
         public Registration Registration
