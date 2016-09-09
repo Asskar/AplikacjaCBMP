@@ -23,5 +23,18 @@ namespace AppCBMP.DAL.Repositories
                 ToList();
         }
 
+        public void Add(Position position)
+        {
+            _context.Positions.Add(position);
+        }
+        public bool CheckIfExists(string positionName)
+        {
+            return _context.Positions.Any(p => p.Name == positionName);
+        }
+
+        public Position GetPosition(string positionName)
+        {
+            return _context.Positions.First(p => p.Name == positionName);
+        }
     }
 }

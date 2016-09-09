@@ -24,16 +24,18 @@ namespace AppCBMP.DAL.Repositories
                 ToList();
         }
 
-        public bool CheckIfExists(Company company)
+        public bool CheckIfExists(string companyName)
         {
-            return _context.Companies.Any(c => c.Name == company.Name);
+            return _context.Companies.Any(c => c.Name == companyName);
         }
-        public Company AddCompany(Company company)
+        public void Add(Company company)
         {
-            if (CheckIfExists(company))
-                return _context.Companies.Single(c => c.Name == company.Name);
             _context.Companies.Add(company);
-            return company;
+        }
+
+        public Company GetCompany(string companyName)
+        {
+            return _context.Companies.First(c => c.Name == companyName);
         }
     }
 }

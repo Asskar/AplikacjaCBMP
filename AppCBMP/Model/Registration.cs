@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using AppCBMP.DAL.Persistence;
 using GalaSoft.MvvmLight;
 
@@ -14,13 +15,17 @@ namespace AppCBMP.Model
         private string _referralTxtField;
         private string _positionTxtField;
         private string _peselTxtField;
-        private string _typeOfExamination;
+        private PsychologicalExaminationType _examinationType;
         private Person _currentlyRegisteredPerson;
-        private List<Person> _persons;
+        private Company _currentlySelectedCompany;
+        private Referral _currentlySelectedReferral;
+        private Service _service;
+        private ObservableCollection<Person> _persons;
         private List<Company> _companies;
         private List<Referral> _referrals;
         private List<Position> _positions;
-        private List<Position> _currentlyRegisteredPersonPositions;
+        private List<PsychologicalExaminationType> _examinationTypes;
+        private ObservableCollection<Position> _currentlyRegisteredPersonPositions;
 
         public Registration(UnitOfWork unitOfWork)
         {
@@ -31,10 +36,13 @@ namespace AppCBMP.Model
                 Refrrals = new List<Referral>(),
                 Services = new List<Service>()
             };
-            _persons = new List<Person>();
+            _persons = new ObservableCollection<Person>();
             _companies = new List<Company>(_unitOfWork.Company.GetAllCompanies());
             _positions = new List<Position>(_unitOfWork.Position.GetAllPositions());
+            _examinationTypes= new List<PsychologicalExaminationType>(_unitOfWork.Service.GetAllExaminationTypes());
+            _currentlyRegisteredPersonPositions= new ObservableCollection<Position>();
         }
+
 
 
         public Person CurrentlyRegisteredPerson
@@ -42,8 +50,22 @@ namespace AppCBMP.Model
             get { return _currentlyRegisteredPerson; }
             set { Set(() => CurrentlyRegisteredPerson, ref _currentlyRegisteredPerson, value); }
         }
-
-        public List<Person> Persons
+        public Company CurrentlySelectedCompany
+        {
+            get { return _currentlySelectedCompany; }
+            set { Set(() => CurrentlySelectedCompany, ref _currentlySelectedCompany, value); }
+        }
+        public Referral CurrentlySelectedReferral
+        {
+            get { return _currentlySelectedReferral; }
+            set { Set(() => CurrentlySelectedReferral, ref _currentlySelectedReferral, value); }
+        }
+        public Service Service
+        {
+            get { return _service; }
+            set { Set(() => Service, ref _service, value); }
+        }
+        public ObservableCollection<Person> Persons
         {
             get { return _persons; }
             set { Set(() => Persons, ref _persons, value); }
@@ -63,17 +85,22 @@ namespace AppCBMP.Model
             get { return _positions; }
             set { Set(() => Positions, ref _positions, value); }
         }
-        public List<Position> CurrentlyRegisteredPersonPositions
+        public List<PsychologicalExaminationType> ExaminationTypes
+        {
+            get { return _examinationTypes; }
+            set { Set(() => ExaminationTypes, ref _examinationTypes, value); }
+        }
+        public ObservableCollection<Position> CurrentlyRegisteredPersonPositions
         {
             get { return _currentlyRegisteredPersonPositions; }
             set { Set(() => CurrentlyRegisteredPersonPositions, ref _currentlyRegisteredPersonPositions, value); }
         }
 
 
-        public string TypeOfExamination
+        public PsychologicalExaminationType ExaminationType
         {
-            get { return _typeOfExamination; }
-            set { Set(() => TypeOfExamination, ref _typeOfExamination, value); }
+            get { return _examinationType; }
+            set { Set(() => ExaminationType, ref _examinationType, value); }
         }
         public string PeselTxtField
         {
@@ -81,10 +108,10 @@ namespace AppCBMP.Model
             set
             {
                 Set(() => PeselTxtField, ref _peselTxtField, value);
-                if (_peselTxtField.Length == 11 && _unitOfWork.Person.CheckIfPersonExists(_peselTxtField))
+                if (_peselTxtField.Length == 11 && _unitOfWork.Person.CheckIfExists(_peselTxtField))
                     _currentlyRegisteredPerson = _unitOfWork.Person.GetPerson(PeselTxtField);
                 _currentlyRegisteredPerson.Pesel = PeselTxtField;
-
+                RaisePropertyChanged(()=>CurrentlyRegisteredPerson);
             }
         }
 
@@ -146,76 +173,121 @@ namespace AppCBMP.Model
                             _unitOfWork.Position.GetAllPositions().ToList();
                 }
                 else
-                    _unitOfWork.Position.GetAllPositions().ToList();
+                    _positions=_unitOfWork.Position.GetAllPositions().ToList();
                 Set(() => PositionTxtField, ref _positionTxtField, value);
             }
         }
-
         private void AddOrSelectPerson()
         {
-            _currentlyRegisteredPerson = _unitOfWork.Person.Add(CurrentlyRegisteredPerson);
-            _persons.Add(CurrentlyRegisteredPerson);
-            _unitOfWork.Complete();
-        }
-
-        private void AddNewCompanyForPerson()
-        {
-            CurrentlyRegisteredPerson.Companies =
-                _unitOfWork.Person.GetPersonCompanies(CurrentlyRegisteredPerson).ToList();
-            CurrentlyRegisteredPerson.Companies.Add(
-                _unitOfWork.Company.AddCompany(new Company() { Name = CompanyTxtField }));
-        }
-
-        private void AddNewReferralForPerson()
-        {
-            CurrentlyRegisteredPerson.Refrrals =
-               _unitOfWork.Person.GetPersonReferrals(CurrentlyRegisteredPerson).ToList();
-            CurrentlyRegisteredPerson.Refrrals.Add(
-                _unitOfWork.Referral.AddReferral(new Referral() { Name = ReferralTxtField }));
-        }
-
-        private void AddNewServiceForPerson()
-        {
-            _currentlyRegisteredPerson.Services =
-                _unitOfWork.Person.GetPersonServices(_currentlyRegisteredPerson).ToList();
-            Company company = _currentlyRegisteredPerson.Companies.First(c => c.Name == CompanyTxtField);
-            Referral referral = _currentlyRegisteredPerson.Refrrals.First(r => r.Name == ReferralTxtField);
-            PsychologicalExaminationType pEType =
-                _unitOfWork.PsychologicalExamination.GetExaminationType(TypeOfExamination);
-            PsychologicalExamination pe = new PsychologicalExamination()
+            if(!_unitOfWork.Person.CheckIfExists(_currentlyRegisteredPerson.Pesel))
             {
-                DateTimeOfService = DateTime.Today.Date,
-                Person = _currentlyRegisteredPerson,
-                PersonId = _currentlyRegisteredPerson.Id,
-                Company = company,
-                CompanyId = company.Id,
-                Referral = referral,
-                ReferralId = referral.Id,
-                Positions = Positions,
-                Type = pEType,
-                TypeId = pEType.Id
-            };
-            _currentlyRegisteredPerson.Services.Add(pe);
+                _unitOfWork.Person.Add(_currentlyRegisteredPerson);
+            }
+            else
+            {
+                _currentlyRegisteredPerson = _unitOfWork.Person.GetPerson(_currentlyRegisteredPerson.Pesel);
+            }
+            _currentlyRegisteredPerson.Companies.Add(_currentlySelectedCompany);
+            _currentlyRegisteredPerson.Refrrals.Add(_currentlySelectedReferral);
+            _currentlyRegisteredPerson.Services.Add(_service);
         }
-        public void CompleteRegistration()
+
+        private void AddOrSelectCompany()
         {
-            AddOrSelectPerson();
+            if (!_unitOfWork.Company.CheckIfExists(_companyTxtField))
+            {
+                _unitOfWork.Company.Add(_currentlySelectedCompany);
+            }
+            else
+            {
+                _currentlySelectedCompany = _unitOfWork.Company.GetCompany(_companyTxtField);
+            }
+        }
 
-            AddNewCompanyForPerson();
+        private void AddOrSelectReferral()
+        {
+            if (!_unitOfWork.Referral.CheckIfExists(_companyTxtField))
+            {
+                _unitOfWork.Referral.Add(_currentlySelectedReferral);
+            }
+            else
+            {
+                _currentlySelectedReferral = _unitOfWork.Referral.GetReferral(_referralTxtField);
+            }
+        }
 
-            AddNewReferralForPerson();
-
-            AddNewServiceForPerson();
-
-            _unitOfWork.Complete();
-
+        private void AddService()
+        {
+            _service = new PsychologicalExamination()
+            {
+                DateTimeOfService = DateTime.Now.Date,
+                Person = _currentlyRegisteredPerson,
+                Company = _currentlySelectedCompany,
+                Referral = _currentlySelectedReferral,
+                Type = _examinationType,
+                Positions = Positions
+            };
+        }
+        private void ClearPersondata()
+        {
             _currentlyRegisteredPerson = new Person
             {
                 Companies = new List<Company>(),
                 Refrrals = new List<Referral>(),
                 Services = new List<Service>()
             };
+            _currentlyRegisteredPersonPositions = new ObservableCollection<Position>();
+            CompanyTxtField = string.Empty;
+            PositionTxtField = string.Empty;
+            ReferralTxtField = string.Empty;
+            PeselTxtField = string.Empty;
+            ExaminationType = new PsychologicalExaminationType();
+            RaisePropertyChanged(() => CurrentlyRegisteredPerson);
+            RaisePropertyChanged(() => CurrentlyRegisteredPersonPositions);
+            RaisePropertyChanged(() => CompanyTxtField);
+            RaisePropertyChanged(() => PositionTxtField);
+            RaisePropertyChanged(() => ReferralTxtField);
+            RaisePropertyChanged(() => PeselTxtField);
+            RaisePropertyChanged(() => ExaminationType);
+        }
+        public void CompleteRegistration()
+        {
+            _currentlySelectedCompany = new Company() {Name = _companyTxtField};
+            _currentlySelectedReferral = new Referral() {Name = _referralTxtField};
 
+            
+            AddOrSelectCompany();
+            AddOrSelectReferral();
+            AddService();
+
+            AddOrSelectPerson();
+
+            _unitOfWork.Complete();
+
+            ClearPersondata();
+        }
+
+
+
+        public void RemovePositionFromService(Position position)
+        {
+            _currentlyRegisteredPersonPositions.Remove(position);
+        }
+
+        public void AddNewPositionToDb(string positionName)
+        {
+            Position p = new Position() {Name = positionName};
+            if (!_unitOfWork.Position.CheckIfExists(positionName))
+            {
+                _unitOfWork.Position.Add(p);
+                
+            }
+            else
+            {
+                p = _unitOfWork.Position.GetPosition(positionName);
+            }
+            _currentlyRegisteredPersonPositions.Add(p);
+            _unitOfWork.Complete();
         }
     }
 }

@@ -89,7 +89,7 @@
     <Compile Include="DAL\Repositories\CompanyRepository.cs" />
     <Compile Include="DAL\Repositories\PersonRepository.cs" />
     <Compile Include="DAL\Repositories\PositionRepository.cs" />
-    <Compile Include="DAL\Repositories\PsychologicalExaminationRepository.cs" />
+    <Compile Include="DAL\Repositories\ServiceRepository.cs" />
     <Compile Include="DAL\Repositories\ReferralRepository.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Helpers\CharsValidationRule.cs" />

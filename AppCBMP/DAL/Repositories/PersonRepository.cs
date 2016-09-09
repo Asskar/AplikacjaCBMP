@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using AppCBMP.Model;
 
@@ -23,46 +24,14 @@ namespace AppCBMP.DAL.Repositories
             return _context.Persons.Single(p => p.Id == id);
         }
 
-        public Person Add(Person person)
+        public void Add(Person person)
         {
-            if (_context.Persons.Any(p => p.Pesel == person.Pesel))
-                return _context.Persons.Single(p => p.Pesel == person.Pesel);
             _context.Persons.Add(person);
-            return person;
         }
 
-        public bool CheckIfPersonExists(string pesel)
+        public bool CheckIfExists(string pesel)
         {
             return _context.Persons.Any(p => p.Pesel == pesel);
-        }
-
-        public bool CheckIfPersonExists(int id)
-        {
-            return _context.Persons.Any(p => p.Id == id);
-        }
-
-        public IEnumerable<Company> GetPersonCompanies(Person person)
-        {
-            return CheckIfPersonExists(person.Id)
-                ? _context.Persons.First(p => p.Id == person.Id).
-                    Companies
-                : new List<Company>();
-        }
-
-        public IEnumerable<Referral> GetPersonReferrals(Person person)
-        {
-            return CheckIfPersonExists(person.Id)
-               ? _context.Persons.First(p => p.Id == person.Id).
-                   Refrrals
-               : new List<Referral>();
-        }
-
-        public IEnumerable<Service> GetPersonServices(Person person)
-        {
-            return CheckIfPersonExists(person.Id)
-               ? _context.Persons.First(p => p.Id == person.Id).
-                   Services
-               : new List<Service>();
         }
     }
 }

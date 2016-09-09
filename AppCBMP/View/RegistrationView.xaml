@@ -6,6 +6,7 @@
         xmlns:ViewModel="clr-namespace:AppCBMP.ViewModel"
         xmlns:helpers="clr-namespace:AppCBMP.Helpers"
         x:Class="AppCBMP.View.RegistrationView"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d ignore"
         Height="1455.475"
         Width="1200">
@@ -406,65 +407,115 @@
                        Grid.Row="13"
                        Content="Stanowisko"></Label>
                 <StackPanel Grid.Column="1" Grid.Row="13" Orientation="Horizontal">
-                    <TextBox 
+                    <TextBox x:Name="PositionTxtBox"
                              Text="{Binding Registration.PositionTxtField, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
-                    <Button Content="Dodaj Stanowisko"/>
+                    <Button Content="Dodaj Stanowisko" Command="{Binding AddNewPositionToListCommand}" CommandParameter="{Binding ElementName=PositionTxtBox, Path=Text}"/>
                 </StackPanel>
 
-                <Grid Grid.Column="1"
-                      Grid.Row="14">
-                    <Grid.Resources>
-                        <Style TargetType="Button">
-                            <Setter Property="Width" Value="100"/>
-                            <Setter Property="Height" Value="140"/>
-                            <Setter Property="Margin" Value="5"/>
-                            <Setter Property="FontSize" Value="20"></Setter>
-                        </Style>
-                        <Style TargetType="ListBox">
-                            <Setter Property="Width"
-                                    Value="300" />
-                            <Setter Property="Height"
-                                    Value="140" />
-                            <Setter Property="Margin"
-                                    Value="5" />
-                            <Setter Property="FontSize"
-                                    Value="20"></Setter>
-                        </Style>
-                    </Grid.Resources>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                
                     <ListBox Name="PositionsListBox"
-                             Grid.Column="0"
-                             DisplayMemberPath="Name"
-                             ItemsSource="{Binding Registration.Positions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"/>
-                    
-                        <Button Content="DODAJ" Grid.Column="1"
-                                Command="{Binding AddPositionToListCommand}" CommandParameter="{Binding ElementName=PositionsListBox, Path=SelectedItem}"/>
-                </Grid>
+                             Grid.Column="1"
+                             Grid.Row="14"
+                             ItemsSource="{Binding Registration.Positions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
+                        <ListBox.Resources>
+                            <Style TargetType="ListViewItem">
+                                <Style.Triggers>
+                                    <Trigger Property="IsKeyboardFocusWithin"
+                                             Value="True">
+                                        <Setter Property="IsSelected"
+                                                Value="True" />
+                                    </Trigger>
+                                </Style.Triggers>
+                                
+                                </Style>
+                            <Style TargetType="{x:Type Label}">
+                                <Setter Property="Width"
+                                        Value="200" />
+                                <Setter Property="Height"
+                                        Value="40" />
+                                <Setter Property="Margin"
+                                        Value="5" />
+
+                            </Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Width"
+                                        Value="100" />
+                                <Setter Property="Height"
+                                        Value="30" />
+                                <Setter Property="Margin"
+                                        Value="5" />
+                                </Style>
+                        </ListBox.Resources>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                        x:Name="stck">
+                                <Label Content="{Binding Name}" />
+                                <Button Content="Dodaj!"
+                                        DataContext="{Binding  Registration , Source={StaticResource Locator} }"
+                                        Command="{Binding AddPositionToListCommand }"
+                                        CommandParameter="{Binding ElementName=stck, Path=DataContext}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
                 <Label Grid.Column="0"
                        Grid.Row="15"
-                       Content="Dodane stanowiska:"></Label>
-                <TextBlock Grid.Column="1" 
+                       Content="Dodane stanowiska:"/>
+                <ListBox
+                         Grid.Column="1"
                          Grid.Row="15"
-                           Text="{Binding PositionsAsString, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
-                    
-                </TextBlock>
+                         ItemsSource="{Binding Registration.CurrentlyRegisteredPersonPositions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
+                    <ListBox.Resources>
+                        <Style TargetType="ListViewItem">
+                            <Style.Triggers>
+                                <Trigger Property="IsKeyboardFocusWithin"
+                                         Value="True">
+                                    <Setter Property="IsSelected"
+                                            Value="True" />
+                                </Trigger>
+                            </Style.Triggers>
+
+                        </Style>
+                        <Style TargetType="{x:Type Label}">
+                            <Setter Property="Width"
+                                    Value="200" />
+                            <Setter Property="Height"
+                                    Value="40" />
+                            <Setter Property="Margin"
+                                    Value="5" />
+
+                        </Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Width"
+                                    Value="100" />
+                            <Setter Property="Height"
+                                    Value="30" />
+                            <Setter Property="Margin"
+                                    Value="5" />
+                        </Style>
+                    </ListBox.Resources>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                        x:Name="position">
+                                <Label Content="{Binding Name}" />
+                                <Button Content="Usun!"
+                                        DataContext="{Binding  Registration , Source={StaticResource Locator} }"
+                                        Command="{Binding RemovePositionFromListCommand }"
+                                        CommandParameter="{Binding ElementName=position, Path=DataContext}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
 
-                <!--               POMYSŁ-->
                 <ComboBox Grid.Column="1"
                           Grid.Row="16"
-                          SelectedItem="{Binding Registration.TypeOfExamination, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
-                    <ComboBoxItem x:Name="MP"
-                                  Content="Medycyna Pracy" />
-                    <ComboBoxItem x:Name="P"
-                                  Content="Pracodawca" />
-                    <ComboBoxItem x:Name="CD"
-                                  Content="Kierowca C/D" />
-                    <ComboBoxItem x:Name="Other"
-                                  Content="Inne" />
+                          ItemsSource="{Binding Registration.ExaminationTypes}"
+                          DisplayMemberPath="Name"
+                          SelectedItem="{Binding Registration.ExaminationType, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
                 </ComboBox>
 
 
@@ -541,9 +592,19 @@
                         <Label Content="{Binding FirstName}" />
                         <Label Content="{Binding LastName}"
                                FontWeight="Bold" />
-                        <StackPanel Orientation="Vertical">
-                            <Button Content="Drukuj" />
-                            <Button Content="Fakturuj" />
+                        <StackPanel Orientation="Vertical" x:Name="PersonListStackPanel">
+                            <Button Content="Drukuj"
+                                    DataContext="{Binding  Registration , Source={StaticResource Locator} }"
+                                    Command="{Binding PrintPersonCommand }"
+                                    CommandParameter="{Binding ElementName=PersonListStackPanel, Path=DataContext}" />
+                            <Button Content="Fakturuj"
+                                    DataContext="{Binding  Registration , Source={StaticResource Locator} }"
+                                    Command="{Binding AddPersonToInvoiceCommand }"
+                                    CommandParameter="{Binding ElementName=PersonListStackPanel, Path=DataContext}" />
+                            <Button Content="Usuń"
+                                    DataContext="{Binding Registration , Source={StaticResource Locator} }"
+                                    Command="{Binding RemovePersonFromListCommand }"
+                                    CommandParameter="{Binding ElementName=PersonListStackPanel, Path=DataContext}" />
                         </StackPanel>
 
                     </StackPanel>

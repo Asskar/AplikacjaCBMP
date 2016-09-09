@@ -11,7 +11,7 @@ namespace AppCBMP.DAL.Persistence
             Referral = new ReferralRepository(context);
             Position = new PositionRepository(context);
             Person = new PersonRepository(context);
-            PsychologicalExamination = new PsychologicalExaminationRepository(context);
+            Service = new ServiceRepository(context);
         }
 
 
@@ -22,7 +22,7 @@ namespace AppCBMP.DAL.Persistence
         public ReferralRepository Referral { get; set; }
         public PositionRepository Position { get; set; }
         public PersonRepository Person { get; set; }
-        public PsychologicalExaminationRepository PsychologicalExamination { get; set; }
+        public ServiceRepository Service { get; set; }
 
         public void Complete()
         {
