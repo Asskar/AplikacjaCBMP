@@ -6,7 +6,8 @@ namespace AppCBMP.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Person> Persons { get; set; }
+
+        public ICollection<Service> Services { get; set; }
 
     }
 }

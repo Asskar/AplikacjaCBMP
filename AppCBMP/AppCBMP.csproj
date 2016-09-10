@@ -101,6 +101,10 @@
     <Compile Include="Migrations\201609061714459_InitialBigMigration.Designer.cs">
       <DependentUpon>201609061714459_InitialBigMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609101204243_ServiceAsAssociationTable.cs" />
+    <Compile Include="Migrations\201609101204243_ServiceAsAssociationTable.Designer.cs">
+      <DependentUpon>201609101204243_ServiceAsAssociationTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Company.cs" />
     <Compile Include="Model\Data\DataItem.cs" />
@@ -156,6 +160,9 @@
     </Compile>
     <EmbeddedResource Include="Migrations\201609061714459_InitialBigMigration.resx">
       <DependentUpon>201609061714459_InitialBigMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609101204243_ServiceAsAssociationTable.resx">
+      <DependentUpon>201609101204243_ServiceAsAssociationTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

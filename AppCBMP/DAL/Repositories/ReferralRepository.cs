@@ -13,14 +13,6 @@ namespace AppCBMP.DAL.Repositories
             _context = context;
         }
 
-        public Referral AddReferral(Referral referral)
-        {
-            if (_context.Referrals.Any(r => r.Name == referral.Name))
-                return _context.Referrals.Single(r => r.Name == referral.Name);
-            _context.Referrals.Add(referral);
-            return referral;
-        }
-
         public IEnumerable<Referral> GetFilterdReferrals(string filter)
         {
             return _context.Referrals.Where(r => r.Name.Contains(filter)).

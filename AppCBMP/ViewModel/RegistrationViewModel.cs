@@ -89,6 +89,7 @@ namespace AppCBMP.ViewModel
         }
         private void AddPositionToService(Position p)
         {
+            _registration.AddPositionToService(p);
             AddPositionToListCommand = new RelayCommand<Position>(AddPositionToService);
         }
         private void RemovePositionFromService(Position p)

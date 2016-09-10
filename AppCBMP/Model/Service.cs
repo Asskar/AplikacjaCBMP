@@ -8,5 +8,9 @@ namespace AppCBMP.Model
         public DateTime DateTimeOfService { get; set; }
         public int PersonId { get; set; }
         public Person Person { get; set; }
+        public int CompanyId { get; set; }
+        public Company Company { get; set; }
+        public int ReferralId { get; set; }
+        public Referral Referral { get; set; }
     }
 }

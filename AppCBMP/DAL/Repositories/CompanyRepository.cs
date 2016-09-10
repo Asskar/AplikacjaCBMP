@@ -28,6 +28,7 @@ namespace AppCBMP.DAL.Repositories
         {
             return _context.Companies.Any(c => c.Name == companyName);
         }
+
         public void Add(Company company)
         {
             _context.Companies.Add(company);

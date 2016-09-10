@@ -32,13 +32,12 @@ namespace AppCBMP.Model
             _unitOfWork = unitOfWork;
             _currentlyRegisteredPerson = new Person
             {
-                Companies = new List<Company>(),
-                Refrrals = new List<Referral>(),
                 Services = new List<Service>()
             };
             _persons = new ObservableCollection<Person>();
             _companies = new List<Company>(_unitOfWork.Company.GetAllCompanies());
             _positions = new List<Position>(_unitOfWork.Position.GetAllPositions());
+            _referrals = new List<Referral>(_unitOfWork.Referral.GetAllReferrals());
             _examinationTypes= new List<PsychologicalExaminationType>(_unitOfWork.Service.GetAllExaminationTypes());
             _currentlyRegisteredPersonPositions= new ObservableCollection<Position>();
         }
@@ -187,9 +186,7 @@ namespace AppCBMP.Model
             {
                 _currentlyRegisteredPerson = _unitOfWork.Person.GetPerson(_currentlyRegisteredPerson.Pesel);
             }
-            _currentlyRegisteredPerson.Companies.Add(_currentlySelectedCompany);
-            _currentlyRegisteredPerson.Refrrals.Add(_currentlySelectedReferral);
-            _currentlyRegisteredPerson.Services.Add(_service);
+
         }
 
         private void AddOrSelectCompany()
@@ -206,7 +203,7 @@ namespace AppCBMP.Model
 
         private void AddOrSelectReferral()
         {
-            if (!_unitOfWork.Referral.CheckIfExists(_companyTxtField))
+            if (!_unitOfWork.Referral.CheckIfExists(_referralTxtField))
             {
                 _unitOfWork.Referral.Add(_currentlySelectedReferral);
             }
@@ -222,18 +219,20 @@ namespace AppCBMP.Model
             {
                 DateTimeOfService = DateTime.Now.Date,
                 Person = _currentlyRegisteredPerson,
+                PersonId = _currentlyRegisteredPerson.Id,
                 Company = _currentlySelectedCompany,
+                CompanyId = _currentlySelectedCompany.Id,
                 Referral = _currentlySelectedReferral,
+                ReferralId = _currentlySelectedReferral.Id,
                 Type = _examinationType,
                 Positions = Positions
             };
+            _unitOfWork.Service.Add(_service);
         }
         private void ClearPersondata()
         {
             _currentlyRegisteredPerson = new Person
             {
-                Companies = new List<Company>(),
-                Refrrals = new List<Referral>(),
                 Services = new List<Service>()
             };
             _currentlyRegisteredPersonPositions = new ObservableCollection<Position>();
@@ -258,12 +257,18 @@ namespace AppCBMP.Model
             
             AddOrSelectCompany();
             AddOrSelectReferral();
-            AddService();
-
             AddOrSelectPerson();
+            
+            
+
 
             _unitOfWork.Complete();
-
+            _currentlyRegisteredPerson = _unitOfWork.Person.GetPerson(_peselTxtField);
+            _currentlySelectedCompany = _unitOfWork.Company.GetCompany(_companyTxtField);
+            _currentlySelectedReferral = _unitOfWork.Referral.GetReferral(_referralTxtField);
+            AddService();
+            _unitOfWork.Complete();
+            _persons.Add(_currentlyRegisteredPerson);
             ClearPersondata();
         }
 
@@ -288,6 +293,11 @@ namespace AppCBMP.Model
             }
             _currentlyRegisteredPersonPositions.Add(p);
             _unitOfWork.Complete();
+        }
+
+        public void AddPositionToService(Position position)
+        {
+            _currentlyRegisteredPersonPositions.Add(position);
         }
     }
 }
