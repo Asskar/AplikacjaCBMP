@@ -6,610 +6,198 @@
         xmlns:ViewModel="clr-namespace:AppCBMP.ViewModel"
         xmlns:helpers="clr-namespace:AppCBMP.Helpers"
         x:Class="AppCBMP.View.RegistrationView"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d ignore"
-        Height="1455.475"
-        Width="1200">
-    <Window.DataContext>
-        <Binding Path="Registration"
-                 Source="{StaticResource Locator}" />
-    </Window.DataContext>
+        DataContext="{Binding Registration,Source={StaticResource Locator}}"
+        Height="800.475"
+        Width="1200"
+        Background="WhiteSmoke">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Skins/MainSkin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.1" />
-            <ColumnDefinition Width="1.5*" />
-            <ColumnDefinition />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2.5*" />
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.1" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="1"
-                      Grid.Column="1">
-            <Grid>
-                <Grid.Resources>
-                    <Style TargetType="{x:Type Label}">
-                        <Setter Property="Width"
-                                Value="200" />
-                        <Setter Property="Height"
-                                Value="40" />
-                        <Setter Property="Margin"
-                                Value="5" />
-                        <Setter Property="FontSize"
-                                Value="20" />
-                        <Setter Property="FontWeight"
-                                Value="Bold" />
-                        <Setter Property="HorizontalAlignment"
-                                Value="Left" />
-                        <Setter Property="VerticalAlignment"
-                                Value="Center" />
-                        <Setter Property="HorizontalContentAlignment"
-                                Value="Right" />
-                        <Setter Property="VerticalContentAlignment"
-                                Value="Center" />
-                    </Style>
-                    <Style TargetType="{x:Type TextBox}">
-                        <Setter Property="Width"
-                                Value="200" />
-                        <Setter Property="Height"
-                                Value="40" />
-                        <Setter Property="Margin"
-                                Value="5" />
-                        <Setter Property="FontSize"
-                                Value="20" />
-                        <Setter Property="HorizontalAlignment"
-                                Value="Left" />
-                        <Setter Property="VerticalAlignment"
-                                Value="Center" />
-                        <Setter Property="HorizontalContentAlignment"
-                                Value="Left" />
-                        <Setter Property="VerticalContentAlignment"
-                                Value="Center" />
-                        <Setter Property="Validation.ErrorTemplate"
-                                Value="{DynamicResource ErrorToolTipTemplate1}" />
-                        <Style.Triggers>
-                            <Trigger Property="Validation.HasError"
-                                     Value="True">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
-                            </Trigger>
-                            <Trigger Property="IsFocused"
-                                     Value="True">
-                                <Setter Property="Background"
-                                        Value="AliceBlue" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                    <Style TargetType="{x:Type ComboBox}">
-                        <Setter Property="Width"
-                                Value="200" />
-                        <Setter Property="Height"
-                                Value="40" />
-                        <Setter Property="Margin"
-                                Value="5" />
-                        <Setter Property="FontSize"
-                                Value="20" />
-                        <Setter Property="HorizontalAlignment"
-                                Value="Left" />
-                        <Setter Property="VerticalAlignment"
-                                Value="Center" />
-                        <Setter Property="HorizontalContentAlignment"
-                                Value="Left" />
-                        <Setter Property="VerticalContentAlignment"
-                                Value="Center" />
-                        <Setter Property="Validation.ErrorTemplate"
-                                Value="{DynamicResource ErrorToolTipTemplate1}" />
-                        <Style.Triggers>
-                            <Trigger Property="Validation.HasError"
-                                     Value="True">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
-                            </Trigger>
-                            <Trigger Property="IsKeyboardFocused"
-                                     Value="True">
-                                <Setter Property="IsDropDownOpen"
-                                        Value="True" />
-                            </Trigger>
-                            <Trigger Property="IsKeyboardFocusWithin"
-                                     Value="True">
-                                <Setter Property="IsDropDownOpen"
-                                        Value="True" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Width"
-                                Value="200" />
-                        <Setter Property="Height"
-                                Value="40" />
-                        <Setter Property="Margin"
-                                Value="5" />
-                        <Setter Property="FontSize"
-                                Value="20" />
-                    </Style>
-                    <Style TargetType="ListBox">
-                        <Setter Property="Width"
-                                Value="300" />
-                        <Setter Property="Height"
-                                Value="120" />
-                        <Setter Property="Margin"
-                                Value="5" />
-                        <Setter Property="FontSize"
-                                Value="10" />
-                        <Setter Property="HorizontalAlignment"
-                                Value="Left" />
-                        <Setter Property="VerticalAlignment"
-                                Value="Center" />
-                        <Setter Property="HorizontalContentAlignment"
-                                Value="Left" />
-                    </Style>
-                </Grid.Resources>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="2*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-
-                </Grid.RowDefinitions>
-
-                <Label Grid.Column="0"
-                       Grid.Row="0"
-                       Content="PESEL:" />
-                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
-                         Grid.Column="1"
-                         Grid.Row="0">
-                    <Binding Path="Registration.PeselTxtField"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="PropertyChanged"
-                             NotifyOnSourceUpdated="True"
-                             NotifyOnTargetUpdated="True"
-                             NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <helpers:PeselValidationRule />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-
-                <Label Grid.Column="0"
-                       Grid.Row="1"
-                       Content="Imie:" />
-                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
-                         Grid.Column="1"
-                         Grid.Row="1">
-                    <Binding Path="Registration.CurrentlyRegisteredPerson.FirstName"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="PropertyChanged"
-                             NotifyOnSourceUpdated="True"
-                             NotifyOnTargetUpdated="True"
-                             NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <helpers:CharsValidationRule CharSet=" "
-                                                         PropertyName="Imie" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-
-                <Label Grid.Column="0"
-                       Grid.Row="2"
-                       Content="Nazwisko:" />
-                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
-                         Grid.Column="1"
-                         Grid.Row="2">
-                    <Binding Path="Registration.CurrentlyRegisteredPerson.LastName"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="PropertyChanged"
-                             NotifyOnSourceUpdated="True"
-                             NotifyOnTargetUpdated="True"
-                             NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <helpers:CharsValidationRule CharSet=" -"
-                                                         PropertyName="Nazwisko" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-
-                <Label Grid.Column="0"
-                       Grid.Row="3"
-                       Content="Miejsce urodzenia:" />
-                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
-                         Grid.Column="1"
-                         Grid.Row="3">
-                    <Binding Path="Registration.CurrentlyRegisteredPerson.BirthPlace"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="PropertyChanged"
-                             NotifyOnSourceUpdated="True"
-                             NotifyOnTargetUpdated="True"
-                             NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <helpers:CharsValidationRule CharSet=" -"
-                                                         PropertyName="Miejsce urodzenia" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-
-                <Label Grid.Column="0"
-                       Grid.Row="4"
-                       Content="Kod:" />
-                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
-                         Grid.Column="1"
-                         Grid.Row="4">
-                    <Binding Path="Registration.CurrentlyRegisteredPerson.PostCode"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="PropertyChanged"
-                             NotifyOnSourceUpdated="True"
-                             NotifyOnTargetUpdated="True"
-                             NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <helpers:PostCodeValidationRule />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-
-                <Label Grid.Column="0"
-                       Grid.Row="5"
-                       Content="Miejscowość:" />
-                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
-                         Grid.Column="1"
-                         Grid.Row="5">
-                    <Binding Path="Registration.CurrentlyRegisteredPerson.City"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="PropertyChanged"
-                             NotifyOnSourceUpdated="True"
-                             NotifyOnTargetUpdated="True"
-                             NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <helpers:CharsValidationRule CharSet=" -"
-                                                         PropertyName="Miejscowość" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-
-                <Label Grid.Column="0"
-                       Grid.Row="6"
-                       Content="Ulica:" />
-                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
-                         Grid.Column="1"
-                         Grid.Row="6">
-                    <Binding Path="Registration.CurrentlyRegisteredPerson.Street"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="PropertyChanged"
-                             NotifyOnSourceUpdated="True"
-                             NotifyOnTargetUpdated="True"
-                             NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <helpers:CharsValidationRule CharSet=" -123456789"
-                                                         PropertyName="Ulica" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-
-                <Label Grid.Column="0"
-                       Grid.Row="7"
-                       Content="Numer domu:" />
-                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
-                         Grid.Column="1"
-                         Grid.Row="7">
-                    <Binding Path="Registration.CurrentlyRegisteredPerson.HouseNumber"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="PropertyChanged"
-                             NotifyOnSourceUpdated="True"
-                             NotifyOnTargetUpdated="True"
-                             NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <helpers:CharsValidationRule CharSet=" /123456789"
-                                                         PropertyName="Ulica" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-
-                <Label Grid.Column="0"
-                       Grid.Row="8"
-                       Content="Numer mieszkania:" />
-                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
-                         Grid.Column="1"
-                         Grid.Row="8">
-                    <Binding Path="Registration.CurrentlyRegisteredPerson.ApartmentNumber"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="PropertyChanged"
-                             NotifyOnSourceUpdated="True"
-                             NotifyOnTargetUpdated="True"
-                             NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <helpers:OnlyDigitsRule PropertyName="Numer mieszkania" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-
-                <Label Grid.Column="0"
-                       Grid.Row="9"
-                       Content="Wykształcenie" />
-                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
-                         Grid.Column="1"
-                         Grid.Row="9">
-                    <Binding Path="Registration.CurrentlyRegisteredPerson.Education"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="PropertyChanged"
-                             NotifyOnSourceUpdated="True"
-                             NotifyOnTargetUpdated="True"
-                             NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <helpers:CharsValidationRule PropertyName="Wykształcenie"
-                                                         CharSet="" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-
-                <Label Grid.Column="0"
-                       Grid.Row="10"
-                       Content="Telefon" />
-                <TextBox Validation.ErrorTemplate="{DynamicResource ErrorToolTipTemplate1}"
-                         Grid.Column="1"
-                         Grid.Row="10">
-                    <Binding Path="Registration.CurrentlyRegisteredPerson.PhoneNumber"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="PropertyChanged"
-                             NotifyOnSourceUpdated="True"
-                             NotifyOnTargetUpdated="True"
-                             NotifyOnValidationError="True">
-                        <Binding.ValidationRules>
-                            <helpers:PhoneValidationRule />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-
-                <Label Grid.Column="0"
-                       Grid.Row="11"
-                       Content="Frima:" />
-                <ComboBox ItemsSource="{Binding Registration.Companies, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                          IsEditable="True"
-                          DisplayMemberPath="Name"
-                          Grid.Column="1"
-                          Grid.Row="11"
-                          ShouldPreserveUserEnteredPrefix="True"
-                          IsTextSearchEnabled="False"
-                          Background="AliceBlue"
-                          Text="{Binding Registration.CompanyTxtField, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
-
-                <Label Grid.Column="0"
-                       Grid.Row="12"
-                       Content="Skierowanie:" />
-                <ComboBox ItemsSource="{Binding Registration.Referrals, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                          IsEditable="True"
-                          DisplayMemberPath="Name"
-                          Grid.Column="1"
-                          Grid.Row="12"
-                          ShouldPreserveUserEnteredPrefix="True"
-                          IsTextSearchEnabled="False"
-                          Background="AliceBlue"
-                          Text="{Binding Registration.ReferralTxtField, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
-
-                <Label Grid.Column="0"
-                       Grid.Row="13"
-                       Content="Stanowisko"></Label>
-                <StackPanel Grid.Column="1" Grid.Row="13" Orientation="Horizontal">
-                    <TextBox x:Name="PositionTxtBox"
-                             Text="{Binding Registration.PositionTxtField, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
-                    <Button Content="Dodaj Stanowisko" Command="{Binding AddNewPositionToListCommand}" CommandParameter="{Binding ElementName=PositionTxtBox, Path=Text}"/>
-                </StackPanel>
-
-                
-                    <ListBox Name="PositionsListBox"
-                             Grid.Column="1"
-                             Grid.Row="14"
-                             ItemsSource="{Binding Registration.Positions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
-                        <ListBox.Resources>
-                            <Style TargetType="ListViewItem">
-                                <Style.Triggers>
-                                    <Trigger Property="IsKeyboardFocusWithin"
-                                             Value="True">
-                                        <Setter Property="IsSelected"
-                                                Value="True" />
-                                    </Trigger>
-                                </Style.Triggers>
-                                
-                                </Style>
-                            <Style TargetType="{x:Type Label}">
-                                <Setter Property="Width"
-                                        Value="200" />
-                                <Setter Property="Height"
-                                        Value="40" />
-                                <Setter Property="Margin"
-                                        Value="5" />
-
-                            </Style>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Width"
-                                        Value="100" />
-                                <Setter Property="Height"
-                                        Value="30" />
-                                <Setter Property="Margin"
-                                        Value="5" />
-                                </Style>
-                        </ListBox.Resources>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                            <StackPanel Orientation="Horizontal"
-                                        x:Name="stck">
-                                <Label Content="{Binding Name}" />
-                                <Button Content="Dodaj!"
-                                        DataContext="{Binding  Registration , Source={StaticResource Locator} }"
-                                        Command="{Binding AddPositionToListCommand }"
-                                        CommandParameter="{Binding ElementName=stck, Path=DataContext}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-
-                <Label Grid.Column="0"
-                       Grid.Row="15"
-                       Content="Dodane stanowiska:"/>
-                <ListBox
-                         Grid.Column="1"
-                         Grid.Row="15"
-                         ItemsSource="{Binding Registration.CurrentlyRegisteredPersonPositions, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
-                    <ListBox.Resources>
-                        <Style TargetType="ListViewItem">
-                            <Style.Triggers>
-                                <Trigger Property="IsKeyboardFocusWithin"
-                                         Value="True">
-                                    <Setter Property="IsSelected"
-                                            Value="True" />
-                                </Trigger>
-                            </Style.Triggers>
-
-                        </Style>
-                        <Style TargetType="{x:Type Label}">
-                            <Setter Property="Width"
-                                    Value="200" />
-                            <Setter Property="Height"
-                                    Value="40" />
-                            <Setter Property="Margin"
-                                    Value="5" />
-
-                        </Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Width"
-                                    Value="100" />
-                            <Setter Property="Height"
-                                    Value="30" />
-                            <Setter Property="Margin"
-                                    Value="5" />
-                        </Style>
-                    </ListBox.Resources>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal"
-                                        x:Name="position">
-                                <Label Content="{Binding Name}" />
-                                <Button Content="Usun!"
-                                        DataContext="{Binding  Registration , Source={StaticResource Locator} }"
-                                        Command="{Binding RemovePositionFromListCommand }"
-                                        CommandParameter="{Binding ElementName=position, Path=DataContext}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-
-
-                <ComboBox Grid.Column="1"
-                          Grid.Row="16"
-                          ItemsSource="{Binding Registration.ExaminationTypes}"
-                          DisplayMemberPath="Name"
-                          SelectedItem="{Binding Registration.ExaminationType, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
-                </ComboBox>
-
-
-                <Grid Grid.Column="1"
-                      Grid.Row="17">
-                    <Grid.Resources>
-                        <Style TargetType="{x:Type RadioButton}">
-                            <Setter Property="Margin"
-                                    Value="5" />
-                            <Setter Property="Width"
-                                    Value="200" />
-                            <Setter Property="Height"
-                                    Value="40" />
-                            <Setter Property="FontSize"
-                                    Value="20" />
-                            <Setter Property="HorizontalAlignment"
-                                    Value="Left" />
-                            <Setter Property="VerticalAlignment"
-                                    Value="Center" />
-                            <Setter Property="HorizontalContentAlignment"
-                                    Value="Left" />
-                            <Setter Property="VerticalContentAlignment"
-                                    Value="Center" />
-                        </Style>
-                    </Grid.Resources>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Grid.Style>
-                        <Style TargetType="{x:Type Grid}">
-                            <Setter Property="Visibility"
-                                    Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsSelected, ElementName=Other}"
-                                             Value="True">
-                                    <Setter Property="Visibility"
-                                            Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Grid.Style>
-                    <RadioButton  Grid.Row="0"
-                                  Content="Alkoholowe" />
-                    <RadioButton  Grid.Row="1"
-                                  Content="Broń" />
-                    <RadioButton  Grid.Row="2"
-                                  Content="Powypadkowe" />
+                    
+                    <Label Grid.Row="0" Grid.Column="0" Content="Pesel"/>
+                    <TextBox Grid.Row="0"
+                             Grid.Column="1"/>
+
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="Imie" />
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1" />
+
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Content="Nazwisko" />
+                    <TextBox Grid.Row="2"
+                             Grid.Column="1" />
+
                 </Grid>
+            </Border>
+            <Border Grid.Row="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content="Miejsce urodzenia" />
+                    <TextBox Grid.Row="0"
+                             Grid.Column="1" />
 
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="Kod pocztowy" />
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1" />
 
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Content="Miasto" />
+                    <TextBox Grid.Row="2"
+                             Grid.Column="1" />
+                    
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           Content="Ulica" />
+                    <TextBox Grid.Row="3"
+                             Grid.Column="1" />
 
-                <Button Command="{Binding AddPersonToDbCommand}"
-                        Grid.Column="1"
-                        Grid.Row="18"
-                        Content="Dodaj osobę do listy" />
+                    <Label Grid.Row="4"
+                           Grid.Column="0"
+                           Content="Numer domu" />
+                    <TextBox Grid.Row="4"
+                             Grid.Column="1" />
 
-            </Grid>
-        </ScrollViewer>
-        <ListBox ItemsSource="{Binding Registration.Persons}"
-                 Grid.Column="2"
-                 Grid.Row="1">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel.Resources>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Margin"
-                                        Value="5" />
-                            </Style>
-                        </StackPanel.Resources>
-                        <Label Content="{Binding FirstName}" />
-                        <Label Content="{Binding LastName}"
-                               FontWeight="Bold" />
-                        <StackPanel Orientation="Vertical" x:Name="PersonListStackPanel">
-                            <Button Content="Drukuj"
-                                    DataContext="{Binding  Registration , Source={StaticResource Locator} }"
-                                    Command="{Binding PrintPersonCommand }"
-                                    CommandParameter="{Binding ElementName=PersonListStackPanel, Path=DataContext}" />
-                            <Button Content="Fakturuj"
-                                    DataContext="{Binding  Registration , Source={StaticResource Locator} }"
-                                    Command="{Binding AddPersonToInvoiceCommand }"
-                                    CommandParameter="{Binding ElementName=PersonListStackPanel, Path=DataContext}" />
-                            <Button Content="Usuń"
-                                    DataContext="{Binding Registration , Source={StaticResource Locator} }"
-                                    Command="{Binding RemovePersonFromListCommand }"
-                                    CommandParameter="{Binding ElementName=PersonListStackPanel, Path=DataContext}" />
-                        </StackPanel>
+                    <Label Grid.Row="5"
+                           Grid.Column="0"
+                           Content="Numer mieszkania" />
+                    <TextBox Grid.Row="5"
+                             Grid.Column="1" />
 
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                </Grid>
+            </Border>
+            
+            <Border Grid.Row="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content="Wykszałcenie" />
+                    <TextBox Grid.Row="0"
+                             Grid.Column="1" />
+
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="Telefon" />
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content="Pracodawca" />
+                    <ComboBox Grid.Row="0"
+                             Grid.Column="1" />
+
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="Sierowanie" />
+                    <ComboBox Grid.Row="1"
+                             Grid.Column="1" />
+                </Grid>
+            </Border>
+            
+            <Border Grid.Row="4">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content="Stanowisko" />
+                    <ComboBox Grid.Row="0"
+                              Grid.Column="1" />
+
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="Stanowisko" />
+                    <ComboBox Grid.Row="1"
+                              Grid.Column="1" />
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Window>

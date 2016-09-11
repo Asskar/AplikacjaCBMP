@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using AppCBMP.Model;
 
 namespace AppCBMP.View
 {
@@ -14,6 +17,12 @@ namespace AppCBMP.View
         public RegistrationView()
         {
             InitializeComponent();
+            List<Position> listapozycji = new List<Position>()
+            {
+                new Position() {Name = "pozycja bardzo długa"},
+                new Position() {Name = "pozycja bardzo długa"},
+                new Position() {Name = "pozycja bardzo długa"}
+            };
         }
     }
 }
