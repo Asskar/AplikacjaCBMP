@@ -17,12 +17,17 @@ namespace AppCBMP.View
         public RegistrationView()
         {
             InitializeComponent();
-            List<Position> listapozycji = new List<Position>()
-            {
-                new Position() {Name = "pozycja bardzo długa"},
-                new Position() {Name = "pozycja bardzo długa"},
-                new Position() {Name = "pozycja bardzo długa"}
-            };
+            
+        }
+
+        public bool IsOpen { get { return (bool)GetValue(IsOpenProperty); } set { SetValue(IsOpenProperty, value); } }
+
+        public static readonly DependencyProperty IsOpenProperty =
+            DependencyProperty.Register("IsOpen", typeof(bool), typeof(RegistrationView), new PropertyMetadata(false));
+
+        public void ToggleIsOpen()
+        {
+            IsOpen = !IsOpen;
         }
     }
 }
