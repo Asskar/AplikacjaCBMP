@@ -7,11 +7,13 @@
         xmlns:helpers="clr-namespace:AppCBMP.Helpers"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-        x:Name="window"
+        x:Name="Window"
         x:Class="AppCBMP.View.RegistrationView"
         mc:Ignorable="d ignore"
         Height="675"
         Width="1200"
+        MinWidth="1200"
+        MinHeight="675"
         Background="#ffF0f0f0">
     <Window.Resources>
         <ResourceDictionary>
@@ -26,43 +28,72 @@
     </Window.DataContext>
     <Grid>
         <i:Interaction.Behaviors>
-            <ei:DataStateBehavior Binding="{Binding IsOpen, ElementName=window}"
+            <ei:DataStateBehavior Binding="{Binding LocationToggleOpen, ElementName=Window}"
                                   Value="True"
-                                  TrueState="Open"
-                                  FalseState="Closed" />
-            <ei:DataStateBehavior Binding="{Binding IsKeyboardFocusWithin, ElementName=border}"
+                                  TrueState="LocationOpen"
+                                  FalseState="LocationClosed" />
+            <ei:DataStateBehavior Binding="{Binding IsKeyboardFocusWithin, ElementName=LocationGrid}"
                                   Value="True"
-                                  TrueState="Open"
-                                  FalseState="Closed" />
+                                  TrueState="LocationOpen"
+                                  FalseState="LocationClosed" />
+            <ei:DataStateBehavior Binding="{Binding MiscellaneousToggleOpen, ElementName=Window}"
+                                  Value="True"
+                                  TrueState="MiscellaneousOpen"
+                                  FalseState="MiscellaneousClosed" />
+            <ei:DataStateBehavior Binding="{Binding IsKeyboardFocusWithin, ElementName=MiscellaneousDataGrid}"
+                                  Value="True"
+                                  TrueState="MiscellaneousOpen"
+                                  FalseState="MiscellaneousClosed" />
         </i:Interaction.Behaviors>
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="CityDataPanelState">
+            <VisualStateGroup x:Name="LocationState">
                 <VisualStateGroup.Transitions>
                     <VisualTransition GeneratedDuration="0:0:0.3"
-                                      To="Closed">
+                                      To="LocationClosed">
                         <VisualTransition.GeneratedEasingFunction>
                             <CubicEase EasingMode="EaseInOut" />
                         </VisualTransition.GeneratedEasingFunction>
                     </VisualTransition>
                     <VisualTransition GeneratedDuration="0:0:0.3"
-                                      To="Open">
+                                      To="LocationOpen">
                         <VisualTransition.GeneratedEasingFunction>
                             <CubicEase EasingMode="EaseInOut" />
                         </VisualTransition.GeneratedEasingFunction>
                     </VisualTransition>
                 </VisualStateGroup.Transitions>
-                <VisualState x:Name="Closed" />
-                <VisualState x:Name="Open">
+                <VisualState x:Name="LocationClosed" />
+                <VisualState x:Name="LocationOpen">
                     <Storyboard>
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)"
-                                                       Storyboard.TargetName="grid">
+                                                       Storyboard.TargetName="LocationGrid">
                             <EasingDoubleKeyFrame KeyTime="0"
-                                                  Value="280" />
+                                                  Value="240" />
                         </DoubleAnimationUsingKeyFrames>
-                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)"
-                                                       Storyboard.TargetName="button">
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="MiscellaneousState">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition GeneratedDuration="0:0:0.3"
+                                      To="MiscellaneousClosed">
+                        <VisualTransition.GeneratedEasingFunction>
+                            <CubicEase EasingMode="EaseInOut" />
+                        </VisualTransition.GeneratedEasingFunction>
+                    </VisualTransition>
+                    <VisualTransition GeneratedDuration="0:0:0.3"
+                                      To="MiscellaneousOpen">
+                        <VisualTransition.GeneratedEasingFunction>
+                            <CubicEase EasingMode="EaseInOut" />
+                        </VisualTransition.GeneratedEasingFunction>
+                    </VisualTransition>
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="MiscellaneousClosed" />
+                <VisualState x:Name="MiscellaneousOpen">
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)"
+                                                       Storyboard.TargetName="MiscellaneousDataGrid">
                             <EasingDoubleKeyFrame KeyTime="0"
-                                                  Value="180" />
+                                                  Value="200" />
                         </DoubleAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
@@ -73,19 +104,19 @@
             <ColumnDefinition Width="1.2*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Border Grid.Row="0"
-                    Margin="5">
-                <Grid>
+        <Viewbox VerticalAlignment="Top"
+                 Grid.Column="0" Margin="0,0,20,0">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
@@ -147,14 +178,35 @@
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox>
-
                 </Grid>
-            </Border>
-            <Border x:Name="border"
-                    Grid.Row="1"
-                    Margin="5">
-                <Grid x:Name="grid"
-                      Height="40">
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto"
+                                          MinWidth="209" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                           Content="Zamieszkanie" />
+                    <Button x:Name="LocationToggleButton"
+                            Grid.Column="1"
+                            Width="30"
+                            Height="30"
+                            Margin="5"
+                            FontFamily="Segoe MDL2 Assets"
+                            Content="&#xE011;"
+                            HorizontalAlignment="Right"
+                            Focusable="False">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <ei:CallMethodAction TargetObject="{Binding ElementName=Window}"
+                                                     MethodName="LocationToggleIsOpen" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </Grid>
+                <Grid x:Name="LocationGrid"
+                      Grid.Row="2"
+                      Height="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
@@ -169,37 +221,6 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-
-                    <Label Grid.Row="0"
-                           Grid.Column="0"
-                           Content="Zamieszkanie" />
-                    <Button x:Name="button"
-                            Grid.Column="3"
-                            Width="30"
-                            Height="30"
-                            Margin="5"
-                            FontFamily="Segoe UI Symbol"
-                            Content="&#xE1FD;"
-                            RenderTransformOrigin="0.5,0.5">
-                        <Button.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform />
-                                <SkewTransform />
-                                <RotateTransform />
-                                <TranslateTransform />
-                            </TransformGroup>
-                        </Button.RenderTransform>
-
-
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <ei:CallMethodAction TargetObject="{Binding ElementName=window}"
-                                                     MethodName="ToggleIsOpen" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-
-                    </Button>
-
 
                     <Label Grid.Row="1"
                            Grid.Column="0"
@@ -307,15 +328,39 @@
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox>
-
                 </Grid>
-            </Border>
-
-            <Border Grid.Row="2"
-                    Margin="5">
-                <Grid>
+                <Grid Grid.Column="0"
+                      Grid.Row="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto"
+                                          MinWidth="209" />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Inne"
+                           Grid.Row="0" />
+                    <Button x:Name="MiscellaneousToggleButton"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Height="30"
+                            Width="30"
+                            FontFamily="Segoe MDL2 Assets"
+                            Content="&#xE011;"
+                            HorizontalAlignment="Right"
+                            Margin="5"
+                            Focusable="False">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <ei:CallMethodAction TargetObject="{Binding ElementName=Window}"
+                                                     MethodName="MiscellaneousToggleIsOpen" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </Grid>
+                <Grid x:Name="MiscellaneousDataGrid"
+                      Grid.Column="0"
+                      Grid.Row="4"
+                      Height="0">
+                    <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
@@ -324,7 +369,6 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-
                     <Label Grid.Row="0"
                            Grid.Column="0"
                            Content="Wykszałcenie" />
@@ -363,39 +407,22 @@
                     <Label Grid.Row="2"
                            Grid.Column="0"
                            Content="Kategoria PJ" />
-                    <TextBox Grid.Row="2"
-                             Grid.Column="1">
-                        <Binding Path="Registration.CurrentlyRegisteredPerson.PhoneNumber"
-                                 Mode="TwoWay"
-                                 UpdateSourceTrigger="PropertyChanged"
-                                 NotifyOnSourceUpdated="True"
-                                 NotifyOnTargetUpdated="True"
-                                 NotifyOnValidationError="True">
-                            <Binding.ValidationRules>
-                                <helpers:PhoneValidationRule />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Text="tutaj trzeba wstawic wybieranie prawka"></TextBlock>
                 </Grid>
-            </Border>
-
-
-
-
-        </Grid>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-
-            <Border Grid.Row="0"
-                    Margin="5">
-                <Grid>
+            </Grid>
+        </Viewbox>
+        <Viewbox VerticalAlignment="Top"
+                 Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
@@ -407,35 +434,38 @@
 
                     <Label Grid.Row="0"
                            Grid.Column="0"
-                           Content="Pracodawca" />
-                    <ComboBox ItemsSource="{Binding Registration.Companies, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                              IsEditable="True"
+                           Content="Wybierz rejstr" />
+                    <ComboBox ItemsSource="{Binding Registration.ExaminationTypes, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                               DisplayMemberPath="Name"
                               Grid.Column="1"
                               Grid.Row="0"
-                              ShouldPreserveUserEnteredPrefix="True"
-                              IsTextSearchEnabled="False"
-                              Text="{Binding Registration.CompanyTxtField, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                              SelectedItem="{Binding Registration.ExaminationType, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <Label Grid.Row="1"
                            Grid.Column="0"
-                           Content="Sierowanie" />
-                    <ComboBox ItemsSource="{Binding Registration.Referrals, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                           Content="Pracodawca" />
+                    <ComboBox ItemsSource="{Binding Registration.Companies, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                               IsEditable="True"
                               DisplayMemberPath="Name"
                               Grid.Column="1"
                               Grid.Row="1"
                               ShouldPreserveUserEnteredPrefix="True"
                               IsTextSearchEnabled="False"
+                              Text="{Binding Registration.CompanyTxtField, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Content="Sierowanie" />
+                    <ComboBox ItemsSource="{Binding Registration.Referrals, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                              IsEditable="True"
+                              DisplayMemberPath="Name"
+                              Grid.Column="1"
+                              Grid.Row="2"
+                              ShouldPreserveUserEnteredPrefix="True"
+                              IsTextSearchEnabled="False"
                               Text="{Binding Registration.ReferralTxtField, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
-            </Border>
-
-
-
-            <Border Grid.Row="1"
-                    Margin="5">
-                <Grid>
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
@@ -448,27 +478,18 @@
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="0"
                                 Grid.Column="0">
-                        <Label Grid.Row="0"
-                               Grid.Column="0"
-                               Content="Stanowisko" />
+                        <Label Content="Stanowisko" />
 
-                        <TextBox Text="{Binding Registration.PositionTxtField, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox x:Name="PositionTxtBox" Width="160"
+                                 Text="{Binding Registration.PositionTxtField, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
                         <Button  Width="30"
                                  Height="30"
                                  Margin="5"
                                  Command="{Binding AddNewPositionToListCommand}"
-                                 CommandParameter="{Binding Text, ElementName=PositionTxtBox}">
-                            <Grid Margin="2">
-                                <Line X1="0"
-                                      Y1="1"
-                                      Stroke="#FF707070"
-                                      Stretch="Fill" />
-                                <Line X1="1"
-                                      Y1="0"
-                                      Stroke="#FF707070"
-                                      Stretch="Fill" />
-                            </Grid>
-                        </Button>
+                                 CommandParameter="{Binding ElementName=PositionTxtBox, Path=Text}"
+                                 FontFamily="Segoe MDL2 Assets"
+                                 Content="&#xE109;" />
+
                     </StackPanel>
 
 
@@ -493,6 +514,8 @@
                                         Value="30" />
                                 <Setter Property="Margin"
                                         Value="1" />
+                                <Setter Property="FontSize"
+                                        Value="12" />
                             </Style>
                             <Style TargetType="{x:Type Label}">
                                 <Setter Property="Width"
@@ -513,18 +536,9 @@
                                     <Button DataContext="{Binding Registration, Source={StaticResource Locator}}"
                                             Command="{Binding AddPositionToListCommand}"
                                             CommandParameter="{Binding DataContext, ElementName=stck}"
-                                            HorizontalAlignment="Right">
-                                        <Grid Margin="5">
-                                            <Line X1="0"
-                                                  Y1="2"
-                                                  Stroke="#FF707070"
-                                                  Stretch="Fill" />
-                                            <Line X1="2"
-                                                  Y1="0"
-                                                  Stroke="#FF707070"
-                                                  Stretch="Fill" />
-                                        </Grid>
-                                    </Button>
+                                            HorizontalAlignment="Right"
+                                            FontFamily="Segoe MDL2 Assets"
+                                            Content="&#xE109;" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -572,92 +586,83 @@
                                         <Button DataContext="{Binding Registration, Source={StaticResource Locator}}"
                                                 Command="{Binding RemovePositionFromListCommand}"
                                                 CommandParameter="{Binding DataContext, ElementName=PositionPanel}"
-                                                HorizontalAlignment="Right">
-                                            <Grid Margin="5">
-                                                <Line X1="2"
-                                                      Y1="0"
-                                                      Stroke="#FF707070"
-                                                      Stretch="Fill" />
-                                            </Grid>
-                                        </Button>
+                                                HorizontalAlignment="Right"
+                                                FontFamily="Segoe MDL2 Assets"
+                                                Content="&#xE108;" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </StackPanel>
                 </Grid>
-            </Border>
-            <Button Command="{Binding AddPersonToDbCommand}"
-                    Content="Dodaj Osobę"
-                    Grid.Row="2"
-                    Width="200"
-                    Height="40"
-                    Margin="15"
-                    HorizontalAlignment="Right" />
-        </Grid>
-        <Grid Grid.Column="2">
-            <Grid>
-                <ListBox Background="White"
-                         ItemsSource="{Binding Registration.Persons}"
-                         Height="auto"
-                         Width="auto"
-                         Margin="0">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel.Resources>
-                                    <Style TargetType="{x:Type Button}">
-                                        <Setter Property="Width"
-                                                Value="30" />
-                                        <Setter Property="Height"
-                                                Value="30" />
-                                        <Setter Property="Margin"
-                                                Value="1" />
-                                    </Style>
-                                    <Style TargetType="{x:Type Label}">
-                                        <Setter Property="Width"
-                                                Value="270" />
-                                        <Setter Property="Height"
-                                                Value="30" />
-                                        <Setter Property="Margin"
-                                                Value="1" />
-                                        <Setter Property="FontSize"
-                                                Value="12" />
-                                    </Style>
-                                </StackPanel.Resources>
-                                <Label Content="{Binding FirstName}" />
-                                <Label Content="{Binding LastName}"
-                                       FontWeight="Normal" />
-                                <StackPanel Orientation="Vertical"
-                                            x:Name="PersonListStackPanel">
-                                    <Button Content="Drukuj"
-                                            DataContext="{Binding Registration, Source={StaticResource Locator}}"
-                                            Command="{Binding PrintPersonCommand}"
-                                            CommandParameter="{Binding DataContext, ElementName=PersonListStackPanel}" />
-
-                                    <Button Content="Fakturuj"
-                                            DataContext="{Binding Registration, Source={StaticResource Locator}}"
-                                            Command="{Binding AddPersonToInvoiceCommand}"
-                                            CommandParameter="{Binding DataContext, ElementName=PersonListStackPanel}" />
-
-                                    <Button DataContext="{Binding Registration, Source={StaticResource Locator}}"
-                                            Command="{Binding RemovePersonFromListCommand}"
-                                            CommandParameter="{Binding DataContext, ElementName=PersonListStackPanel}"
-                                            HorizontalAlignment="Right">
-                                        <Grid Margin="5">
-                                            <Line X1="2"
-                                                  Y1="0"
-                                                  Stroke="#FF707070"
-                                                  Stretch="Fill" />
-                                        </Grid>
-                                    </Button>
-                                </StackPanel>
-
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <Button Command="{Binding AddPersonToDbCommand}"
+                        Grid.Row="2"
+                        Margin="5,5,10,5"
+                        Height="30"
+                        Width="150"
+                        HorizontalAlignment="Right"
+                        Content="Dodaj osobę do listy" />
             </Grid>
-        </Grid>
+        </Viewbox>
+        <Viewbox Grid.Column="2">
+        <Grid Grid.Column="2">
+            <ListBox Background="White"
+                     ItemsSource="{Binding Registration.Persons}"
+                     Height="auto"
+                     Width="auto"
+                     Margin="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Width"
+                                            Value="30" />
+                                    <Setter Property="Height"
+                                            Value="30" />
+                                    <Setter Property="Margin"
+                                            Value="1" />
+                                </Style>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="Width"
+                                            Value="95" />
+                                    <Setter Property="Height"
+                                            Value="30" />
+                                    <Setter Property="Margin"
+                                            Value="1" />
+                                    <Setter Property="FontSize"
+                                            Value="12" />
+                                </Style>
+                            </StackPanel.Resources>
+                            <Label Content="{Binding FirstName}" />
+                            <Label Content="{Binding LastName}" />
+                            <StackPanel Orientation="Horizontal"
+                                        x:Name="PersonListStackPanel">
+                                <Button DataContext="{Binding Registration, Source={StaticResource Locator}}"
+                                        Command="{Binding PrintPersonCommand}"
+                                        CommandParameter="{Binding DataContext, ElementName=PersonListStackPanel}"
+                                        FontFamily="Segoe MDL2 Assets"
+                                        Content="&#xE2F6;" />
+
+                                <Button DataContext="{Binding Registration, Source={StaticResource Locator}}"
+                                        Command="{Binding AddPersonToInvoiceCommand}"
+                                        CommandParameter="{Binding DataContext, ElementName=PersonListStackPanel}"
+                                        FontFamily="Segoe MDL2 Assets"
+                                        Content="&#xE1D0;" />
+
+                                <Button DataContext="{Binding Registration, Source={StaticResource Locator}}"
+                                        Command="{Binding RemovePersonFromListCommand}"
+                                        CommandParameter="{Binding DataContext, ElementName=PersonListStackPanel}"
+                                        HorizontalAlignment="Right"
+                                        FontFamily="Segoe MDL2 Assets"
+                                        Content="&#xE108;" />
+                            </StackPanel>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            </Grid>
+        </Viewbox>
     </Grid>
 </Window>

@@ -33,7 +33,29 @@ namespace AppCBMP.ViewModel
             _printPersonCommand = new RelayCommand<Person>(PrintPerson);
             _addPersonToInvoiceCommand = new RelayCommand<Person>(AddPersonToInvoice);
             _addNewPositionToListCommand= new RelayCommand<string>(AddNewPositionToList);
-
+            _registration.Persons = new ObservableCollection<Person>()
+            {
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"},
+                new Person() {FirstName = "bardzodluganazwa", LastName = "Piękna"},
+                new Person() {FirstName = "Kotwica", LastName = "Piękna"}
+            };
         }
 
         public Registration Registration

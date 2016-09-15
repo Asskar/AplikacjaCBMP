@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using AppCBMP.Model;
+﻿using System.Windows;
 
 namespace AppCBMP.View
 {
@@ -19,15 +15,25 @@ namespace AppCBMP.View
             InitializeComponent();
             
         }
+        
+        public bool LocationToggleOpen { get { return (bool)GetValue(LocationToggleOpenProperty); } set { SetValue(LocationToggleOpenProperty, value); } }
 
-        public bool IsOpen { get { return (bool)GetValue(IsOpenProperty); } set { SetValue(IsOpenProperty, value); } }
+        public static readonly DependencyProperty LocationToggleOpenProperty =
+            DependencyProperty.Register("LocationToggleOpen", typeof(bool), typeof(RegistrationView), new PropertyMetadata(false));
 
-        public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), typeof(RegistrationView), new PropertyMetadata(false));
-
-        public void ToggleIsOpen()
+        public void LocationToggleIsOpen()
         {
-            IsOpen = !IsOpen;
+            LocationToggleOpen = !LocationToggleOpen;
+        }
+
+        public bool MiscellaneousToggleOpen { get { return (bool)GetValue(MiscellaneousToggleOpenProperty); } set { SetValue(MiscellaneousToggleOpenProperty, value); } }
+
+        public static readonly DependencyProperty MiscellaneousToggleOpenProperty =
+            DependencyProperty.Register("MiscellaneousToggleOpen", typeof(bool), typeof(RegistrationView), new PropertyMetadata(false));
+
+        public void MiscellaneousToggleIsOpen()
+        {
+            MiscellaneousToggleOpen = !MiscellaneousToggleOpen;
         }
     }
 }
