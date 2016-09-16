@@ -11,7 +11,7 @@ namespace AppCBMP.Helpers
             if (value == null)
                 return new ValidationResult(true, null);
             string phoneNumber = value.ToString();
-            return !Regex.IsMatch(phoneNumber, @"[\d]{7}|[\d]{9}|[\d]{10}")
+            return !Regex.IsMatch(phoneNumber, @"^[\d]{7}$|^[\d]{9}$|^[\d]{10}$")
                 ? new ValidationResult(false, "Błędny numer telefonu.")
                 : new ValidationResult(true, null);
         }

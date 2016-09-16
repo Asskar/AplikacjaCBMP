@@ -14,9 +14,9 @@ namespace AppCBMP.Model
         public string City { get; set; }
         public string Street { get; set; }
         public string HouseNumber { get; set; }
-        public int ApartmentNumber { get; set; }
+        public int? ApartmentNumber { get; set; }
         public string Education { get; set; }
-        public long PhoneNumber { get; set; }
+        public long? PhoneNumber { get; set; }
 
         public ICollection<Service> Services { get; set; }
     }

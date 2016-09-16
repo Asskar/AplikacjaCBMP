@@ -91,6 +91,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DAL\AppDataContext.cs" />
+    <Compile Include="DAL\EntityConfiguration\CompanyConfiguration.cs" />
+    <Compile Include="DAL\EntityConfiguration\PersonConfiguration.cs" />
+    <Compile Include="DAL\EntityConfiguration\ReferralConfigurtion.cs" />
     <Compile Include="DAL\Persistence\UnitOfWork.cs" />
     <Compile Include="DAL\Repositories\CompanyRepository.cs" />
     <Compile Include="DAL\Repositories\PersonRepository.cs" />
@@ -111,6 +114,10 @@
     <Compile Include="Migrations\201609101204243_ServiceAsAssociationTable.Designer.cs">
       <DependentUpon>201609101204243_ServiceAsAssociationTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609161855189_ModelsConfig.cs" />
+    <Compile Include="Migrations\201609161855189_ModelsConfig.Designer.cs">
+      <DependentUpon>201609161855189_ModelsConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Company.cs" />
     <Compile Include="Model\Data\DataItem.cs" />
@@ -128,8 +135,8 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\RegistrationViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="View\Invoice.xaml.cs">
-      <DependentUpon>Invoice.xaml</DependentUpon>
+    <Compile Include="View\InvoiceView.xaml.cs">
+      <DependentUpon>InvoiceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RegistrationView.xaml.cs">
       <DependentUpon>RegistrationView.xaml</DependentUpon>
@@ -150,8 +157,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Invoice.xaml">
-      <SubType>Form</SubType>
+    <Page Include="View\InvoiceView.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RegistrationView.xaml">
@@ -179,6 +186,9 @@
     <EmbeddedResource Include="Migrations\201609101204243_ServiceAsAssociationTable.resx">
       <DependentUpon>201609101204243_ServiceAsAssociationTable.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609161855189_ModelsConfig.resx">
+      <DependentUpon>201609161855189_ModelsConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -193,6 +203,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

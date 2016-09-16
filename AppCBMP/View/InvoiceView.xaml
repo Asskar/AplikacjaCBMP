@@ -1,0 +1,208 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ignore="http://www.galasoft.ch/ignore"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        x:Name="window"
+        x:Class="AppCBMP.View.InvoiceView"
+        mc:Ignorable="d ignore"
+        Height="675"
+        Width="1200"
+        MinWidth="1200"
+        MinHeight="675">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Skins/MainSkin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <Binding Path="Invoice"
+                 Source="{StaticResource Locator}" />
+    </Window.DataContext>
+
+    <Grid>
+        <i:Interaction.Behaviors>
+            <ei:DataStateBehavior Binding="{Binding CompanyToggleOpen, ElementName=window}"
+                                  Value="True"
+                                  TrueState="CompanyOpen"
+                                  FalseState="CompanyClosed" />
+            <ei:DataStateBehavior Binding="{Binding PersonToggleOpen, ElementName=window}"
+                                  Value="True"
+                                  TrueState="PersonOpen"
+                                  FalseState="PersonClosed" />
+        </i:Interaction.Behaviors>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CompanyToggle">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition GeneratedDuration="0:0:0.3">
+                        <VisualTransition.GeneratedEasingFunction>
+                            <CubicEase EasingMode="EaseInOut" />
+                        </VisualTransition.GeneratedEasingFunction>
+                    </VisualTransition>
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="CompanyClosed" />
+                <VisualState x:Name="CompanyOpen">
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                                       Storyboard.TargetName="grid">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="300" />
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="PersonToggle">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition GeneratedDuration="0:0:0.3">
+                        <VisualTransition.GeneratedEasingFunction>
+                            <CubicEase EasingMode="EaseInOut" />
+                        </VisualTransition.GeneratedEasingFunction>
+                    </VisualTransition>
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="PersonClosed" />
+                <VisualState x:Name="PersonOpen">
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                                       Storyboard.TargetName="grid1">
+                            <EasingDoubleKeyFrame KeyTime="0"
+                                                  Value="300" />
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0"
+                   Content="NIP" />
+            <TextBox Grid.Row="0"
+                     Grid.Column="1" />
+
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Content="NIP" />
+            <TextBox Grid.Row="0"
+                     Grid.Column="1" />
+
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Content="Nazwa" />
+            <TextBox Grid.Row="1"
+                     Grid.Column="1" />
+
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   Content="Kod" />
+            <TextBox Grid.Row="2"
+                     Grid.Column="1" />
+
+            <Label Grid.Row="3"
+                   Grid.Column="0"
+                   Content="Miasto" />
+            <TextBox Grid.Row="3"
+                     Grid.Column="1" />
+
+            <Label Grid.Row="4"
+                   Grid.Column="0"
+                   Content="Numer ulicy" />
+            <TextBox Grid.Row="4"
+                     Grid.Column="1" />
+
+            <Label Grid.Row="5"
+                   Grid.Column="0"
+                   Content="Lista usług dla faktury" />
+            <ListBox Grid.Row="5"
+                     Grid.Column="1" />
+        </Grid>
+
+        <Grid x:Name="grid"
+              Grid.Column="1"
+              Width="0">
+            <ListView>
+                <ListViewItem>
+                    <Label Content="firma jeden" />
+                </ListViewItem>
+                <ListViewItem>
+                    <Label Content="firma dwa" />
+                </ListViewItem>
+                <ListViewItem>
+                    <Label Content="firma trzy" />
+                </ListViewItem>
+            </ListView>
+        </Grid>
+
+        <Grid x:Name="grid1"
+              Grid.Column="2"
+              Width="0">
+            <ListView>
+                <ListViewItem>
+                    <Label Content="osoba jeden" />
+                </ListViewItem>
+                <ListViewItem>
+                    <Label Content="osoba dwa" />
+                </ListViewItem>
+                <ListViewItem>
+                    <Label Content="osoba trzy" />
+                </ListViewItem>
+            </ListView>
+        </Grid>
+
+        <Grid Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0"
+                    Margin="5">
+                <TextBlock Text="Wybierz firme ">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <ei:CallMethodAction MethodName="CompanyToggleIsOpen"
+                                                 TargetObject="{Binding ElementName=window}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+            </Button>
+
+            <Button Grid.Row="1"
+                    Margin="5">
+                <TextBlock Text="Wybierz osoby ">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <ei:CallMethodAction TargetObject="{Binding ElementName=window}"
+                                                 MethodName="PersonToggleIsOpen" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBlock>
+            </Button>
+
+        </Grid>
+
+    </Grid>
+</Window>
