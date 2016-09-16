@@ -7,6 +7,7 @@
         xmlns:helpers="clr-namespace:AppCBMP.Helpers"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
         x:Name="Window"
         x:Class="AppCBMP.View.RegistrationView"
         mc:Ignorable="d ignore"
@@ -131,6 +132,7 @@
                            Content="Pesel" />
                     <TextBox Grid.Row="0"
                              Grid.Column="1">
+
                         <Binding Path="Registration.PeselTxtField"
                                  Mode="TwoWay"
                                  UpdateSourceTrigger="PropertyChanged"
@@ -147,7 +149,8 @@
                            Grid.Column="0"
                            Content="Imie" />
                     <TextBox Grid.Row="1"
-                             Grid.Column="1">
+                             Grid.Column="1"
+                             behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding ListaImion}">
                         <Binding Path="Registration.CurrentlyRegisteredPerson.FirstName"
                                  Mode="TwoWay"
                                  UpdateSourceTrigger="PropertyChanged"
@@ -439,7 +442,7 @@
                               DisplayMemberPath="Name"
                               Grid.Column="1"
                               Grid.Row="0"
-                              SelectedItem="{Binding Registration.ExaminationType, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                              SelectedItem="{Binding Registration.ExaminationType, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Grid.Row="1"
                            Grid.Column="0"
@@ -480,7 +483,8 @@
                                 Grid.Column="0">
                         <Label Content="Stanowisko" />
 
-                        <TextBox x:Name="PositionTxtBox" Width="160"
+                        <TextBox x:Name="PositionTxtBox"
+                                 Width="160"
                                  Text="{Binding Registration.PositionTxtField, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
                         <Button  Width="30"
                                  Height="30"
@@ -604,7 +608,6 @@
                         Content="Dodaj osobę do listy" />
             </Grid>
         </Viewbox>
-        <Viewbox Grid.Column="2">
         <Grid Grid.Column="2">
             <ListBox Background="White"
                      ItemsSource="{Binding Registration.Persons}"
@@ -662,7 +665,6 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            </Grid>
-        </Viewbox>
+        </Grid>
     </Grid>
 </Window>

@@ -40,6 +40,9 @@ namespace AppCBMP.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<RegistrationViewModel>();
+            SimpleIoc.Default.Register<InvoiceViewModel>();
+
+            
         }
 
         /// <summary>
@@ -51,6 +54,8 @@ namespace AppCBMP.ViewModel
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
 
         public RegistrationViewModel Registration => ServiceLocator.Current.GetInstance<RegistrationViewModel>();
+
+        public InvoiceViewModel Invoice => ServiceLocator.Current.GetInstance<InvoiceViewModel>();
 
         /// <summary>
         /// Cleans up all the resources.
