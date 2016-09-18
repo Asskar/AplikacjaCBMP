@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity.ModelConfiguration;
 using AppCBMP.Model;
+using Model;
 
 namespace AppCBMP.DAL.EntityConfiguration
 {

@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppCBMP", "AppCBMP\AppCBMP.csproj", "{DFC5583A-6347-426B-B62C-B6C6D0901C29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{5B16972D-97E5-4AEA-A7D8-27F55A297B9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DFC5583A-6347-426B-B62C-B6C6D0901C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFC5583A-6347-426B-B62C-B6C6D0901C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFC5583A-6347-426B-B62C-B6C6D0901C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B16972D-97E5-4AEA-A7D8-27F55A297B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B16972D-97E5-4AEA-A7D8-27F55A297B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B16972D-97E5-4AEA-A7D8-27F55A297B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B16972D-97E5-4AEA-A7D8-27F55A297B9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

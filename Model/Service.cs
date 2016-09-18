@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AppCBMP.Model
+namespace Model
 {
     public class Service
     {

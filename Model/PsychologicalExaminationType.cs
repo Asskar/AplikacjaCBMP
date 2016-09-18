@@ -1,4 +1,4 @@
-﻿namespace AppCBMP.Model
+﻿namespace Model
 {
     public class PsychologicalExaminationType
     {

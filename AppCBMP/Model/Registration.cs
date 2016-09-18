@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using AppCBMP.DAL.Persistence;
 using GalaSoft.MvvmLight;
+using Model;
 
 namespace AppCBMP.Model
 {

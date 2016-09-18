@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AppCBMP.Model
+namespace Model
 {
     public class PsychologicalExamination : Service
     {

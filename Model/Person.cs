@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using GalaSoft.MvvmLight;
 
-namespace AppCBMP.Model
+namespace Model
 {
-    public class Person:ObservableObject
+    public class Person
     {
         public int Id { get; set; }
         public string Pesel { get; set; }

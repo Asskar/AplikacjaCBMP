@@ -2,6 +2,7 @@
 using System.Data.Entity.Migrations;
 using System.Linq;
 using AppCBMP.Model;
+using Model;
 
 namespace AppCBMP.DAL.Repositories
 {

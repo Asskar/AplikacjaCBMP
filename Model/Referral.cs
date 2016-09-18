@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace AppCBMP.Model
+namespace Model
 {
-    public class Company
+    public class Referral
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
         public ICollection<Service> Services { get; set; }
-
     }
 }
