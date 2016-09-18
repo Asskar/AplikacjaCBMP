@@ -10,9 +10,6 @@ namespace AppCBMP.Model
         public DateTime DateOfRelease { get; set; }
         public int PaymentTime { get; set; }
 
-        public int CompanyId { get; set; }
-        public Company Company { get; set; }
-
         public ICollection<Service> Services { get; set; }
     }
 }
