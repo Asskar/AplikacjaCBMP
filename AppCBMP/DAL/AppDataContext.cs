@@ -28,9 +28,6 @@ namespace AppCBMP.DAL
 
         public DbSet<Person> Persons { get; set; }
         public DbSet<Company> Companies { get; set; }
-        public DbSet<Service> Services { get; set; }
-        public DbSet<PsychologicalExaminationType> PsychologicalExaminationTypes { get; set; }
-        public DbSet<PsychologicalExamination> PsychologicalExaminations { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<Referral> Referrals { get; set; }
 //        public DbSet<Invoice> Invoices { get; set; }

@@ -10,6 +10,5 @@ namespace Model
         public DateTime DateOfRelease { get; set; }
         public int PaymentTime { get; set; }
 
-        public ICollection<Service> Services { get; set; }
     }
 }

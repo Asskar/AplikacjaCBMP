@@ -16,30 +16,24 @@ namespace AppCBMP.Model
         private string _referralTxtField;
         private string _positionTxtField;
         private string _peselTxtField;
-        private PsychologicalExaminationType _examinationType;
         private Person _currentlyRegisteredPerson;
         private Company _currentlySelectedCompany;
         private Referral _currentlySelectedReferral;
-        private Service _service;
         private ObservableCollection<Person> _persons;
         private List<Company> _companies;
         private List<Referral> _referrals;
         private List<Position> _positions;
-        private List<PsychologicalExaminationType> _examinationTypes;
         private ObservableCollection<Position> _currentlyRegisteredPersonPositions;
 
         public Registration(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _currentlyRegisteredPerson = new Person
-            {
-                Services = new List<Service>()
-            };
+            _currentlyRegisteredPerson = new Person();
+            
             _persons = new ObservableCollection<Person>();
             _companies = new List<Company>(_unitOfWork.Company.GetAllCompanies());
             _positions = new List<Position>(_unitOfWork.Position.GetAllPositions());
             _referrals = new List<Referral>(_unitOfWork.Referral.GetAllReferrals());
-            _examinationTypes= new List<PsychologicalExaminationType>(_unitOfWork.Service.GetAllExaminationTypes());
             _currentlyRegisteredPersonPositions= new ObservableCollection<Position>();
         }
 
@@ -59,11 +53,6 @@ namespace AppCBMP.Model
         {
             get { return _currentlySelectedReferral; }
             set { Set(() => CurrentlySelectedReferral, ref _currentlySelectedReferral, value); }
-        }
-        public Service Service
-        {
-            get { return _service; }
-            set { Set(() => Service, ref _service, value); }
         }
         public ObservableCollection<Person> Persons
         {
@@ -85,23 +74,12 @@ namespace AppCBMP.Model
             get { return _positions; }
             set { Set(() => Positions, ref _positions, value); }
         }
-        public List<PsychologicalExaminationType> ExaminationTypes
-        {
-            get { return _examinationTypes; }
-            set { Set(() => ExaminationTypes, ref _examinationTypes, value); }
-        }
         public ObservableCollection<Position> CurrentlyRegisteredPersonPositions
         {
             get { return _currentlyRegisteredPersonPositions; }
             set { Set(() => CurrentlyRegisteredPersonPositions, ref _currentlyRegisteredPersonPositions, value); }
         }
 
-
-        public PsychologicalExaminationType ExaminationType
-        {
-            get { return _examinationType; }
-            set { Set(() => ExaminationType, ref _examinationType, value); }
-        }
         public string PeselTxtField
         {
             get { return _peselTxtField; }
@@ -216,39 +194,22 @@ namespace AppCBMP.Model
 
         private void AddService()
         {
-            _service = new PsychologicalExamination()
-            {
-                DateTimeOfService = DateTime.Now.Date,
-                Person = _currentlyRegisteredPerson,
-                PersonId = _currentlyRegisteredPerson.Id,
-                Company = _currentlySelectedCompany,
-                CompanyId = _currentlySelectedCompany.Id,
-                Referral = _currentlySelectedReferral,
-                ReferralId = _currentlySelectedReferral.Id,
-                Type = _examinationType,
-                Positions = Positions
-            };
-            _unitOfWork.Service.Add(_service);
+            
         }
         private void ClearPersondata()
         {
-            _currentlyRegisteredPerson = new Person
-            {
-                Services = new List<Service>()
-            };
+            _currentlyRegisteredPerson = new Person();
             _currentlyRegisteredPersonPositions = new ObservableCollection<Position>();
             CompanyTxtField = string.Empty;
             PositionTxtField = string.Empty;
             ReferralTxtField = string.Empty;
             PeselTxtField = string.Empty;
-            ExaminationType = new PsychologicalExaminationType();
             RaisePropertyChanged(() => CurrentlyRegisteredPerson);
             RaisePropertyChanged(() => CurrentlyRegisteredPersonPositions);
             RaisePropertyChanged(() => CompanyTxtField);
             RaisePropertyChanged(() => PositionTxtField);
             RaisePropertyChanged(() => ReferralTxtField);
             RaisePropertyChanged(() => PeselTxtField);
-            RaisePropertyChanged(() => ExaminationType);
         }
         public void CompleteRegistration()
         {
