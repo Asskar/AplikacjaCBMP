@@ -99,6 +99,7 @@
     <Compile Include="DAL\Repositories\CompanyRepository.cs" />
     <Compile Include="DAL\Repositories\PersonRepository.cs" />
     <Compile Include="DAL\Repositories\PositionRepository.cs" />
+    <Compile Include="DAL\Repositories\PsychologicalServiceRepository.cs" />
     <Compile Include="DAL\Repositories\ReferralRepository.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Helpers\ValidationRules\CharsValidationRule.cs" />
@@ -121,6 +122,10 @@
     <Compile Include="Migrations\201609201126172_ServicesRemodeling.cs" />
     <Compile Include="Migrations\201609201126172_ServicesRemodeling.Designer.cs">
       <DependentUpon>201609201126172_ServicesRemodeling.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609201211377_PsychologicalService.cs" />
+    <Compile Include="Migrations\201609201211377_PsychologicalService.Designer.cs">
+      <DependentUpon>201609201211377_PsychologicalService.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Data\DataItem.cs" />
@@ -187,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609201126172_ServicesRemodeling.resx">
       <DependentUpon>201609201126172_ServicesRemodeling.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609201211377_PsychologicalService.resx">
+      <DependentUpon>201609201211377_PsychologicalService.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

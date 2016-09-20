@@ -4,6 +4,8 @@ namespace AppCBMP.DAL.Persistence
 {
     public class UnitOfWork
     {
+        private readonly AppDataContext _context;
+
         public UnitOfWork(AppDataContext context)
         {
             _context = context;
@@ -11,16 +13,14 @@ namespace AppCBMP.DAL.Persistence
             Referral = new ReferralRepository(context);
             Position = new PositionRepository(context);
             Person = new PersonRepository(context);
+            PsychologicalService = new PsychologicalServiceRepository(context);
         }
-
-
-
-        private readonly AppDataContext _context;
 
         public CompanyRepository Company { get; set; }
         public ReferralRepository Referral { get; set; }
         public PositionRepository Position { get; set; }
         public PersonRepository Person { get; set; }
+        public PsychologicalServiceRepository PsychologicalService { get; set; }
 
         public void Complete()
         {

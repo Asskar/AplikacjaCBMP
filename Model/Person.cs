@@ -17,5 +17,6 @@ namespace Model
         public string Education { get; set; }
         public long? PhoneNumber { get; set; }
 
+        public ICollection<PsychologicalService> PsychologicalServices { get; set; }
     }
 }
