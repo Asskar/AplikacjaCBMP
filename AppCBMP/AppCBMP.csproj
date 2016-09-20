@@ -118,6 +118,10 @@
     <Compile Include="Migrations\201609161855189_ModelsConfig.Designer.cs">
       <DependentUpon>201609161855189_ModelsConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609201126172_ServicesRemodeling.cs" />
+    <Compile Include="Migrations\201609201126172_ServicesRemodeling.Designer.cs">
+      <DependentUpon>201609201126172_ServicesRemodeling.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Data\DataItem.cs" />
     <Compile Include="Model\Data\DataService.cs" />
@@ -180,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609161855189_ModelsConfig.resx">
       <DependentUpon>201609161855189_ModelsConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609201126172_ServicesRemodeling.resx">
+      <DependentUpon>201609201126172_ServicesRemodeling.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
