@@ -1,4 +1,6 @@
-﻿namespace AppCBMP.DAL.Repositories
+﻿using Model;
+
+namespace AppCBMP.DAL.Repositories
 {
     public class PsychologicalServiceRepository
     {
@@ -7,6 +9,11 @@
         public PsychologicalServiceRepository(AppDataContext context)
         {
             _context = context;
+        }
+
+        public void Add(PsychologicalService psychologicalService)
+        {
+            _context.PsychologicalServices.Add(psychologicalService);
         }
     }
 }

@@ -437,13 +437,11 @@
 
                     <Label Grid.Row="0"
                            Grid.Column="0"
-                           Content="Wybierz rejstr" />
-                    <ComboBox ItemsSource="{Binding Registration.ExaminationTypes, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                              DisplayMemberPath="Name"
-                              Grid.Column="1"
-                              Grid.Row="0"
-                              SelectedItem="{Binding Registration.ExaminationType, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
-
+                           Content="Cena Badania" />
+                    <TextBox Grid.Row="0"
+                             Grid.Column="1"
+                             Text="{Binding Registration.PsychologicalService.Price, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
+                    
                     <Label Grid.Row="1"
                            Grid.Column="0"
                            Content="Pracodawca" />
@@ -454,7 +452,8 @@
                               Grid.Row="1"
                               ShouldPreserveUserEnteredPrefix="True"
                               IsTextSearchEnabled="False"
-                              Text="{Binding Registration.CompanyTxtField, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                              Text="{Binding Registration.CompanyTxtField, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                              IsSynchronizedWithCurrentItem="False" />
 
                     <Label Grid.Row="2"
                            Grid.Column="0"
@@ -551,7 +550,7 @@
                     <StackPanel Grid.Row="2">
                         <Label Content="Dodane stanowiska"
                                HorizontalAlignment="Left" />
-                        <ListBox ItemsSource="{Binding Registration.CurrentlyRegisteredPersonPositions, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
+                        <ListBox ItemsSource="{Binding Registration.CurrentlySelectedPositions, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
                             <ListBox.Resources>
                                 <Style TargetType="{x:Type ListViewItem}">
                                     <Style.Triggers>

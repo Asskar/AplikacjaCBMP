@@ -15,13 +15,14 @@ namespace AppCBMP.DAL.Repositories
         }
         public IEnumerable<Position> GetAllPositions()
         {
-            return _context.Positions.ToList();
+            return _context.Positions;
         }
 
         public IEnumerable<Position> GetFilterdPositions(string filter)
         {
-            return _context.Positions.Where(p => p.Name.Contains(filter)).
-                ToList();
+            return filter != null
+                ? _context.Positions.Where(p => p.Name.Contains(filter))
+                : GetAllPositions();
         }
 
         public void Add(Position position)
@@ -36,6 +37,16 @@ namespace AppCBMP.DAL.Repositories
         public Position GetPosition(string positionName)
         {
             return _context.Positions.First(p => p.Name == positionName);
+        }
+
+        public Position SelectOrAdd(Position position)
+        {
+
+            if (CheckIfExists(position.Name))
+                return GetPosition(position.Name);
+            Add(position);
+            _context.SaveChanges();
+            return GetPosition(position.Name);
         }
     }
 }

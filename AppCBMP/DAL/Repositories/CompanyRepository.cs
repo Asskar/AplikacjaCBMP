@@ -39,5 +39,14 @@ namespace AppCBMP.DAL.Repositories
         {
             return _context.Companies.First(c => c.Name == companyName);
         }
+
+        public Company SelectOrAdd(Company company)
+        {
+            if (CheckIfExists(company.Name))
+                return GetCompany(company.Name);
+            Add(company);
+            _context.SaveChanges();
+            return GetCompany(company.Name);
+        }
     }
 }

@@ -34,5 +34,14 @@ namespace AppCBMP.DAL.Repositories
         {
             return _context.Persons.Any(p => p.Pesel == pesel);
         }
+
+        public Person SelectOrAdd(Person person)
+        {
+            if (CheckIfExists(person.Pesel))
+                return GetPerson(person.Pesel);
+            Add(person);
+            _context.SaveChanges();
+            return GetPerson(person.Pesel);
+        }
     }
 }

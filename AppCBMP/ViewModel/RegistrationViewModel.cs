@@ -27,7 +27,7 @@ namespace AppCBMP.ViewModel
         public RegistrationViewModel()
         {
             _registration = new Registration(new UnitOfWork(new AppDataContext()));
-            _addPersonToDbCommand = new RelayCommand(AddPersonToDb, IsValid);
+            _addPersonToDbCommand = new RelayCommand(AddPersonToDb);
             _addPositionToListCommand = new RelayCommand<Position>(AddPositionToService);
             _removePositionFromListCommand = new RelayCommand<Position>(RemovePositionFromService);
             _removePersonFromListCommand = new RelayCommand<Person>(RemovePersonFromList);
@@ -117,10 +117,6 @@ namespace AppCBMP.ViewModel
             string message = $"Usunięto z listy: {obj.FirstName} {obj.LastName}";
             MessageBox.Show(message);
             _registration.Persons.Remove(obj);
-        }
-        private bool IsValid()
-        {
-            return true;
         }
     }
 }

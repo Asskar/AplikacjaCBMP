@@ -38,5 +38,14 @@ namespace AppCBMP.DAL.Repositories
         {
             return _context.Referrals.First(r => r.Name == referralName);
         }
+
+        public Referral SelectOrAdd(Referral referral)
+        {
+            if (CheckIfExists(referral.Name))
+                return GetReferral(referral.Name);
+            Add(referral);
+            _context.SaveChanges();
+            return GetReferral(referral.Name);
+        }
     }
 }

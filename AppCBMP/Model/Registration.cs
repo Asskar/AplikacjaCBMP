@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using AppCBMP.DAL.Persistence;
 using GalaSoft.MvvmLight;
 using Model;
@@ -12,72 +11,32 @@ namespace AppCBMP.Model
     public class Registration : ObservableObject
     {
         private readonly UnitOfWork _unitOfWork;
+
         private string _companyTxtField;
-        private string _referralTxtField;
-        private string _positionTxtField;
         private string _peselTxtField;
+        private string _positionTxtField;
+        private string _referralTxtField;
         private Person _currentlyRegisteredPerson;
         private Company _currentlySelectedCompany;
         private Referral _currentlySelectedReferral;
-        private ObservableCollection<Person> _persons;
+        private PsychologicalService _psychologicalService;
         private List<Company> _companies;
-        private List<Referral> _referrals;
         private List<Position> _positions;
-        private ObservableCollection<Position> _currentlyRegisteredPersonPositions;
-
+        private List<Referral> _referrals;
+        private ObservableCollection<Position> _currentlySelectedPositions;
+        private ObservableCollection<Person> _persons;
+        
         public Registration(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _currentlyRegisteredPerson = new Person();
-            
+
             _persons = new ObservableCollection<Person>();
             _companies = new List<Company>(_unitOfWork.Company.GetAllCompanies());
             _positions = new List<Position>(_unitOfWork.Position.GetAllPositions());
             _referrals = new List<Referral>(_unitOfWork.Referral.GetAllReferrals());
-            _currentlyRegisteredPersonPositions= new ObservableCollection<Position>();
-        }
-
-
-
-        public Person CurrentlyRegisteredPerson
-        {
-            get { return _currentlyRegisteredPerson; }
-            set { Set(() => CurrentlyRegisteredPerson, ref _currentlyRegisteredPerson, value); }
-        }
-        public Company CurrentlySelectedCompany
-        {
-            get { return _currentlySelectedCompany; }
-            set { Set(() => CurrentlySelectedCompany, ref _currentlySelectedCompany, value); }
-        }
-        public Referral CurrentlySelectedReferral
-        {
-            get { return _currentlySelectedReferral; }
-            set { Set(() => CurrentlySelectedReferral, ref _currentlySelectedReferral, value); }
-        }
-        public ObservableCollection<Person> Persons
-        {
-            get { return _persons; }
-            set { Set(() => Persons, ref _persons, value); }
-        }
-        public List<Company> Companies
-        {
-            get { return _companies; }
-            set { Set(() => Companies, ref _companies, value); }
-        }
-        public List<Referral> Referrals
-        {
-            get { return _referrals; }
-            set { Set(() => Referrals, ref _referrals, value); }
-        }
-        public List<Position> Positions
-        {
-            get { return _positions; }
-            set { Set(() => Positions, ref _positions, value); }
-        }
-        public ObservableCollection<Position> CurrentlyRegisteredPersonPositions
-        {
-            get { return _currentlyRegisteredPersonPositions; }
-            set { Set(() => CurrentlyRegisteredPersonPositions, ref _currentlyRegisteredPersonPositions, value); }
+            _currentlySelectedPositions = new ObservableCollection<Position>();
+            _psychologicalService = new PsychologicalService();
         }
 
         public string PeselTxtField
@@ -86,10 +45,11 @@ namespace AppCBMP.Model
             set
             {
                 Set(() => PeselTxtField, ref _peselTxtField, value);
-                if (_peselTxtField.Length == 11 && _unitOfWork.Person.CheckIfExists(_peselTxtField))
+                if (_peselTxtField.Length == 11
+                    && _unitOfWork.Person.CheckIfExists(_peselTxtField))
                     _currentlyRegisteredPerson = _unitOfWork.Person.GetPerson(PeselTxtField);
                 _currentlyRegisteredPerson.Pesel = PeselTxtField;
-                RaisePropertyChanged(()=>CurrentlyRegisteredPerson);
+                RaisePropertyChanged(() => CurrentlyRegisteredPerson);
             }
         }
 
@@ -98,19 +58,10 @@ namespace AppCBMP.Model
             get { return _companyTxtField; }
             set
             {
-                if (_companyTxtField != null)
-                {
-                    if (value.Length == _companyTxtField.Length + 1
-                        || value.Length == _companyTxtField.Length - 1)
-                        _companies =
-                            _unitOfWork.Company.GetFilterdCompanies(value).ToList();
-                    else if (value == string.Empty)
-                        _companies =
-                            _unitOfWork.Company.GetAllCompanies().
-                                ToList();
-                }
-                else
-                    _companies = _unitOfWork.Company.GetAllCompanies().ToList();
+                if (_companyTxtField != null
+                    && (value.Length == _companyTxtField.Length + 1
+                        || value.Length == _companyTxtField.Length - 1))
+                    UpdateCompaniesCollection(value);
                 Set(() => CompanyTxtField, ref _companyTxtField, value);
             }
         }
@@ -120,146 +71,144 @@ namespace AppCBMP.Model
             get { return _referralTxtField; }
             set
             {
-                if (_referralTxtField != null)
-                {
-                    if (value.Length == _referralTxtField.Length + 1
-                        || value.Length == _referralTxtField.Length - 1)
-                        _referrals =
-                           _unitOfWork.Referral.GetFilterdReferrals(value).ToList();
-                    else if (value == string.Empty)
-                        _referrals =
-                           _unitOfWork.Referral.GetAllReferrals().ToList();
-                }
-                else
-                    _referrals = _unitOfWork.Referral.GetAllReferrals().ToList();
+                if (_referralTxtField != null
+                    && (value.Length == _referralTxtField.Length + 1
+                        || value.Length == _referralTxtField.Length - 1))
+                    UpdateReferralsCollection(value);
                 Set(() => ReferralTxtField, ref _referralTxtField, value);
             }
         }
+
         public string PositionTxtField
         {
             get { return _positionTxtField; }
             set
             {
-                if (_positionTxtField != null)
-                {
-                    if (value.Length == _positionTxtField.Length + 1
-                        || value.Length == _positionTxtField.Length - 1)
-                        Positions =
-                            _unitOfWork.Position.GetFilterdPositions(value).ToList();
-                    else if (value == string.Empty)
-                        Positions =
-                            _unitOfWork.Position.GetAllPositions().ToList();
-                }
-                else
-                    _positions=_unitOfWork.Position.GetAllPositions().ToList();
+                if (_positionTxtField != null
+                    && (value.Length == _positionTxtField.Length + 1
+                        || value.Length == _positionTxtField.Length - 1))
+                    UpdatePositionsCollection(value);
                 Set(() => PositionTxtField, ref _positionTxtField, value);
             }
         }
-        private void AddOrSelectPerson()
-        {
-            if(!_unitOfWork.Person.CheckIfExists(_currentlyRegisteredPerson.Pesel))
-            {
-                _unitOfWork.Person.Add(_currentlyRegisteredPerson);
-            }
-            else
-            {
-                _currentlyRegisteredPerson = _unitOfWork.Person.GetPerson(_currentlyRegisteredPerson.Pesel);
-            }
 
+        public Person CurrentlyRegisteredPerson
+        {
+            get { return _currentlyRegisteredPerson; }
+            set { Set(() => CurrentlyRegisteredPerson, ref _currentlyRegisteredPerson, value); }
         }
 
-        private void AddOrSelectCompany()
+        public PsychologicalService PsychologicalService
         {
-            if (!_unitOfWork.Company.CheckIfExists(_companyTxtField))
-            {
-                _unitOfWork.Company.Add(_currentlySelectedCompany);
-            }
-            else
-            {
-                _currentlySelectedCompany = _unitOfWork.Company.GetCompany(_companyTxtField);
-            }
+            get { return _psychologicalService; }
+            set { Set(() => PsychologicalService, ref _psychologicalService, value); }
         }
 
-        private void AddOrSelectReferral()
+        public List<Company> Companies
         {
-            if (!_unitOfWork.Referral.CheckIfExists(_referralTxtField))
-            {
-                _unitOfWork.Referral.Add(_currentlySelectedReferral);
-            }
-            else
-            {
-                _currentlySelectedReferral = _unitOfWork.Referral.GetReferral(_referralTxtField);
-            }
+            get { return _companies; }
+            set { Set(() => Companies, ref _companies, value); }
         }
 
-        private void AddService()
+        public List<Referral> Referrals
         {
-            
+            get { return _referrals; }
+            set { Set(() => Referrals, ref _referrals, value); }
         }
+
+        public List<Position> Positions
+        {
+            get { return _positions; }
+            set { Set(() => Positions, ref _positions, value); }
+        }
+
+        public ObservableCollection<Person> Persons
+        {
+            get { return _persons; }
+            set { Set(() => Persons, ref _persons, value); }
+        }
+
+        public ObservableCollection<Position> CurrentlySelectedPositions
+        {
+            get { return _currentlySelectedPositions; }
+            set { Set(() => CurrentlySelectedPositions, ref _currentlySelectedPositions, value); }
+        }
+
+       
+
+        private void UpdatePositionsCollection(string value)
+        {
+            _positions = _unitOfWork.Position.GetFilterdPositions(value).
+                ToList();
+        }
+
+        private void UpdateCompaniesCollection(string value)
+        {
+            _companies = _unitOfWork.Company.GetFilterdCompanies(value).
+                ToList();
+        }
+
+        private void UpdateReferralsCollection(string value)
+        {
+            _referrals = _unitOfWork.Referral.GetFilterdReferrals(value).
+                ToList();
+        }
+
         private void ClearPersondata()
         {
             _currentlyRegisteredPerson = new Person();
-            _currentlyRegisteredPersonPositions = new ObservableCollection<Position>();
-            CompanyTxtField = string.Empty;
-            PositionTxtField = string.Empty;
-            ReferralTxtField = string.Empty;
-            PeselTxtField = string.Empty;
+            _currentlySelectedPositions = new ObservableCollection<Position>();
+            _psychologicalService = new PsychologicalService();
+            _companyTxtField = string.Empty;
+            _positionTxtField = string.Empty;
+            _referralTxtField = string.Empty;
+            _peselTxtField = string.Empty;
             RaisePropertyChanged(() => CurrentlyRegisteredPerson);
-            RaisePropertyChanged(() => CurrentlyRegisteredPersonPositions);
+            RaisePropertyChanged(() => CurrentlySelectedPositions);
+            RaisePropertyChanged(() => PsychologicalService);
             RaisePropertyChanged(() => CompanyTxtField);
             RaisePropertyChanged(() => PositionTxtField);
             RaisePropertyChanged(() => ReferralTxtField);
             RaisePropertyChanged(() => PeselTxtField);
         }
+
         public void CompleteRegistration()
         {
-            _currentlySelectedCompany = new Company() {Name = _companyTxtField};
-            _currentlySelectedReferral = new Referral() {Name = _referralTxtField};
-
-            
-            AddOrSelectCompany();
-            AddOrSelectReferral();
-            AddOrSelectPerson();
-            
-            
-
-
-            _unitOfWork.Complete();
-            _currentlyRegisteredPerson = _unitOfWork.Person.GetPerson(_peselTxtField);
-            _currentlySelectedCompany = _unitOfWork.Company.GetCompany(_companyTxtField);
-            _currentlySelectedReferral = _unitOfWork.Referral.GetReferral(_referralTxtField);
-            AddService();
+            _currentlySelectedCompany = _unitOfWork.Company.SelectOrAdd(new Company {Name = _companyTxtField});
+            _currentlySelectedReferral = _unitOfWork.Referral.SelectOrAdd(new Referral {Name = _referralTxtField});
+            _currentlyRegisteredPerson = _unitOfWork.Person.SelectOrAdd(_currentlyRegisteredPerson);
+            _unitOfWork.PsychologicalService.Add(_psychologicalService = new PsychologicalService
+            {
+                DateTimeOfService = DateTime.Now.Date,
+                Person = _currentlyRegisteredPerson,
+                PersonId = _currentlyRegisteredPerson.Id,
+                Company = _currentlySelectedCompany,
+                CompanyId = _currentlySelectedCompany.Id,
+                Referral = _currentlySelectedReferral,
+                ReferralId = _currentlySelectedReferral.Id,
+                Positions = _currentlySelectedPositions
+            });
             _unitOfWork.Complete();
             _persons.Add(_currentlyRegisteredPerson);
+
             ClearPersondata();
-        }
-
-
-
-        public void RemovePositionFromService(Position position)
-        {
-            _currentlyRegisteredPersonPositions.Remove(position);
         }
 
         public void AddNewPositionToDb(string positionName)
         {
-            Position p = new Position() {Name = positionName};
-            if (!_unitOfWork.Position.CheckIfExists(positionName))
-            {
-                _unitOfWork.Position.Add(p);
-                
-            }
-            else
-            {
-                p = _unitOfWork.Position.GetPosition(positionName);
-            }
-            _currentlyRegisteredPersonPositions.Add(p);
-            _unitOfWork.Complete();
+            var p = _unitOfWork.Position.SelectOrAdd(new Position() {Name = positionName});
+            _currentlySelectedPositions.Add(p);
+        }
+
+        public void RemovePositionFromService(Position position)
+        {
+            _currentlySelectedPositions.Remove(position);
         }
 
         public void AddPositionToService(Position position)
         {
-            _currentlyRegisteredPersonPositions.Add(position);
+            _currentlySelectedPositions.Add(position);
         }
+       
     }
 }
