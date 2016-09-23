@@ -416,8 +416,7 @@
                 </Grid>
             </Grid>
         </Viewbox>
-        <Viewbox VerticalAlignment="Top"
-                 Grid.Column="1">
+        <Viewbox Grid.Column="1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -433,39 +432,51 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="0"
                            Grid.Column="0"
-                           Content="Cena Badania" />
-                    <TextBox Grid.Row="0"
-                             Grid.Column="1"
-                             Text="{Binding Registration.PsychologicalService.Price, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
-                    
+                           Content="Typ badania" />
+                    <ComboBox ItemsSource="{Binding Registration.PsychologicalServiceTypes , Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                              IsEditable="False"
+                              DisplayMemberPath="Name"
+                              Grid.Column="1"
+                              Grid.Row="0"
+                              ShouldPreserveUserEnteredPrefix="True"
+                              IsTextSearchEnabled="True"
+                              IsSynchronizedWithCurrentItem="False"
+                              SelectedItem="{Binding Registration.CurrentlySelectedType}" />
+
                     <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="Skierowanie" />
+                    <ComboBox ItemsSource="{Binding Registration.Referrals, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                              IsEditable="True"
+                              DisplayMemberPath="Name"
+                              Grid.Column="1"
+                              Grid.Row="1"
+                              ShouldPreserveUserEnteredPrefix="True"
+                              IsTextSearchEnabled="True"
+                              Text="{Binding Registration.ReferralTxtField, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                              IsSynchronizedWithCurrentItem="False" />
+                    
+                    <Label Grid.Row="2"
                            Grid.Column="0"
                            Content="Pracodawca" />
                     <ComboBox ItemsSource="{Binding Registration.Companies, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                               IsEditable="True"
                               DisplayMemberPath="Name"
                               Grid.Column="1"
-                              Grid.Row="1"
+                              Grid.Row="2"
                               ShouldPreserveUserEnteredPrefix="True"
-                              IsTextSearchEnabled="False"
+                              IsTextSearchEnabled="True"
                               Text="{Binding Registration.CompanyTxtField, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                               IsSynchronizedWithCurrentItem="False" />
 
-                    <Label Grid.Row="2"
-                           Grid.Column="0"
-                           Content="Sierowanie" />
-                    <ComboBox ItemsSource="{Binding Registration.Referrals, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                              IsEditable="True"
-                              DisplayMemberPath="Name"
-                              Grid.Column="1"
-                              Grid.Row="2"
-                              ShouldPreserveUserEnteredPrefix="True"
-                              IsTextSearchEnabled="False"
-                              Text="{Binding Registration.ReferralTxtField, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
+                    
+
+                    
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -598,13 +609,30 @@
                         </ListBox>
                     </StackPanel>
                 </Grid>
-                <Button Command="{Binding AddPersonToDbCommand}"
-                        Grid.Row="2"
-                        Margin="5,5,10,5"
-                        Height="30"
-                        Width="150"
-                        HorizontalAlignment="Right"
-                        Content="Dodaj osobę do listy" />
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content="Cena Badania" />
+                    <TextBox Grid.Row="0"
+                             Grid.Column="1"
+                             Text="{Binding Registration.PsychologicalService.Price, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
+                    <Button Command="{Binding AddPersonToDbCommand}"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Height="30"
+                            Width="200"
+                            Margin="5"
+                            Content="Dodaj osobę do listy" />
+                </Grid>
+                
             </Grid>
         </Viewbox>
         <Grid Grid.Column="2">

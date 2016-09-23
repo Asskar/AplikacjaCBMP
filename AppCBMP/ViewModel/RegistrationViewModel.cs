@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Windows;
 using AppCBMP.DAL;
 using AppCBMP.DAL.Persistence;
 using AppCBMP.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using Model;
 
 namespace AppCBMP.ViewModel
@@ -22,7 +19,6 @@ namespace AppCBMP.ViewModel
         private RelayCommand<Person> _addPersonToInvoiceCommand;
         private RelayCommand _addPersonToDbCommand;
         private Registration _registration;
-        public List<string> ListaImion { get; set; }
 
         public RegistrationViewModel()
         {
@@ -34,7 +30,6 @@ namespace AppCBMP.ViewModel
             _printPersonCommand = new RelayCommand<Person>(PrintPerson);
             _addPersonToInvoiceCommand = new RelayCommand<Person>(AddPersonToInvoice);
             _addNewPositionToListCommand= new RelayCommand<string>(AddNewPositionToList);
-            ListaImion=new List<string>() {"Michał","Iga","Miłosz"};
         }
 
         public Registration Registration

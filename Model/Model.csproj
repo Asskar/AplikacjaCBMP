@@ -46,6 +46,7 @@
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PsychologicalService.cs" />
+    <Compile Include="PsychologicalServiceType.cs" />
     <Compile Include="Referral.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

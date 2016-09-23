@@ -14,6 +14,7 @@ namespace AppCBMP.DAL.Persistence
             Position = new PositionRepository(context);
             Person = new PersonRepository(context);
             PsychologicalService = new PsychologicalServiceRepository(context);
+            PsychologicalServiceTypes = new PsychologicalServiceTypesRepository(context);
         }
 
         public CompanyRepository Company { get; set; }
@@ -21,6 +22,7 @@ namespace AppCBMP.DAL.Persistence
         public PositionRepository Position { get; set; }
         public PersonRepository Person { get; set; }
         public PsychologicalServiceRepository PsychologicalService { get; set; }
+        public PsychologicalServiceTypesRepository PsychologicalServiceTypes { get; set; }
 
         public void Complete()
         {

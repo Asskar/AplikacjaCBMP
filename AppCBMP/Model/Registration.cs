@@ -19,10 +19,12 @@ namespace AppCBMP.Model
         private Person _currentlyRegisteredPerson;
         private Company _currentlySelectedCompany;
         private Referral _currentlySelectedReferral;
+        private PsychologicalServiceType _currentlySelectedType;
         private PsychologicalService _psychologicalService;
         private List<Company> _companies;
         private List<Position> _positions;
         private List<Referral> _referrals;
+        private List<PsychologicalServiceType> _psychologicalServiceTypes;
         private ObservableCollection<Position> _currentlySelectedPositions;
         private ObservableCollection<Person> _persons;
         
@@ -30,13 +32,13 @@ namespace AppCBMP.Model
         {
             _unitOfWork = unitOfWork;
             _currentlyRegisteredPerson = new Person();
-
             _persons = new ObservableCollection<Person>();
             _companies = new List<Company>(_unitOfWork.Company.GetAllCompanies());
             _positions = new List<Position>(_unitOfWork.Position.GetAllPositions());
             _referrals = new List<Referral>(_unitOfWork.Referral.GetAllReferrals());
             _currentlySelectedPositions = new ObservableCollection<Position>();
             _psychologicalService = new PsychologicalService();
+            _psychologicalServiceTypes= new List<PsychologicalServiceType>(_unitOfWork.PsychologicalServiceTypes.GetTypes());
         }
 
         public string PeselTxtField
@@ -86,7 +88,8 @@ namespace AppCBMP.Model
             {
                 if (_positionTxtField != null
                     && (value.Length == _positionTxtField.Length + 1
-                        || value.Length == _positionTxtField.Length - 1))
+                        || value.Length == _positionTxtField.Length - 1
+                        || value == string.Empty))
                     UpdatePositionsCollection(value);
                 Set(() => PositionTxtField, ref _positionTxtField, value);
             }
@@ -98,10 +101,14 @@ namespace AppCBMP.Model
             set { Set(() => CurrentlyRegisteredPerson, ref _currentlyRegisteredPerson, value); }
         }
 
+        public PsychologicalServiceType CurrentlySelectedType
+        {
+            get { return _currentlySelectedType;}
+            set { Set(() => CurrentlySelectedType, ref _currentlySelectedType, value); }
+        }
         public PsychologicalService PsychologicalService
         {
             get { return _psychologicalService; }
-            set { Set(() => PsychologicalService, ref _psychologicalService, value); }
         }
 
         public List<Company> Companies
@@ -120,6 +127,11 @@ namespace AppCBMP.Model
         {
             get { return _positions; }
             set { Set(() => Positions, ref _positions, value); }
+        }
+        public List<PsychologicalServiceType> PsychologicalServiceTypes
+        {
+            get { return _psychologicalServiceTypes; }
+            set { Set(() => PsychologicalServiceTypes, ref _psychologicalServiceTypes, value); }
         }
 
         public ObservableCollection<Person> Persons
@@ -140,18 +152,21 @@ namespace AppCBMP.Model
         {
             _positions = _unitOfWork.Position.GetFilterdPositions(value).
                 ToList();
+            RaisePropertyChanged(()=>Positions);
         }
 
         private void UpdateCompaniesCollection(string value)
         {
             _companies = _unitOfWork.Company.GetFilterdCompanies(value).
                 ToList();
+            RaisePropertyChanged(() => Companies);
         }
 
         private void UpdateReferralsCollection(string value)
         {
             _referrals = _unitOfWork.Referral.GetFilterdReferrals(value).
                 ToList();
+            RaisePropertyChanged(() => Referrals);
         }
 
         private void ClearPersondata()
@@ -159,10 +174,19 @@ namespace AppCBMP.Model
             _currentlyRegisteredPerson = new Person();
             _currentlySelectedPositions = new ObservableCollection<Position>();
             _psychologicalService = new PsychologicalService();
+            _companies = _unitOfWork.Company.GetAllCompanies().
+                ToList();
+            _referrals = _unitOfWork.Referral.GetAllReferrals().
+                ToList();
+            _positions = _unitOfWork.Position.GetAllPositions().
+                ToList();
             _companyTxtField = string.Empty;
             _positionTxtField = string.Empty;
             _referralTxtField = string.Empty;
             _peselTxtField = string.Empty;
+            RaisePropertyChanged(()=>Companies);
+            RaisePropertyChanged(()=>Referrals);
+            RaisePropertyChanged(()=>Positions);
             RaisePropertyChanged(() => CurrentlyRegisteredPerson);
             RaisePropertyChanged(() => CurrentlySelectedPositions);
             RaisePropertyChanged(() => PsychologicalService);
@@ -177,7 +201,7 @@ namespace AppCBMP.Model
             _currentlySelectedCompany = _unitOfWork.Company.SelectOrAdd(new Company {Name = _companyTxtField});
             _currentlySelectedReferral = _unitOfWork.Referral.SelectOrAdd(new Referral {Name = _referralTxtField});
             _currentlyRegisteredPerson = _unitOfWork.Person.SelectOrAdd(_currentlyRegisteredPerson);
-            _unitOfWork.PsychologicalService.Add(_psychologicalService = new PsychologicalService
+            _psychologicalService = new PsychologicalService
             {
                 DateTimeOfService = DateTime.Now.Date,
                 Person = _currentlyRegisteredPerson,
@@ -186,8 +210,21 @@ namespace AppCBMP.Model
                 CompanyId = _currentlySelectedCompany.Id,
                 Referral = _currentlySelectedReferral,
                 ReferralId = _currentlySelectedReferral.Id,
-                Positions = _currentlySelectedPositions
-            });
+                Positions = _currentlySelectedPositions,
+                PsychologicalServiceType = CurrentlySelectedType,
+                PsychologicalServiceTypeId = CurrentlySelectedType.Id,
+                PsychologicalServiceNumber = "WYMYŚL"
+            };
+            //todo
+            //Kroki dla ustawienia numeru
+            //sprawdz psychologa
+            //sprawdz rejestr
+            //sprawdz miesiąc i rok
+            //sprawdz ostaniu numer dla tego miesiąca roku
+            //dodaj do numeru jeden
+            //zapisz numer jako psycholog/rejestr/numer/miesiac/rok/lokalizacja
+            
+            _unitOfWork.PsychologicalService.Add(_psychologicalService);
             _unitOfWork.Complete();
             _persons.Add(_currentlyRegisteredPerson);
 
@@ -196,7 +233,7 @@ namespace AppCBMP.Model
 
         public void AddNewPositionToDb(string positionName)
         {
-            var p = _unitOfWork.Position.SelectOrAdd(new Position() {Name = positionName});
+            Position p = _unitOfWork.Position.SelectOrAdd(new Position() {Name = positionName});
             _currentlySelectedPositions.Add(p);
         }
 

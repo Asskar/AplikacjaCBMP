@@ -99,6 +99,7 @@
     <Compile Include="DAL\Repositories\CompanyRepository.cs" />
     <Compile Include="DAL\Repositories\PersonRepository.cs" />
     <Compile Include="DAL\Repositories\PositionRepository.cs" />
+    <Compile Include="DAL\Repositories\PsychologicalServiceTypesRepository.cs" />
     <Compile Include="DAL\Repositories\PsychologicalServiceRepository.cs" />
     <Compile Include="DAL\Repositories\ReferralRepository.cs" />
     <Compile Include="Design\DesignDataService.cs" />
@@ -126,6 +127,14 @@
     <Compile Include="Migrations\201609201211377_PsychologicalService.cs" />
     <Compile Include="Migrations\201609201211377_PsychologicalService.Designer.cs">
       <DependentUpon>201609201211377_PsychologicalService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609221144304_PsychologicalServiceType.cs" />
+    <Compile Include="Migrations\201609221144304_PsychologicalServiceType.Designer.cs">
+      <DependentUpon>201609221144304_PsychologicalServiceType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609231047238_PsychologicalServiceRegisterToType.cs" />
+    <Compile Include="Migrations\201609231047238_PsychologicalServiceRegisterToType.Designer.cs">
+      <DependentUpon>201609231047238_PsychologicalServiceRegisterToType.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Data\DataItem.cs" />
@@ -195,6 +204,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609201211377_PsychologicalService.resx">
       <DependentUpon>201609201211377_PsychologicalService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609221144304_PsychologicalServiceType.resx">
+      <DependentUpon>201609221144304_PsychologicalServiceType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609231047238_PsychologicalServiceRegisterToType.resx">
+      <DependentUpon>201609231047238_PsychologicalServiceRegisterToType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
