@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="AppCBMP.Registration.View.Components.CompanyAndReferralView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AppCBMP.Registration.View.Components"
+             xmlns:navigationEnum="clr-namespace:AppCBMP.Registration.ViewModel.Components.NavigationEnums"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding Source={StaticResource Locator}, Path=CompanyAndReferralViewModel}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0"
+               Grid.Column="0"
+               Content="Osoba" />
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
+                    DataContext="{Binding Person}"
+                    Orientation="Horizontal">
+            <Label Content="{Binding FirstName.Name}"/>
+            <Label Content="{Binding LastName}"/>
+        </StackPanel>
+
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               Content="Typ skierowania" />
+        <ComboBox ItemsSource="{Binding PsychologicalServiceTypes, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                  DisplayMemberPath="Name"
+                  SelectedItem="{Binding CurrentlySelectedPsychologicalServiceType}"
+                  Grid.Column="1"
+                  Grid.Row="1"
+                  ShouldPreserveUserEnteredPrefix="True"/>
+
+        <Label Grid.Row="2"
+               Grid.Column="0"
+               Content="Skierowanie" />
+        <ComboBox ItemsSource="{Binding Referrals, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                  IsEditable="True"
+                  DisplayMemberPath="Name"
+                  SelectedItem="{Binding CurrentlySelectedReferral}"
+                  Grid.Column="1"
+                  Grid.Row="2"
+                  ShouldPreserveUserEnteredPrefix="True"
+                  IsTextSearchEnabled="True"
+                  Text="{Binding ReferralFilter, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                  IsSynchronizedWithCurrentItem="False" />
+
+
+        <Label Grid.Row="3"
+               Grid.Column="0"
+               Content="Pracodawca" />
+        <ComboBox ItemsSource="{Binding Companies, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                  IsEditable="True"
+                  SelectedItem="{Binding CurrentlySelectedCompany}"
+                  DisplayMemberPath="Name"
+                  Grid.Column="1"
+                  Grid.Row="3"
+                  ShouldPreserveUserEnteredPrefix="True"
+                  IsTextSearchEnabled="True"
+                  Text="{Binding CompanyFilter, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
+                  IsSynchronizedWithCurrentItem="False" />
+
+        <Button Grid.Row="4"
+                Grid.Column="0"
+                Command="{Binding NavigationCommand}"
+                CommandParameter="{x:Static navigationEnum:RegistrationNavigationEnum.PersonalDataRegistrationViewModel}"
+                Content="Wstecz" />
+
+        <Button Grid.Row="4"
+                Grid.Column="1"
+                Command="{Binding NavigationCommand}"
+                CommandParameter="{x:Static navigationEnum:RegistrationNavigationEnum.SelectedServiceViewModel}" 
+                Content="Dalej"/>
+    </Grid>
+</UserControl>

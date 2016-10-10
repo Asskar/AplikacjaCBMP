@@ -6,8 +6,9 @@ namespace AppCBMP.Helpers
 {
     public class CharsValidationRule: ValidationRule
     {
-        public string PropertyName { get; set; }
-        public string CharSet { get; set; }
+        public string PropertyName { private get; set; }
+        public string CharSet { private get; set; }
+
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (value == null)

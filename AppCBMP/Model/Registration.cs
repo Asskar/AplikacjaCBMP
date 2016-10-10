@@ -19,12 +19,15 @@ namespace AppCBMP.Model
         private Person _currentlyRegisteredPerson;
         private Company _currentlySelectedCompany;
         private Referral _currentlySelectedReferral;
+        private Psychologist _currentPsychologist;
         private PsychologicalServiceType _currentlySelectedType;
         private PsychologicalService _psychologicalService;
         private List<Company> _companies;
         private List<Position> _positions;
         private List<Referral> _referrals;
         private List<PsychologicalServiceType> _psychologicalServiceTypes;
+        private List<Psychologist> _psychologists;
+        private List<FirstName> _firstNames; 
         private ObservableCollection<Position> _currentlySelectedPositions;
         private ObservableCollection<Person> _persons;
         
@@ -38,7 +41,9 @@ namespace AppCBMP.Model
             _referrals = new List<Referral>(_unitOfWork.Referral.GetAllReferrals());
             _currentlySelectedPositions = new ObservableCollection<Position>();
             _psychologicalService = new PsychologicalService();
-            _psychologicalServiceTypes= new List<PsychologicalServiceType>(_unitOfWork.PsychologicalServiceTypes.GetTypes());
+            _psychologicalServiceTypes= new List<PsychologicalServiceType>(_unitOfWork.PsychologicalServiceTypes.GetAllTypes());
+            _psychologists= new List<Psychologist>(_unitOfWork.Psychologist.GetAll());
+            //_firstNames= new List<FirstName>(_unitOfWork.FirstName.GetAllNames());
         }
 
         public string PeselTxtField
@@ -47,9 +52,9 @@ namespace AppCBMP.Model
             set
             {
                 Set(() => PeselTxtField, ref _peselTxtField, value);
-                if (_peselTxtField.Length == 11
-                    && _unitOfWork.Person.CheckIfExists(_peselTxtField))
-                    _currentlyRegisteredPerson = _unitOfWork.Person.GetPerson(PeselTxtField);
+                //if (_peselTxtField.Length == 11
+                //    && _unitOfWork.Person.CheckIfExists(_peselTxtField))
+               //     _currentlyRegisteredPerson = _unitOfWork.Person.GetPerson(PeselTxtField);
                 _currentlyRegisteredPerson.Pesel = PeselTxtField;
                 RaisePropertyChanged(() => CurrentlyRegisteredPerson);
             }
@@ -100,7 +105,11 @@ namespace AppCBMP.Model
             get { return _currentlyRegisteredPerson; }
             set { Set(() => CurrentlyRegisteredPerson, ref _currentlyRegisteredPerson, value); }
         }
-
+        public Psychologist CurrentPsychologist
+        {
+            get { return _currentPsychologist; }
+            set { Set(() => CurrentPsychologist, ref _currentPsychologist, value); }
+        }
         public PsychologicalServiceType CurrentlySelectedType
         {
             get { return _currentlySelectedType;}
@@ -133,6 +142,17 @@ namespace AppCBMP.Model
             get { return _psychologicalServiceTypes; }
             set { Set(() => PsychologicalServiceTypes, ref _psychologicalServiceTypes, value); }
         }
+        public List<FirstName> FirstNames
+        {
+            get { return _firstNames; }
+            set { Set(() => FirstNames, ref _firstNames, value); }
+        }
+
+        public List<Psychologist> Psychologists
+        {
+            get { return _psychologists; }
+            set { Set(() => Psychologists, ref _psychologists, value); }
+        }
 
         public ObservableCollection<Person> Persons
         {
@@ -145,8 +165,6 @@ namespace AppCBMP.Model
             get { return _currentlySelectedPositions; }
             set { Set(() => CurrentlySelectedPositions, ref _currentlySelectedPositions, value); }
         }
-
-       
 
         private void UpdatePositionsCollection(string value)
         {
@@ -196,11 +214,16 @@ namespace AppCBMP.Model
             RaisePropertyChanged(() => PeselTxtField);
         }
 
+        public void SetPerson()
+        {
+            
+        }
+
         public void CompleteRegistration()
         {
             _currentlySelectedCompany = _unitOfWork.Company.SelectOrAdd(new Company {Name = _companyTxtField});
             _currentlySelectedReferral = _unitOfWork.Referral.SelectOrAdd(new Referral {Name = _referralTxtField});
-            _currentlyRegisteredPerson = _unitOfWork.Person.SelectOrAdd(_currentlyRegisteredPerson);
+            //_currentlyRegisteredPerson = _unitOfWork.Person.SelectOrAdd(_currentlyRegisteredPerson);
             _psychologicalService = new PsychologicalService
             {
                 DateTimeOfService = DateTime.Now.Date,
@@ -211,10 +234,14 @@ namespace AppCBMP.Model
                 Referral = _currentlySelectedReferral,
                 ReferralId = _currentlySelectedReferral.Id,
                 Positions = _currentlySelectedPositions,
-                PsychologicalServiceType = CurrentlySelectedType,
-                PsychologicalServiceTypeId = CurrentlySelectedType.Id,
-                PsychologicalServiceNumber = "WYMYŚL"
+                PsychologicalServiceType = _currentlySelectedType,
+                PsychologicalServiceTypeId = _currentlySelectedType.Id,
+                //Psychologist = _currentPsychologist,
+                //PsychologistId = _currentPsychologist.Id,
+//                Number = _unitOfWork.PsychologicalService.GetLastNumber(_currentPsychologist.Id, CurrentlySelectedType.Id, DateTime.Now.Date)
             };
+
+
             //todo
             //Kroki dla ustawienia numeru
             //sprawdz psychologa

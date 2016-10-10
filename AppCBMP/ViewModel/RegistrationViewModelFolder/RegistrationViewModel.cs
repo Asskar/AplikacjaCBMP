@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using AppCBMP.DAL;
 using AppCBMP.DAL.Persistence;
 using AppCBMP.Model;
@@ -7,7 +6,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Model;
 
-namespace AppCBMP.ViewModel
+namespace AppCBMP.ViewModel.RegistrationViewModelFolder
 {
     public class RegistrationViewModel : ViewModelBase
     {
@@ -18,11 +17,11 @@ namespace AppCBMP.ViewModel
         private RelayCommand<Person> _printPersonCommand;
         private RelayCommand<Person> _addPersonToInvoiceCommand;
         private RelayCommand _addPersonToDbCommand;
-        private Registration _registration;
+        private Model.Registration _registration;
 
         public RegistrationViewModel()
         {
-            _registration = new Registration(new UnitOfWork(new AppDataContext()));
+            _registration = new Model.Registration(new UnitOfWork(new AppDataContext()));
             _addPersonToDbCommand = new RelayCommand(AddPersonToDb);
             _addPositionToListCommand = new RelayCommand<Position>(AddPositionToService);
             _removePositionFromListCommand = new RelayCommand<Position>(RemovePositionFromService);
@@ -32,7 +31,7 @@ namespace AppCBMP.ViewModel
             _addNewPositionToListCommand= new RelayCommand<string>(AddNewPositionToList);
         }
 
-        public Registration Registration
+        public Model.Registration Registration
         {
             get { return _registration; }
             set { Set(() => Registration, ref _registration, value); }

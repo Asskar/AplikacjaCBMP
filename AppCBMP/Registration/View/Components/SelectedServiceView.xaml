@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="AppCBMP.Registration.View.Components.SelectedServiceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AppCBMP.Registration.View.Components"
+             xmlns:serviceComponentsView="clr-namespace:AppCBMP.Registration.View.Components.ServiceComponents"
+             xmlns:serviceComponentsViewModel="clr-namespace:AppCBMP.Registration.ViewModel.Components.ServiceComponents"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding Source={StaticResource Locator}, Path=SelectedServiceViewModel}">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type serviceComponentsViewModel:ServiceSelectorViewModel}">
+            <serviceComponentsView:ServiceSelectorView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type serviceComponentsViewModel:OperatorServiceViewModel}">
+            <serviceComponentsView:OperatorServiceView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type serviceComponentsViewModel:DriverViewModel}">
+            <serviceComponentsView:DriverView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type serviceComponentsViewModel:SpecialServiceViewModel}">
+            <serviceComponentsView:SpecialServiceView />
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <ContentControl Content="{Binding CurrentViewModel}"
+                        Focusable="False" />
+    </Grid>
+</UserControl>

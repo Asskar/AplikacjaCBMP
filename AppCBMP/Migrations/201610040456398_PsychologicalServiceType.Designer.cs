@@ -13,7 +13,7 @@ namespace AppCBMP.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201609221144304_PsychologicalServiceType"; }
+            get { return "201610040456398_PsychologicalServiceType"; }
         }
         
         string IMigrationMetadata.Source

@@ -28,85 +28,14 @@
                  Source="{StaticResource Locator}" />
     </Window.DataContext>
     <Grid>
-        <i:Interaction.Behaviors>
-            <ei:DataStateBehavior Binding="{Binding LocationToggleOpen, ElementName=Window}"
-                                  Value="True"
-                                  TrueState="LocationOpen"
-                                  FalseState="LocationClosed" />
-            <ei:DataStateBehavior Binding="{Binding IsKeyboardFocusWithin, ElementName=LocationGrid}"
-                                  Value="True"
-                                  TrueState="LocationOpen"
-                                  FalseState="LocationClosed" />
-            <ei:DataStateBehavior Binding="{Binding MiscellaneousToggleOpen, ElementName=Window}"
-                                  Value="True"
-                                  TrueState="MiscellaneousOpen"
-                                  FalseState="MiscellaneousClosed" />
-            <ei:DataStateBehavior Binding="{Binding IsKeyboardFocusWithin, ElementName=MiscellaneousDataGrid}"
-                                  Value="True"
-                                  TrueState="MiscellaneousOpen"
-                                  FalseState="MiscellaneousClosed" />
-        </i:Interaction.Behaviors>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="LocationState">
-                <VisualStateGroup.Transitions>
-                    <VisualTransition GeneratedDuration="0:0:0.3"
-                                      To="LocationClosed">
-                        <VisualTransition.GeneratedEasingFunction>
-                            <CubicEase EasingMode="EaseInOut" />
-                        </VisualTransition.GeneratedEasingFunction>
-                    </VisualTransition>
-                    <VisualTransition GeneratedDuration="0:0:0.3"
-                                      To="LocationOpen">
-                        <VisualTransition.GeneratedEasingFunction>
-                            <CubicEase EasingMode="EaseInOut" />
-                        </VisualTransition.GeneratedEasingFunction>
-                    </VisualTransition>
-                </VisualStateGroup.Transitions>
-                <VisualState x:Name="LocationClosed" />
-                <VisualState x:Name="LocationOpen">
-                    <Storyboard>
-                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)"
-                                                       Storyboard.TargetName="LocationGrid">
-                            <EasingDoubleKeyFrame KeyTime="0"
-                                                  Value="240" />
-                        </DoubleAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-            </VisualStateGroup>
-            <VisualStateGroup x:Name="MiscellaneousState">
-                <VisualStateGroup.Transitions>
-                    <VisualTransition GeneratedDuration="0:0:0.3"
-                                      To="MiscellaneousClosed">
-                        <VisualTransition.GeneratedEasingFunction>
-                            <CubicEase EasingMode="EaseInOut" />
-                        </VisualTransition.GeneratedEasingFunction>
-                    </VisualTransition>
-                    <VisualTransition GeneratedDuration="0:0:0.3"
-                                      To="MiscellaneousOpen">
-                        <VisualTransition.GeneratedEasingFunction>
-                            <CubicEase EasingMode="EaseInOut" />
-                        </VisualTransition.GeneratedEasingFunction>
-                    </VisualTransition>
-                </VisualStateGroup.Transitions>
-                <VisualState x:Name="MiscellaneousClosed" />
-                <VisualState x:Name="MiscellaneousOpen">
-                    <Storyboard>
-                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)"
-                                                       Storyboard.TargetName="MiscellaneousDataGrid">
-                            <EasingDoubleKeyFrame KeyTime="0"
-                                                  Value="200" />
-                        </DoubleAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.2*" />
             <ColumnDefinition Width="1.2*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Viewbox VerticalAlignment="Top"
-                 Grid.Column="0" Margin="0,0,20,0">
+                 Grid.Column="0"
+                 Margin="0,0,20,0">
             <Grid>
 
                 <Grid.RowDefinitions>
@@ -151,7 +80,7 @@
                     <TextBox Grid.Row="1"
                              Grid.Column="1"
                              behaviors:AutoCompleteBehavior.AutoCompleteItemsSource="{Binding ListaImion}">
-                        <Binding Path="Registration.CurrentlyRegisteredPerson.FirstName"
+                        <Binding Path="Registration.CurrentlyRegisteredPerson.FirstName.Name"
                                  Mode="TwoWay"
                                  UpdateSourceTrigger="PropertyChanged"
                                  NotifyOnSourceUpdated="True"
@@ -199,17 +128,11 @@
                             Content="&#xE011;"
                             HorizontalAlignment="Right"
                             Focusable="False">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <ei:CallMethodAction TargetObject="{Binding ElementName=Window}"
-                                                     MethodName="LocationToggleIsOpen" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
                     </Button>
                 </Grid>
                 <Grid x:Name="LocationGrid"
                       Grid.Row="2"
-                      Height="0">
+                      Height="200">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
@@ -351,18 +274,12 @@
                             HorizontalAlignment="Right"
                             Margin="5"
                             Focusable="False">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <ei:CallMethodAction TargetObject="{Binding ElementName=Window}"
-                                                     MethodName="MiscellaneousToggleIsOpen" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
                     </Button>
                 </Grid>
                 <Grid x:Name="MiscellaneousDataGrid"
                       Grid.Column="0"
                       Grid.Row="4"
-                      Height="0">
+                      Height="200">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
@@ -412,7 +329,7 @@
                            Content="Kategoria PJ" />
                     <TextBlock Grid.Row="2"
                                Grid.Column="1"
-                               Text="tutaj trzeba wstawic wybieranie prawka"></TextBlock>
+                               Text="tutaj trzeba wstawic wybieranie prawka" />
                 </Grid>
             </Grid>
         </Viewbox>
@@ -437,46 +354,59 @@
 
                     <Label Grid.Row="0"
                            Grid.Column="0"
-                           Content="Typ badania" />
-                    <ComboBox ItemsSource="{Binding Registration.PsychologicalServiceTypes , Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                           Content="Psycholog" />
+                    <ComboBox ItemsSource="{Binding Registration.Psychologists, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                               IsEditable="False"
-                              DisplayMemberPath="Name"
+                              DisplayMemberPath="Initials"
                               Grid.Column="1"
                               Grid.Row="0"
                               ShouldPreserveUserEnteredPrefix="True"
                               IsTextSearchEnabled="True"
                               IsSynchronizedWithCurrentItem="False"
-                              SelectedItem="{Binding Registration.CurrentlySelectedType}" />
+                              SelectedItem="{Binding Registration.CurrentPsychologist}" />
 
                     <Label Grid.Row="1"
                            Grid.Column="0"
-                           Content="Skierowanie" />
-                    <ComboBox ItemsSource="{Binding Registration.Referrals, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                              IsEditable="True"
-                              DisplayMemberPath="Name"
+                           Content="Typ badania" />
+                    <ComboBox ItemsSource="{Binding Registration.PsychologicalServiceTypes, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                              IsEditable="False"
+                              DisplayMemberPath="FirstName"
                               Grid.Column="1"
                               Grid.Row="1"
                               ShouldPreserveUserEnteredPrefix="True"
                               IsTextSearchEnabled="True"
+                              IsSynchronizedWithCurrentItem="False"
+                              SelectedItem="{Binding Registration.CurrentlySelectedType}" />
+
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Content="Skierowanie" />
+                    <ComboBox ItemsSource="{Binding Registration.Referrals, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                              IsEditable="True"
+                              DisplayMemberPath="FirstName"
+                              Grid.Column="1"
+                              Grid.Row="2"
+                              ShouldPreserveUserEnteredPrefix="True"
+                              IsTextSearchEnabled="True"
                               Text="{Binding Registration.ReferralTxtField, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                               IsSynchronizedWithCurrentItem="False" />
-                    
-                    <Label Grid.Row="2"
+
+                    <Label Grid.Row="3"
                            Grid.Column="0"
                            Content="Pracodawca" />
                     <ComboBox ItemsSource="{Binding Registration.Companies, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                               IsEditable="True"
-                              DisplayMemberPath="Name"
+                              DisplayMemberPath="FirstName"
                               Grid.Column="1"
-                              Grid.Row="2"
+                              Grid.Row="3"
                               ShouldPreserveUserEnteredPrefix="True"
                               IsTextSearchEnabled="True"
                               Text="{Binding Registration.CompanyTxtField, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                               IsSynchronizedWithCurrentItem="False" />
 
-                    
 
-                    
+
+
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -495,12 +425,12 @@
 
                         <TextBox x:Name="PositionTxtBox"
                                  Width="160"
-                                 Text="{Binding Registration.PositionTxtField, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
+                                 Text="{Binding Registration.PositionTxtField, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                         <Button  Width="30"
                                  Height="30"
                                  Margin="5"
                                  Command="{Binding AddNewPositionToListCommand}"
-                                 CommandParameter="{Binding ElementName=PositionTxtBox, Path=Text}"
+                                 CommandParameter="{Binding Text, ElementName=PositionTxtBox}"
                                  FontFamily="Segoe MDL2 Assets"
                                  Content="&#xE109;" />
 
@@ -611,19 +541,19 @@
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0"
                            Grid.Column="0"
                            Content="Cena Badania" />
                     <TextBox Grid.Row="0"
                              Grid.Column="1"
-                             Text="{Binding Registration.PsychologicalService.Price, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}" />
+                             Text="{Binding Registration.PsychologicalService.Price, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" />
                     <Button Command="{Binding AddPersonToDbCommand}"
                             Grid.Row="1"
                             Grid.Column="1"
@@ -632,7 +562,7 @@
                             Margin="5"
                             Content="Dodaj osobę do listy" />
                 </Grid>
-                
+
             </Grid>
         </Viewbox>
         <Grid Grid.Column="2">

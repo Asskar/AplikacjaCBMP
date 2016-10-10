@@ -1,8 +1,10 @@
 ﻿using AppCBMP.DAL.Repositories;
+using AppCBMP.Registration.ViewModel.Components;
+using Model;
 
 namespace AppCBMP.DAL.Persistence
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDataContext _context;
 
@@ -15,6 +17,8 @@ namespace AppCBMP.DAL.Persistence
             Person = new PersonRepository(context);
             PsychologicalService = new PsychologicalServiceRepository(context);
             PsychologicalServiceTypes = new PsychologicalServiceTypesRepository(context);
+            Psychologist= new PsychologistRepository(context);
+            FirstName= new FirstNameRepository(context);
         }
 
         public CompanyRepository Company { get; set; }
@@ -23,10 +27,13 @@ namespace AppCBMP.DAL.Persistence
         public PersonRepository Person { get; set; }
         public PsychologicalServiceRepository PsychologicalService { get; set; }
         public PsychologicalServiceTypesRepository PsychologicalServiceTypes { get; set; }
+        public PsychologistRepository Psychologist { get; set; }
+        public FirstNameRepository FirstName { get; set; }
 
         public void Complete()
         {
             _context.SaveChanges();
         }
+
     }
 }

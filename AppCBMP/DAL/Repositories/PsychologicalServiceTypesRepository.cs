@@ -14,9 +14,11 @@ namespace AppCBMP.DAL.Repositories
             _context = context;
         }
 
-        public IEnumerable<PsychologicalServiceType> GetTypes()
+        public IEnumerable<PsychologicalServiceType> GetAllTypes()
         {
             return _context.PsychologicalServiceTypes;
         }
+
+       
     }
 }

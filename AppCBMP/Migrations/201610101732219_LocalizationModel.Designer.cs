@@ -7,13 +7,13 @@ namespace AppCBMP.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class PsychologicalServiceRegisterToType : IMigrationMetadata
+    public sealed partial class LocalizationModel : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(PsychologicalServiceRegisterToType));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(LocalizationModel));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609231047238_PsychologicalServiceRegisterToType"; }
+            get { return "201610101732219_LocalizationModel"; }
         }
         
         string IMigrationMetadata.Source

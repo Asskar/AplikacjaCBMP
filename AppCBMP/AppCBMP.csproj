@@ -95,14 +95,23 @@
     <Compile Include="DAL\EntityConfiguration\CompanyConfiguration.cs" />
     <Compile Include="DAL\EntityConfiguration\PersonConfiguration.cs" />
     <Compile Include="DAL\EntityConfiguration\ReferralConfigurtion.cs" />
+    <Compile Include="DAL\Persistence\IUnitOfWork.cs" />
     <Compile Include="DAL\Persistence\UnitOfWork.cs" />
     <Compile Include="DAL\Repositories\CompanyRepository.cs" />
+    <Compile Include="DAL\Repositories\FirstNameRepository.cs" />
     <Compile Include="DAL\Repositories\PersonRepository.cs" />
     <Compile Include="DAL\Repositories\PositionRepository.cs" />
     <Compile Include="DAL\Repositories\PsychologicalServiceTypesRepository.cs" />
     <Compile Include="DAL\Repositories\PsychologicalServiceRepository.cs" />
+    <Compile Include="DAL\Repositories\PsychologistRepository.cs" />
     <Compile Include="DAL\Repositories\ReferralRepository.cs" />
     <Compile Include="Design\DesignDataService.cs" />
+    <Compile Include="Helpers\ClassBases\BindableBase.cs" />
+    <Compile Include="Helpers\ClassBases\ValidatableBindableBase.cs" />
+    <Compile Include="Helpers\ValidationAttributes\PermittedSpecialCharsAndLetters.cs" />
+    <Compile Include="Helpers\ValidationAttributes\PeselValidation.cs" />
+    <Compile Include="Helpers\ValidationAttributes\PhoneValidation.cs" />
+    <Compile Include="Helpers\ValidationAttributes\PostCode.cs" />
     <Compile Include="Helpers\ValidationRules\CharsValidationRule.cs" />
     <Compile Include="Helpers\ValidationRules\OnlyDigitsRule.cs" />
     <Compile Include="Helpers\ValidationRules\PeselValidationRule.cs" />
@@ -128,27 +137,80 @@
     <Compile Include="Migrations\201609201211377_PsychologicalService.Designer.cs">
       <DependentUpon>201609201211377_PsychologicalService.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609221144304_PsychologicalServiceType.cs" />
-    <Compile Include="Migrations\201609221144304_PsychologicalServiceType.Designer.cs">
-      <DependentUpon>201609221144304_PsychologicalServiceType.cs</DependentUpon>
+    <Compile Include="Migrations\201610040456398_PsychologicalServiceType.cs" />
+    <Compile Include="Migrations\201610040456398_PsychologicalServiceType.Designer.cs">
+      <DependentUpon>201610040456398_PsychologicalServiceType.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609231047238_PsychologicalServiceRegisterToType.cs" />
-    <Compile Include="Migrations\201609231047238_PsychologicalServiceRegisterToType.Designer.cs">
-      <DependentUpon>201609231047238_PsychologicalServiceRegisterToType.cs</DependentUpon>
+    <Compile Include="Migrations\201610040506495_PsychologistModel.cs" />
+    <Compile Include="Migrations\201610040506495_PsychologistModel.Designer.cs">
+      <DependentUpon>201610040506495_PsychologistModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610040508512_FirstNameModel.cs" />
+    <Compile Include="Migrations\201610040508512_FirstNameModel.Designer.cs">
+      <DependentUpon>201610040508512_FirstNameModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610101732219_LocalizationModel.cs" />
+    <Compile Include="Migrations\201610101732219_LocalizationModel.Designer.cs">
+      <DependentUpon>201610101732219_LocalizationModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Data\DataItem.cs" />
     <Compile Include="Model\Data\DataService.cs" />
     <Compile Include="Model\Data\IDataService.cs" />
     <Compile Include="Model\Registration.cs" />
+    <Compile Include="Registration\ViewModel\Components\PersonalDataRegistrationViewModel.cs" />
+    <Compile Include="Registration\ViewModel\Components\PersonListViewModel.cs" />
+    <Compile Include="Registration\ViewModel\Components\CompanyAndReferralViewModel.cs" />
+    <Compile Include="Registration\ViewModel\Components\RegistrationMenuViewModel.cs" />
+    <Compile Include="Registration\ViewModel\Components\ServiceComponents\CompanyReferralPersonMessage.cs" />
+    <Compile Include="Registration\ViewModel\Components\ServiceComponents\DriverViewModel.cs" />
+    <Compile Include="Registration\ViewModel\Components\ServiceComponents\OperatorServiceViewModel.cs" />
+    <Compile Include="Registration\ViewModel\Components\SelectedServiceViewModel.cs" />
+    <Compile Include="Registration\ViewModel\Components\ServiceComponents\ServiceSelectorViewModel.cs" />
+    <Compile Include="Registration\ViewModel\Components\ServiceComponents\SpecialServiceViewModel.cs" />
+    <Compile Include="Registration\ViewModel\Components\ValidatablePerson.cs" />
+    <Compile Include="Registration\ViewModel\Components\NavigationEnums\RegistrationNavigationEnum.cs" />
+    <Compile Include="Registration\ViewModel\Components\NavigationEnums\ServiceNavigationEnum.cs" />
+    <Compile Include="Registration\ViewModel\RegistrationWindowViewModel.cs" />
+    <Compile Include="Registration\View\Components\PersonalDataRegistrationView.xaml.cs">
+      <DependentUpon>PersonalDataRegistrationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\View\Components\PersonListView.xaml.cs">
+      <DependentUpon>PersonListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\View\Components\CompanyAndReferralView.xaml.cs">
+      <DependentUpon>CompanyAndReferralView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\View\Components\RegistrationMenuView.xaml.cs">
+      <DependentUpon>RegistrationMenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\View\Components\SelectedServiceView.xaml.cs">
+      <DependentUpon>SelectedServiceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\View\Components\ServiceComponents\DriverView.xaml.cs">
+      <DependentUpon>DriverView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\View\Components\ServiceComponents\OperatorServiceView.xaml.cs">
+      <DependentUpon>OperatorServiceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\View\Components\ServiceComponents\ServiceSelectorView.xaml.cs">
+      <DependentUpon>ServiceSelectorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\View\Components\ServiceComponents\SpecialServiceView.xaml.cs">
+      <DependentUpon>SpecialServiceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\View\RegistrationWindow.xaml.cs">
+      <DependentUpon>RegistrationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\InvoiceViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\RegistrationViewModel.cs" />
+    <Compile Include="ViewModel\RegistrationViewModelFolder\PersonalDataViewModel\PresonalDataViewModel.cs" />
+    <Compile Include="ViewModel\RegistrationViewModelFolder\RegistrationViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="View\InvoiceView.xaml.cs">
+    <Compile Include="Invoice\Invoice\InvoiceView.xaml.cs">
       <DependentUpon>InvoiceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RegistrationView.xaml.cs">
+    <Compile Include="ViewModel\RegistrationView.xaml.cs">
       <DependentUpon>RegistrationView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -163,15 +225,55 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Registration\View\Components\PersonalDataRegistrationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Registration\View\Components\PersonListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Registration\View\Components\CompanyAndReferralView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Registration\View\Components\RegistrationMenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Registration\View\Components\SelectedServiceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Registration\View\Components\ServiceComponents\DriverView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Registration\View\Components\ServiceComponents\OperatorServiceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Registration\View\Components\ServiceComponents\ServiceSelectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Registration\View\Components\ServiceComponents\SpecialServiceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Registration\View\RegistrationWindow.xaml">
+      <SubType>Form</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Skins\MainSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\InvoiceView.xaml">
+    <Page Include="Invoice\Invoice\InvoiceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\RegistrationView.xaml">
+    <Page Include="ViewModel\RegistrationView.xaml">
       <SubType>Form</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -192,6 +294,7 @@
     </Compile>
     <EmbeddedResource Include="Migrations\201609061714459_InitialBigMigration.resx">
       <DependentUpon>201609061714459_InitialBigMigration.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609101204243_ServiceAsAssociationTable.resx">
       <DependentUpon>201609101204243_ServiceAsAssociationTable.cs</DependentUpon>
@@ -205,11 +308,17 @@
     <EmbeddedResource Include="Migrations\201609201211377_PsychologicalService.resx">
       <DependentUpon>201609201211377_PsychologicalService.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609221144304_PsychologicalServiceType.resx">
-      <DependentUpon>201609221144304_PsychologicalServiceType.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610040456398_PsychologicalServiceType.resx">
+      <DependentUpon>201610040456398_PsychologicalServiceType.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609231047238_PsychologicalServiceRegisterToType.resx">
-      <DependentUpon>201609231047238_PsychologicalServiceRegisterToType.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610040506495_PsychologistModel.resx">
+      <DependentUpon>201610040506495_PsychologistModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610040508512_FirstNameModel.resx">
+      <DependentUpon>201610040508512_FirstNameModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610101732219_LocalizationModel.resx">
+      <DependentUpon>201610101732219_LocalizationModel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -230,6 +339,9 @@
       <Project>{5b16972d-97e5-4aea-a7d8-27f55a297b9d}</Project>
       <Name>Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

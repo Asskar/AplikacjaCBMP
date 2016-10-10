@@ -1,0 +1,50 @@
+﻿<Window x:Class="AppCBMP.Registration.View.RegistrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:localComponents="clr-namespace:AppCBMP.Registration.View.Components"
+        xmlns:ignore="http://www.galasoft.ch/ignore"
+        xmlns:viewModelcomponents="clr-namespace:AppCBMP.Registration.ViewModel.Components"
+        mc:Ignorable="d ignore"
+        Height="675"
+        Width="1200"
+        DataContext="{Binding  RegistrationWindowViewModel ,Source={StaticResource Locator}}">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Skins/MainSkin.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type viewModelcomponents:RegistrationMenuViewModel}">
+                <localComponents:RegistrationMenuView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModelcomponents:PersonalDataRegistrationViewModel}">
+                <localComponents:PersonalDataRegistrationView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModelcomponents:CompanyAndReferralViewModel}">
+                <localComponents:CompanyAndReferralView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModelcomponents:SelectedServiceViewModel}">
+                <localComponents:SelectedServiceView />
+            </DataTemplate>
+        </ResourceDictionary>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="0.50*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="0"
+                        Grid.Column="1"
+                        Content="{Binding CurrentViewModel}"
+                        Focusable="False" />
+
+        </Grid>
+</Window>

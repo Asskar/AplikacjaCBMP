@@ -11,10 +11,6 @@ namespace AppCBMP.DAL.EntityConfiguration
             Property(p => p.Pesel)
                 .IsRequired();
 
-            Property(p => p.FirstName)
-                .IsRequired()
-                .HasMaxLength(64);
-
             Property(p => p.LastName)
                 .IsRequired()
                 .HasMaxLength(128);

@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="AppCBMP.Registration.View.Components.RegisteredPersonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AppCBMP.Registration.View.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding Source={StaticResource Locator}, Path=PersonListViewModel}">
+    <Grid>
+        <ListBox Background="White"
+                 ItemsSource="{Binding Persons}"
+                 Height="auto"
+                 Width="auto"
+                 Margin="0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Width"
+                                        Value="30" />
+                                <Setter Property="Height"
+                                        Value="30" />
+                                <Setter Property="Margin"
+                                        Value="1" />
+                            </Style>
+                            <Style TargetType="{x:Type Label}">
+                                <Setter Property="Width"
+                                        Value="95" />
+                                <Setter Property="Height"
+                                        Value="30" />
+                                <Setter Property="Margin"
+                                        Value="1" />
+                                <Setter Property="FontSize"
+                                        Value="12" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <Label Content="{Binding FirstName}" />
+                        <Label Content="{Binding LastName}" />
+                        <StackPanel Orientation="Horizontal"
+                                    x:Name="PersonListStackPanel">
+                            
+                            <Button DataContext="{Binding Registration, Source={StaticResource Locator}}"
+                                    Command="{Binding PrintPersonCommand}"
+                                    CommandParameter="{Binding DataContext, ElementName=PersonListStackPanel}"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    Content="&#xE2F6;" />
+
+                            
+                            <Button DataContext="{Binding Registration, Source={StaticResource Locator}}"
+                                    Command="{Binding RemovePersonFromListCommand}"
+                                    CommandParameter="{Binding DataContext, ElementName=PersonListStackPanel}"
+                                    HorizontalAlignment="Right"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    Content="&#xE108;" />
+                        </StackPanel>
+
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

@@ -8,7 +8,13 @@ namespace Model
         public int Id { get; set; }
         public DateTime DateTimeOfService { get; set; }
         public double? Price { get; set; }
-        public string PsychologicalServiceNumber { get; set; }
+        public int Number { get; set; }
+
+        public int PsychologistId { get; set; }
+        public Psychologist Psychologist { get; set; }
+
+        public int LocalizationId { get; set; }
+        public Localization Localization { get; set; }
 
         public int PersonId { get; set; }
         public Person Person { get; set; }

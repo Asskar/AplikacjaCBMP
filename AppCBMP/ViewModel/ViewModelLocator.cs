@@ -9,10 +9,15 @@
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 */
 
+using AppCBMP.DAL.Persistence;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using AppCBMP.Model;
+using AppCBMP.Registration.ViewModel;
+using AppCBMP.Registration.ViewModel.Components;
+using AppCBMP.Registration.ViewModel.Components.ServiceComponents;
+using AppCBMP.ViewModel.RegistrationViewModelFolder;
 
 namespace AppCBMP.ViewModel
 {
@@ -37,12 +42,17 @@ namespace AppCBMP.ViewModel
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
             }
-
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<RegistrationViewModel>();
             SimpleIoc.Default.Register<InvoiceViewModel>();
-
-            
+            SimpleIoc.Default.Register<PersonalDataRegistrationViewModel>();
+            SimpleIoc.Default.Register<RegistrationWindowViewModel>();
+            SimpleIoc.Default.Register<CompanyAndReferralViewModel>();
+            SimpleIoc.Default.Register<SelectedServiceViewModel>();
+            SimpleIoc.Default.Register<OperatorServiceViewModel>();
+            SimpleIoc.Default.Register<ServiceSelectorViewModel>();
+            SimpleIoc.Default.Register<RegistrationMenuViewModel>();
+            SimpleIoc.Default.Register<PersonListViewModel>();
         }
 
         /// <summary>
@@ -57,6 +67,41 @@ namespace AppCBMP.ViewModel
 
         public InvoiceViewModel Invoice => ServiceLocator.Current.GetInstance<InvoiceViewModel>();
 
+        public RegistrationWindowViewModel RegistrationWindowViewModel
+        {
+            get { return ServiceLocator.Current.GetInstance<RegistrationWindowViewModel>(); }
+        }
+
+        public PersonalDataRegistrationViewModel PersonalDataRegistrationView
+        {
+            get { return ServiceLocator.Current.GetInstance<PersonalDataRegistrationViewModel>(); }
+        }
+
+        public CompanyAndReferralViewModel CompanyAndReferralViewModel
+        {
+            get { return ServiceLocator.Current.GetInstance<CompanyAndReferralViewModel>(); }
+        }
+        public SelectedServiceViewModel SelectedServiceViewModel
+        {
+            get { return ServiceLocator.Current.GetInstance<SelectedServiceViewModel>(); }
+        }
+        public ServiceSelectorViewModel ServiceSelectorViewModel
+        {
+            get { return ServiceLocator.Current.GetInstance<ServiceSelectorViewModel>(); }
+        }
+        public OperatorServiceViewModel OperatorServiceViewModel
+        {
+            get { return ServiceLocator.Current.GetInstance<OperatorServiceViewModel>(); }
+        }
+
+        public RegistrationMenuViewModel RegistrationMenuViewModel
+        {
+            get { return ServiceLocator.Current.GetInstance<RegistrationMenuViewModel>(); }
+        }
+        public PersonListViewModel PersonListViewModel
+        {
+            get { return ServiceLocator.Current.GetInstance<PersonListViewModel>(); }
+        }
         /// <summary>
         /// Cleans up all the resources.
         /// </summary>
