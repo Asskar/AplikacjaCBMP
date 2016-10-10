@@ -23,7 +23,14 @@ namespace Reporting
             //string report = _determiner.GetRaport(psychologicalService);
             var report = File.ReadAllText(Path.Combine(ReportingConfiguration.ReportsePath, "MP.cstex"));
 
-            string result = Engine.Razor.RunCompile(report, "key", typeof(PsychologicalService), psychologicalService);
+            //string result;
+            //using (var service = IsolatedRazorEngineService.Create(Helpers.SandboxCreator))
+            //{
+            //    result = service.RunCompile(report, "key", typeof(PsychologicalService), psychologicalService);
+            //}
+
+            var result = Engine.Razor.RunCompile(report, "key", typeof(PsychologicalService), psychologicalService);
+
 
             var outputPath = Path.Combine(ReportingConfiguration.OutputFilesPath, DateTime.Now.ToString("yy-MM-dd"));
 
