@@ -1,9 +1,8 @@
 ﻿using System.Data.Entity;
-using AppCBMP.DAL.EntityConfiguration;
-using AppCBMP.Model;
+using DAL.EntityConfiguration;
 using Model;
 
-namespace AppCBMP.DAL
+namespace DAL
 {
     public class AppDataContext : DbContext
     {

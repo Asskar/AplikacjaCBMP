@@ -91,23 +91,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DAL\AppDataContext.cs" />
-    <Compile Include="DAL\EntityConfiguration\CompanyConfiguration.cs" />
-    <Compile Include="DAL\EntityConfiguration\PersonConfiguration.cs" />
-    <Compile Include="DAL\EntityConfiguration\ReferralConfigurtion.cs" />
-    <Compile Include="DAL\Persistence\IUnitOfWork.cs" />
-    <Compile Include="DAL\Persistence\UnitOfWork.cs" />
-    <Compile Include="DAL\Repositories\CompanyRepository.cs" />
-    <Compile Include="DAL\Repositories\FirstNameRepository.cs" />
-    <Compile Include="DAL\Repositories\PersonRepository.cs" />
-    <Compile Include="DAL\Repositories\PositionRepository.cs" />
-    <Compile Include="DAL\Repositories\PsychologicalServiceTypesRepository.cs" />
-    <Compile Include="DAL\Repositories\PsychologicalServiceRepository.cs" />
-    <Compile Include="DAL\Repositories\PsychologistRepository.cs" />
-    <Compile Include="DAL\Repositories\ReferralRepository.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Helpers\ClassBases\BindableBase.cs" />
     <Compile Include="Helpers\ClassBases\ValidatableBindableBase.cs" />
+    <Compile Include="Helpers\Converters\CollectionToStringConverter.cs" />
     <Compile Include="Helpers\ValidationAttributes\PermittedSpecialCharsAndLetters.cs" />
     <Compile Include="Helpers\ValidationAttributes\PeselValidation.cs" />
     <Compile Include="Helpers\ValidationAttributes\PhoneValidation.cs" />
@@ -158,14 +145,17 @@
     <Compile Include="Model\Data\DataService.cs" />
     <Compile Include="Model\Data\IDataService.cs" />
     <Compile Include="Model\Registration.cs" />
+    <Compile Include="Registration\ViewModel\Components\LocalizationPsychologistMessage.cs" />
     <Compile Include="Registration\ViewModel\Components\PersonalDataRegistrationViewModel.cs" />
     <Compile Include="Registration\ViewModel\Components\PersonListViewModel.cs" />
     <Compile Include="Registration\ViewModel\Components\CompanyAndReferralViewModel.cs" />
+    <Compile Include="Registration\ViewModel\Components\PersonsPsychologicalServices.cs" />
     <Compile Include="Registration\ViewModel\Components\RegistrationMenuViewModel.cs" />
     <Compile Include="Registration\ViewModel\Components\ServiceComponents\CompanyReferralPersonMessage.cs" />
     <Compile Include="Registration\ViewModel\Components\ServiceComponents\DriverViewModel.cs" />
     <Compile Include="Registration\ViewModel\Components\ServiceComponents\OperatorServiceViewModel.cs" />
     <Compile Include="Registration\ViewModel\Components\SelectedServiceViewModel.cs" />
+    <Compile Include="Registration\ViewModel\Components\ServiceComponents\PersonPsychServiceMessage.cs" />
     <Compile Include="Registration\ViewModel\Components\ServiceComponents\ServiceSelectorViewModel.cs" />
     <Compile Include="Registration\ViewModel\Components\ServiceComponents\SpecialServiceViewModel.cs" />
     <Compile Include="Registration\ViewModel\Components\ValidatablePerson.cs" />
@@ -335,12 +325,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{25A05488-C40C-407F-A480-5C36D21BB78E}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{5b16972d-97e5-4aea-a7d8-27f55a297b9d}</Project>
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DAL\" />
     <Folder Include="View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

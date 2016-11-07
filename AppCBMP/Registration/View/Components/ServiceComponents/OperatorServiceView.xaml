@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AppCBMP.Registration.View.Components.ServiceComponents"
+             xmlns:navigationEnums="clr-namespace:AppCBMP.Registration.ViewModel.Components.NavigationEnums"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding Source={StaticResource Locator}, Path=OperatorServiceViewModel}">
@@ -143,8 +144,12 @@
             </ListBox>
         </StackPanel>
         <StackPanel Grid.Row="4" Orientation="Horizontal">
-            <Button Content="Dodaj usługe i dodaj inne"/>
-            <Button Content="Dodaj usługe i zakończ"/>
+            <Button Content="Dodaj usługe i dodaj inne"
+                    Command="{Binding NavigateToServiceSelectorCommand}"
+                    CommandParameter="{x:Static navigationEnums:ServiceNavigationEnum.ServiceSelectorViewModel}" />
+            <Button Content="Dodaj usługe i zakończ"
+                    Command="{Binding FinishCommand}"
+                    CommandParameter="{x:Static navigationEnums:RegistrationNavigationEnum.PersonalDataRegistrationViewModel}" />
         </StackPanel>
     </Grid>
 </UserControl>

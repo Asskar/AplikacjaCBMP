@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace AppCBMP.Registration.View.Components
 {
     /// <summary>
-    /// Interaction logic for RegisteredPersonView.xaml
+    /// Interaction logic for PersonListView.xaml
     /// </summary>
-    public partial class RegisteredPersonView : UserControl
+    public partial class PersonListView : UserControl
     {
-        public RegisteredPersonView()
+        public PersonListView()
         {
             InitializeComponent();
         }

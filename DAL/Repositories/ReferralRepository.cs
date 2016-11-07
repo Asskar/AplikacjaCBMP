@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AppCBMP.Model;
 using Model;
 
-namespace AppCBMP.DAL.Repositories
+namespace DAL.Repositories
 {
     public class ReferralRepository
     {
@@ -33,6 +32,11 @@ namespace AppCBMP.DAL.Repositories
         {
             _context.Referrals.Add(referral);
         }
+        public void Add(string referralName)
+        {
+            _context.Referrals.Add(new Referral() {Name = referralName});
+            _context.SaveChanges();
+        }
 
         public Referral GetReferral(string referralName)
         {
@@ -46,6 +50,11 @@ namespace AppCBMP.DAL.Repositories
             Add(referral);
             _context.SaveChanges();
             return GetReferral(referral.Name);
+        }
+
+        public Referral GetReferral(int id)
+        {
+            return _context.Referrals.First(r => r.Id == id);
         }
     }
 }

@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
+﻿using System.Data.Entity;
 using System.Linq;
-using AppCBMP.Model;
-using AppCBMP.Registration.ViewModel.Components;
 using Model;
 
-namespace AppCBMP.DAL.Repositories
+namespace DAL.Repositories
 {
     public class PersonRepository
     {
@@ -25,7 +21,7 @@ namespace AppCBMP.DAL.Repositories
         {
             return _context.Persons.Any(p => p.Id == id);
         }
-        public Person GetPersonByPesel(string pesel)
+        public Person GetPerson(string pesel)
         {
             return _context.Persons.First(p => p.Pesel == pesel);
         }
@@ -36,6 +32,11 @@ namespace AppCBMP.DAL.Repositories
                         EntityState.Added :
                         EntityState.Modified;
             _context.SaveChanges();
+        }
+
+        public Person GetPerson(int id)
+        {
+            return _context.Persons.First(p => p.Id == id);
         }
     }
 }

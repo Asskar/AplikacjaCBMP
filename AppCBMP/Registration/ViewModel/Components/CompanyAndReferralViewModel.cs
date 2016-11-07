@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AppCBMP.DAL;
-using AppCBMP.DAL.Persistence;
 using AppCBMP.Registration.ViewModel.Components.NavigationEnums;
 using AppCBMP.Registration.ViewModel.Components.ServiceComponents;
+using DAL;
+using DAL.Persistence;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -38,7 +38,9 @@ namespace AppCBMP.Registration.ViewModel.Components
             _psychologicalServiceTypes =
                 new List<PsychologicalServiceType>(_unitOfWork.PsychologicalServiceTypes.GetAllTypes().
                     ToList());
-            _navigationCommand= new RelayCommand<RegistrationNavigationEnum>(Navigation);
+            _navigationCommand = new RelayCommand<RegistrationNavigationEnum>(Navigation);
+            _currentlySelectedReferral=new Referral();
+            _currentlySelectedCompany= new Company();
         }
 
         public Person Person
@@ -129,16 +131,22 @@ namespace AppCBMP.Registration.ViewModel.Components
 
         private void AddCompanyReferral()
         {
-            if (!_unitOfWork.Company.CheckIfExists(CurrentlySelectedCompany.Name))
+            if(!string.IsNullOrEmpty(CompanyFilter))
             {
-                _unitOfWork.Company.Add(CurrentlySelectedCompany);
+                if (!_unitOfWork.Company.CheckIfExists(CompanyFilter))
+                {
+                    _unitOfWork.Company.Add(CompanyFilter);
+                }
+                CurrentlySelectedCompany = _unitOfWork.Company.GetCompany(CompanyFilter);
             }
-            CurrentlySelectedCompany = _unitOfWork.Company.GetCompany(CurrentlySelectedCompany.Name);
-            if (!_unitOfWork.Referral.CheckIfExists(CurrentlySelectedReferral.Name))
+            if (!string.IsNullOrEmpty(ReferralFilter))
             {
-                _unitOfWork.Referral.Add(CurrentlySelectedReferral);
+                if (!_unitOfWork.Referral.CheckIfExists(ReferralFilter))
+                {
+                    _unitOfWork.Referral.Add(ReferralFilter);
+                }
+                CurrentlySelectedReferral = _unitOfWork.Referral.GetReferral(ReferralFilter);
             }
-            CurrentlySelectedReferral = _unitOfWork.Referral.GetReferral(CurrentlySelectedReferral.Name);
             Messenger.Default.Send(new CompanyReferralPersonMessage()
             {
                 Company = CurrentlySelectedCompany,

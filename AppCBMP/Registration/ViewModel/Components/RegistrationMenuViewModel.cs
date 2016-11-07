@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AppCBMP.DAL;
-using AppCBMP.DAL.Persistence;
 using AppCBMP.Registration.ViewModel.Components.NavigationEnums;
+using DAL;
+using DAL.Persistence;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -14,37 +14,30 @@ namespace AppCBMP.Registration.ViewModel.Components
     {
         private readonly UnitOfWork _unitOfWork;
         private Psychologist _psychologist;
-        private List<Psychologist> _psychologists;
         private RelayCommand<RegistrationNavigationEnum> _navigationCommand;
-        //        private Localization _localization;
-        //
-        //        public Localization Localization
-        //        {
-        //            get { return _localization; }
-        //            set { Set(ref _localization, value); }
-        //        }
-        //
-        //        private List<Localization> _localizations;
-        //
-        //        public List<Localization> Localizations
-        //        {
-        //            get { return _localizations; }
-        //            set { Set(ref _localizations, value); }
-        //        }
-
+        private Localization _localization;
 
         public RegistrationMenuViewModel()
         {
             _unitOfWork = new UnitOfWork(new AppDataContext());
-            _psychologists = _unitOfWork.Psychologist.GetAll().ToList();
-            _navigationCommand= new RelayCommand<RegistrationNavigationEnum>(Navigate);
+            Psychologists = _unitOfWork.Psychologist.GetAll().
+                ToList();
+            Localizations = _unitOfWork.Localization.GetAllLocalizations().ToList();
+            _navigationCommand = new RelayCommand<RegistrationNavigationEnum>(Navigate);
         }
 
         private void Navigate(RegistrationNavigationEnum message)
         {
-            if (Psychologist == null) //||localization==null
+            if (Localization == null)
+                return;
+            if (Psychologist == null)
                 return;
             Messenger.Default.Send(message);
+            Messenger.Default.Send(new LocalizationPsychologistMessage()
+            {
+                Localization = Localization,
+                Psychologist = Psychologist
+            });
         }
 
         public Psychologist Psychologist
@@ -52,13 +45,13 @@ namespace AppCBMP.Registration.ViewModel.Components
             get { return _psychologist; }
             set { Set(ref _psychologist, value); }
         }
-        public List<Psychologist> Psychologists
+        public Localization Localization
         {
-            get { return _psychologists; }
-            set { Set(ref _psychologists, value); }
+            get { return _localization; }
+            set { Set(ref _localization, value); }
         }
-
-       
+        public List<Psychologist> Psychologists { get; set; }
+        public List<Localization> Localizations { get; set; }
 
         public RelayCommand<RegistrationNavigationEnum> NavigationCommand
         {

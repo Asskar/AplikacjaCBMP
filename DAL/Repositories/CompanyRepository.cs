@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AppCBMP.Model;
 using Model;
 
-namespace AppCBMP.DAL.Repositories
+namespace DAL.Repositories
 {
     public class CompanyRepository
     {
@@ -34,6 +33,11 @@ namespace AppCBMP.DAL.Repositories
         {
             _context.Companies.Add(company);
         }
+        public void Add(string companyName)
+        {
+            _context.Companies.Add(new Company() {Name = companyName});
+            _context.SaveChanges();
+        }
 
         public Company GetCompany(string companyName)
         {
@@ -47,6 +51,11 @@ namespace AppCBMP.DAL.Repositories
             Add(company);
             _context.SaveChanges();
             return GetCompany(company.Name);
+        }
+
+        public Company GetCompany(int id)
+        {
+            return _context.Companies.First(c => c.Id == id);
         }
     }
 }

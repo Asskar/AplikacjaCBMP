@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Model;
 
-namespace AppCBMP.DAL.Repositories
+namespace DAL.Repositories
 {
     public class PsychologistRepository
     {
@@ -16,6 +16,11 @@ namespace AppCBMP.DAL.Repositories
         public IEnumerable<Psychologist> GetAll()
         {
             return _context.Psychologists;
+        }
+
+        public Psychologist GetPsychologist(int id)
+        {
+            return _context.Psychologists.First(p => p.Id == id);
         }
     }
 }

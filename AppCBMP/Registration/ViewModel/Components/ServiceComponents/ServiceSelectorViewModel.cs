@@ -20,8 +20,7 @@ namespace AppCBMP.Registration.ViewModel.Components.ServiceComponents
             get { return _navigationCommand; }
             set { Set(ref _navigationCommand, value); }
         }
-
-
+        
         private void OnNavigation(ServiceNavigationEnum navigationEnum)
         {
            Messenger.Default.Send(navigationEnum);

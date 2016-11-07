@@ -1,3 +1,5 @@
+using DAL;
+
 namespace AppCBMP.Migrations
 {
     using System;
@@ -5,14 +7,14 @@ namespace AppCBMP.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<AppCBMP.DAL.AppDataContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<AppDataContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(AppCBMP.DAL.AppDataContext context)
+        protected override void Seed(AppDataContext context)
         {
             //  This method will be called after migrating to the latest version.
 

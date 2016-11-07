@@ -29,6 +29,9 @@
             <DataTemplate DataType="{x:Type viewModelcomponents:SelectedServiceViewModel}">
                 <localComponents:SelectedServiceView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModelcomponents:PersonListViewModel}">
+                <localComponents:PersonListView />
+            </DataTemplate>
         </ResourceDictionary>
 
     </Window.Resources>
@@ -46,5 +49,6 @@
                         Content="{Binding CurrentViewModel}"
                         Focusable="False" />
 
-        </Grid>
+        <ContentControl Grid.Column="2" Content="{Binding PersonListViewModelModel}"/>
+    </Grid>
 </Window>

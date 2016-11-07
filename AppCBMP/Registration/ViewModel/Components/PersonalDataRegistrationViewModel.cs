@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AppCBMP.DAL;
-using AppCBMP.DAL.Persistence;
 using AppCBMP.Registration.ViewModel.Components.NavigationEnums;
+using DAL;
+using DAL.Persistence;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -57,11 +57,10 @@ namespace AppCBMP.Registration.ViewModel.Components
 
         private void GetPerson(ValidatablePerson person)
         {
-            if (_unitOfWork.Person.CheckIfExists(person.Pesel))
-            {
-                CurrentlyRegisteredPerson = _unitOfWork.Person.GetPersonByPesel(person.Pesel);
-                ComplexPersonToSimplePerson(CurrentlyRegisteredPerson, SimplePerson);
-            }
+            if (!_unitOfWork.Person.CheckIfExists(person.Pesel))
+                return;
+            CurrentlyRegisteredPerson = _unitOfWork.Person.GetPerson(person.Pesel);
+            ComplexPersonToSimplePerson(CurrentlyRegisteredPerson, SimplePerson);
         }
 
         private void ComplexPersonToSimplePerson(Person source, ValidatablePerson target)

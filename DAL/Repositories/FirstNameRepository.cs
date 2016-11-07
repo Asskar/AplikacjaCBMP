@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Model;
-
-namespace AppCBMP.DAL.Repositories
+using System.Linq;
+namespace DAL.Repositories
 {
     public class FirstNameRepository
     {

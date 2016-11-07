@@ -25,7 +25,7 @@ namespace AppCBMP.Registration.ViewModel
         private readonly CompanyAndReferralViewModel _companyAndReferralViewModel;
         private readonly SelectedServiceViewModel _selectedServiceViewModel;
         private readonly RegistrationMenuViewModel _registrationMenuViewModel;
-       
+        private  PersonListViewModel _personListViewModel;
 
         public RegistrationWindowViewModel()
         {
@@ -34,12 +34,17 @@ namespace AppCBMP.Registration.ViewModel
             _personalDataRegistrationViewModel = ServiceLocator.Current.GetInstance<PersonalDataRegistrationViewModel>();
             _companyAndReferralViewModel = ServiceLocator.Current.GetInstance<CompanyAndReferralViewModel>();
             _selectedServiceViewModel = ServiceLocator.Current.GetInstance<SelectedServiceViewModel>();
-
+            _personListViewModel = ServiceLocator.Current.GetInstance<PersonListViewModel>();
             _currentViewModel = _registrationMenuViewModel;
 
 
         }
 
+        public PersonListViewModel PersonListViewModelModel
+        {
+            get { return _personListViewModel; }
+            set { Set(ref _personListViewModel, value); }
+        }
         public ViewModelBase CurrentViewModel
         {
             get { return _currentViewModel; }

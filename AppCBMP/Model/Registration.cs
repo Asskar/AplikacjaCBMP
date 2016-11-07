@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using AppCBMP.DAL.Persistence;
+using DAL.Persistence;
 using GalaSoft.MvvmLight;
 using Model;
 
@@ -53,8 +53,8 @@ namespace AppCBMP.Model
             {
                 Set(() => PeselTxtField, ref _peselTxtField, value);
                 //if (_peselTxtField.Length == 11
-                //    && _unitOfWork.Person.CheckIfExists(_peselTxtField))
-               //     _currentlyRegisteredPerson = _unitOfWork.Person.GetPerson(PeselTxtField);
+                //    && _unitOfWork.Persons.CheckIfExists(_peselTxtField))
+               //     _currentlyRegisteredPerson = _unitOfWork.Persons.GetPerson(PeselTxtField);
                 _currentlyRegisteredPerson.Pesel = PeselTxtField;
                 RaisePropertyChanged(() => CurrentlyRegisteredPerson);
             }
@@ -223,7 +223,7 @@ namespace AppCBMP.Model
         {
             _currentlySelectedCompany = _unitOfWork.Company.SelectOrAdd(new Company {Name = _companyTxtField});
             _currentlySelectedReferral = _unitOfWork.Referral.SelectOrAdd(new Referral {Name = _referralTxtField});
-            //_currentlyRegisteredPerson = _unitOfWork.Person.SelectOrAdd(_currentlyRegisteredPerson);
+            //_currentlyRegisteredPerson = _unitOfWork.Persons.SelectOrAdd(_currentlyRegisteredPerson);
             _psychologicalService = new PsychologicalService
             {
                 DateTimeOfService = DateTime.Now.Date,

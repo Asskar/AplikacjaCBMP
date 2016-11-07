@@ -1,8 +1,6 @@
-﻿using AppCBMP.DAL.Repositories;
-using AppCBMP.Registration.ViewModel.Components;
-using Model;
+﻿using DAL.Repositories;
 
-namespace AppCBMP.DAL.Persistence
+namespace DAL.Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -19,10 +17,12 @@ namespace AppCBMP.DAL.Persistence
             PsychologicalServiceTypes = new PsychologicalServiceTypesRepository(context);
             Psychologist= new PsychologistRepository(context);
             FirstName= new FirstNameRepository(context);
+            Localization= new LocalizationRepository(context);
         }
 
         public CompanyRepository Company { get; set; }
         public ReferralRepository Referral { get; set; }
+        public LocalizationRepository Localization { get; set; }
         public PositionRepository Position { get; set; }
         public PersonRepository Person { get; set; }
         public PsychologicalServiceRepository PsychologicalService { get; set; }

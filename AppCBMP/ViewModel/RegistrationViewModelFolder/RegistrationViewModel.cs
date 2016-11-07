@@ -1,7 +1,6 @@
 ﻿using System.Windows;
-using AppCBMP.DAL;
-using AppCBMP.DAL.Persistence;
-using AppCBMP.Model;
+using DAL;
+using DAL.Persistence;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Model;

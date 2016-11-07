@@ -1,8 +1,7 @@
 ﻿using System.Data.Entity.ModelConfiguration;
-using AppCBMP.Model;
 using Model;
 
-namespace AppCBMP.DAL.EntityConfiguration
+namespace DAL.EntityConfiguration
 {
     public class PersonConfiguration : EntityTypeConfiguration<Person>
     {

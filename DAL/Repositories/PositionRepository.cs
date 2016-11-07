@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AppCBMP.Model;
 using Model;
 
-namespace AppCBMP.DAL.Repositories
+namespace DAL.Repositories
 {
     public class PositionRepository
     {
@@ -28,6 +27,7 @@ namespace AppCBMP.DAL.Repositories
         public void Add(Position position)
         {
             _context.Positions.Add(position);
+            _context.SaveChanges();
         }
         public bool CheckIfExists(string positionName)
         {

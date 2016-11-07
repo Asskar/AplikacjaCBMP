@@ -1,6 +1,6 @@
-﻿using AppCBMP.DAL.Repositories;
+﻿using DAL.Repositories;
 
-namespace AppCBMP.DAL.Persistence
+namespace DAL.Persistence
 {
     public interface IUnitOfWork
     {
@@ -12,6 +12,7 @@ namespace AppCBMP.DAL.Persistence
         PsychologicalServiceTypesRepository PsychologicalServiceTypes { get; set; }
         PsychologistRepository Psychologist { get; set; }
         ReferralRepository Referral { get; set; }
+        LocalizationRepository Localization { get; set; }
 
         void Complete();
     }

@@ -1,9 +1,8 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Model;
 
-namespace AppCBMP.DAL.Repositories
+namespace DAL.Repositories
 {
     public class PsychologicalServiceTypesRepository
     {
@@ -19,6 +18,9 @@ namespace AppCBMP.DAL.Repositories
             return _context.PsychologicalServiceTypes;
         }
 
-       
+        public PsychologicalServiceType GetType(int id)
+        {
+            return _context.PsychologicalServiceTypes.First(p => p.Id == id);
+        }
     }
 }

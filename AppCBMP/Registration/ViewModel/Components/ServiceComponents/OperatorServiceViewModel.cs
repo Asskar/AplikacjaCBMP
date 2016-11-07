@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using AppCBMP.DAL;
-using AppCBMP.DAL.Persistence;
 using AppCBMP.Registration.ViewModel.Components.NavigationEnums;
+using DAL;
+using DAL.Persistence;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -23,36 +24,34 @@ namespace AppCBMP.Registration.ViewModel.Components.ServiceComponents
         private Referral _referral;
         private Company _company;
         private Psychologist _psychologist;
+        private Localization _localization;
         private PsychologicalServiceType _psychologicalServiceType;
         private PsychologicalService _psychologicalService;
         private readonly List<Position> _readOnlyPositions; 
-        private List<Position> _positions;
-        private List<Position> _addedPositions;
+        private ObservableCollection<Position> _positions;
+        private ObservableCollection<Position> _addedPositions;
         private string _postitionsFilter;
 
         private readonly UnitOfWork _unitOfWork;
 
 
-        
+
         public OperatorServiceViewModel()
         {
-            Messenger.Default.Register<CompanyReferralPersonMessage>(this,HandleCmpRefPerMessage);
-            Messenger.Default.Register<Psychologist>(this, HandlePsychologistMessage);
-            _unitOfWork=new UnitOfWork(new AppDataContext());
+            Messenger.Default.Register<LocalizationPsychologistMessage>(this, HandleLozalizationPsychologistMessage);
+            Messenger.Default.Register<CompanyReferralPersonMessage>(this, HandleCmpRefperMessage);
+            _unitOfWork = new UnitOfWork(new AppDataContext());
             _readOnlyPositions = _unitOfWork.Position.GetAllPositions().
                 ToList();
-            _positions = _readOnlyPositions;
-            _addNewPositionCommand= new RelayCommand<string>(AddNewPosition);
-            _addPositionCommand=  new RelayCommand<Position>(AddPosition);
-            _removePositionCommand= new RelayCommand<Position>(RemovePosition);
-            _navigateToServiceSelectorCommand=new RelayCommand<ServiceNavigationEnum>(NavigateToServiceSelector);
-            _finishCommand=new RelayCommand<RegistrationNavigationEnum>(Finish);
+            _positions = new ObservableCollection<Position>(_readOnlyPositions);
+            _addedPositions = new ObservableCollection<Position>();
+            _addNewPositionCommand = new RelayCommand<string>(AddNewPosition);
+            _addPositionCommand = new RelayCommand<Position>(AddPosition);
+            _removePositionCommand = new RelayCommand<Position>(RemovePosition);
+            _navigateToServiceSelectorCommand = new RelayCommand<ServiceNavigationEnum>(NavigateToServiceSelector);
+            _finishCommand = new RelayCommand<RegistrationNavigationEnum>(Finish);
         }
 
-        private void HandlePsychologistMessage(Psychologist message)
-        {
-            _psychologist = message;
-        }
 
         private void Finish(RegistrationNavigationEnum destination)
         {
@@ -68,25 +67,23 @@ namespace AppCBMP.Registration.ViewModel.Components.ServiceComponents
 
         private void AddService()
         {
-            _psychologicalService = new PsychologicalService
+            _psychologicalService = new PsychologicalService()
             {
                 DateTimeOfService = DateTime.Now.Date,
-                Person = _person,
-                PersonId = _person.Id,
-                Company = _company,
-                CompanyId = _company.Id,
-                Referral = _referral,
-                ReferralId = _referral.Id,
-                Positions = _addedPositions,
-                PsychologicalServiceType = _psychologicalServiceType,
-                PsychologicalServiceTypeId = _psychologicalServiceType.Id,
-                Psychologist = _psychologist,
-                PsychologistId = _psychologist.Id,
-                Number = _unitOfWork.PsychologicalService.GetLastNumber(_psychologist.Id, _psychologicalServiceType.Id, DateTime.Now.Date)
+                Person = _unitOfWork.Person.GetPerson(_person.Id),
+                Company = _unitOfWork.Company.GetCompany(_company.Id),
+                Referral =_unitOfWork.Referral.GetReferral(_referral.Id),
+                Psychologist =_unitOfWork.Psychologist.GetPsychologist(_psychologist.Id),
+                Localization = _unitOfWork.Localization.GetLocalization(_localization.Id),
+                PsychologicalServiceType =_unitOfWork.PsychologicalServiceTypes.GetType(_psychologicalServiceType.Id),
+                Number =_unitOfWork.PsychologicalService.GetLastNumber(_psychologist.Id,_localization.Id, _psychologicalServiceType.Id,DateTime.Now.Date)
             };
             _unitOfWork.PsychologicalService.Add(_psychologicalService);
-            _unitOfWork.Complete();
-            
+            Messenger.Default.Send(new PersonPsychServiceMessage()
+            {
+                Person = _person,
+                PsychologicalService = _psychologicalService
+            });
         }
 
         public Person Person
@@ -97,12 +94,13 @@ namespace AppCBMP.Registration.ViewModel.Components.ServiceComponents
 
         public string PostitionsFilter
         {
-            get { return _postitionsFilter; }
+            get
+            {
+                return _postitionsFilter;
+            }
             set
             {
-                if (_postitionsFilter != null
-                    && (value.Length == _postitionsFilter.Length + 1 || value.Length == _postitionsFilter.Length - 1 || value == string.Empty))
-                    UpdatePositionsCollection(value);
+                UpdatePositionsCollection(value);
                 Set(ref _postitionsFilter, value);
             }
         }
@@ -138,41 +136,50 @@ namespace AppCBMP.Registration.ViewModel.Components.ServiceComponents
             set { Set(ref _finishCommand, value); }
         }
 
-        public List<Position> Positions
+        public ObservableCollection<Position> Positions
         {
             get { return _positions; }
             set { Set(ref _positions, value); }
         }
 
-        public List<Position> AddedPositions
+        public ObservableCollection<Position> AddedPositions
         {
             get { return _addedPositions; }
             set { Set(ref _addedPositions, value); }
         }
 
-        private void HandleCmpRefPerMessage(CompanyReferralPersonMessage message)
+        private void HandleCmpRefperMessage(CompanyReferralPersonMessage personMessage)
         {
-            Person = message.Person;
-            _referral = message.Referral;
-            _company = message.Company;
-            _psychologicalServiceType = message.PsychologicalServiceType;
+            _referral = personMessage.Referral;
+            _company = personMessage.Company;
+            _psychologicalServiceType = personMessage.PsychologicalServiceType;
+            _person = personMessage.Person;
+        }
+
+        private void HandleLozalizationPsychologistMessage(LocalizationPsychologistMessage obj)
+        {
+            _localization = obj.Localization;
+            _psychologist = obj.Psychologist;
         }
 
         private void UpdatePositionsCollection(string positionFilter)
         {
-            _positions = _readOnlyPositions.Where(p => p.Name == positionFilter).
-                ToList();
+            Positions = !string.IsNullOrEmpty(positionFilter)
+                ? new ObservableCollection<Position>(_readOnlyPositions.Where(p => p.Name.ToLower().Contains(positionFilter.ToLower())))
+                : new ObservableCollection<Position>(_readOnlyPositions);
             RaisePropertyChanged(() => Positions);
         }
 
         private void RemovePosition(Position position)
         {
-            _addedPositions.Remove(position);
+            if (_addedPositions.Contains(position))
+                _addedPositions.Remove(position);
         }
 
         private void AddPosition(Position position)
         {
-            _addedPositions.Add(position);
+            if(!_addedPositions.Contains(position))
+                _addedPositions.Add(position);
         }
 
         private void AddNewPosition(string positionName)
