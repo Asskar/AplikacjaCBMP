@@ -2,7 +2,6 @@
 using System.Data.Entity.Infrastructure;
 using AppCBMP.Registration.ViewModel.Components;
 using AppCBMP.Registration.ViewModel.Components.NavigationEnums;
-using AppCBMP.ViewModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -25,7 +24,8 @@ namespace AppCBMP.Registration.ViewModel
         private readonly CompanyAndReferralViewModel _companyAndReferralViewModel;
         private readonly SelectedServiceViewModel _selectedServiceViewModel;
         private readonly RegistrationMenuViewModel _registrationMenuViewModel;
-        private  PersonListViewModel _personListViewModel;
+        private readonly NewRegistrationViewModel _newRegistrationViewModel;
+        private PersonListViewModel _personListViewModel;
 
         public RegistrationWindowViewModel()
         {
@@ -35,6 +35,7 @@ namespace AppCBMP.Registration.ViewModel
             _companyAndReferralViewModel = ServiceLocator.Current.GetInstance<CompanyAndReferralViewModel>();
             _selectedServiceViewModel = ServiceLocator.Current.GetInstance<SelectedServiceViewModel>();
             _personListViewModel = ServiceLocator.Current.GetInstance<PersonListViewModel>();
+            _newRegistrationViewModel = ServiceLocator.Current.GetInstance<NewRegistrationViewModel>();
             _currentViewModel = _registrationMenuViewModel;
 
 
@@ -58,6 +59,9 @@ namespace AppCBMP.Registration.ViewModel
             {
                 case RegistrationNavigationEnum.RegistrationMenuViewModel:
                     CurrentViewModel = _registrationMenuViewModel;
+                    break;
+                case RegistrationNavigationEnum.NewRegistrationMenuViewmodel:
+                    CurrentViewModel = _newRegistrationViewModel;
                     break;
                 case RegistrationNavigationEnum.PersonalDataRegistrationViewModel:
                     CurrentViewModel = _personalDataRegistrationViewModel;

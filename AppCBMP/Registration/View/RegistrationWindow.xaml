@@ -32,6 +32,9 @@
             <DataTemplate DataType="{x:Type viewModelcomponents:PersonListViewModel}">
                 <localComponents:PersonListView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModelcomponents:NewRegistrationViewModel}">
+                <localComponents:NewRegistationMenuView />
+            </DataTemplate>
         </ResourceDictionary>
 
     </Window.Resources>

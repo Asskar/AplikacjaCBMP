@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AppCBMP.View.Registration.RegistrationComponents
+namespace AppCBMP.Registration.View.Components
 {
     /// <summary>
-    /// Interaction logic for PsychologicalServiceSelector.xaml
+    /// Interaction logic for NewRegistationMenuView.xaml
     /// </summary>
-    public partial class PsychologicalServiceSelector : UserControl
+    public partial class NewRegistationMenuView : UserControl
     {
-        public PsychologicalServiceSelector()
+        public NewRegistationMenuView()
         {
             InitializeComponent();
         }

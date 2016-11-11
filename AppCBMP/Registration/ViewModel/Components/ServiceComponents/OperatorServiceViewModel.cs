@@ -76,9 +76,11 @@ namespace AppCBMP.Registration.ViewModel.Components.ServiceComponents
                 Psychologist =_unitOfWork.Psychologist.GetPsychologist(_psychologist.Id),
                 Localization = _unitOfWork.Localization.GetLocalization(_localization.Id),
                 PsychologicalServiceType =_unitOfWork.PsychologicalServiceTypes.GetType(_psychologicalServiceType.Id),
-                Number =_unitOfWork.PsychologicalService.GetLastNumber(_psychologist.Id,_localization.Id, _psychologicalServiceType.Id,DateTime.Now.Date)
+                Number =_unitOfWork.PsychologicalService.GetLastNumber(_psychologist.Id,_localization.Id, _psychologicalServiceType.Id,DateTime.Now.Date),
+                Positions = _addedPositions
             };
             _unitOfWork.PsychologicalService.Add(_psychologicalService);
+            _person.PsychologicalServices = new List<PsychologicalService> {_psychologicalService};
             Messenger.Default.Send(new PersonPsychServiceMessage()
             {
                 Person = _person,
@@ -165,7 +167,8 @@ namespace AppCBMP.Registration.ViewModel.Components.ServiceComponents
         private void UpdatePositionsCollection(string positionFilter)
         {
             Positions = !string.IsNullOrEmpty(positionFilter)
-                ? new ObservableCollection<Position>(_readOnlyPositions.Where(p => p.Name.ToLower().Contains(positionFilter.ToLower())))
+                ? new ObservableCollection<Position>(_readOnlyPositions.Where(p => p.Name.ToLower().
+                    Contains(positionFilter.ToLower())))
                 : new ObservableCollection<Position>(_readOnlyPositions);
             RaisePropertyChanged(() => Positions);
         }

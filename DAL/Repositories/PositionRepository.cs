@@ -41,7 +41,6 @@ namespace DAL.Repositories
 
         public Position SelectOrAdd(Position position)
         {
-
             if (CheckIfExists(position.Name))
                 return GetPosition(position.Name);
             Add(position);

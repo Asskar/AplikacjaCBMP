@@ -25,10 +25,26 @@ namespace AppCBMP.Registration.ViewModel.Components
         public PersonListViewModel()
         {
             Messenger.Default.Register<PersonPsychServiceMessage>(this, HandleMessage);
+            Persons= new ObservableCollection<Person>();
             PrintAllPersonsServicesCommand = new RelayCommand<Person>(PrintAllForSinglePerson);
             RemovePersonCommand = new RelayCommand<Person>(RemovePerson);
             PrintSingleServiceCommand = new RelayCommand<PsychologicalService>(PrintSingleService);
             RemoveSingleServiceCommand = new RelayCommand<PsychologicalService>(RemoveSingleService);
+
+            //design data
+            Persons.Add(new Person()
+            {
+                FirstName = new FirstName() {Name = "123"},
+                LastName = "dupa",
+                PsychologicalServices =
+                    new ObservableCollection<PsychologicalService>()
+                    {
+                        new PsychologicalService()
+                        {
+                            Positions = new ObservableCollection<Position>() {new Position() {Name = "dupa13212"}}
+                        }
+                    }
+            });
 
         }
 
@@ -66,17 +82,20 @@ namespace AppCBMP.Registration.ViewModel.Components
         private void PrintAllForSinglePerson(Person person)
         {
             MessageBox.Show("Drukuje wszystko");
+            //TODO PIOTREK
         }
 
         private void PrintSingleService(PsychologicalService psychologicalService)
         {
             MessageBox.Show("Drukuje jedno badanie");
+            //TODO PIOTREK
         }
 
         private void RemovePerson(Person person)
         {
             MessageBox.Show("Usuwam osobe");
             Persons.Remove(person);
+            
         }
 
         private void RemoveSingleService(PsychologicalService psychologicalService)
@@ -91,7 +110,11 @@ namespace AppCBMP.Registration.ViewModel.Components
         {
             if (!Persons.Contains(message.Person))
                 Persons.Add(message.Person);
+            if(Persons.First(p=> p==message.Person).PsychologicalServices==null)
+                Persons.First(p => p == message.Person).PsychologicalServices= new ObservableCollection<PsychologicalService>() {};
             Persons.First(p=> p==message.Person).PsychologicalServices.Add(message.PsychologicalService);
+            
         }
+
     }
 }

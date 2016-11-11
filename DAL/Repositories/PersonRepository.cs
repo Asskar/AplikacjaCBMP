@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Model;
 
@@ -26,17 +27,28 @@ namespace DAL.Repositories
             return _context.Persons.First(p => p.Pesel == pesel);
         }
 
-        public void AddOrUpdate(Person person)
+        public Person AddOrUpdate(Person person)
         {
-            _context.Entry(person).State = person.Id == 0 ?
-                        EntityState.Added :
-                        EntityState.Modified;
+            if (CheckIfExists(person.Pesel))
+                return GetPerson(person.Pesel);
+            Add(person);
+            return GetPerson(person.Pesel);
+        }
+
+        private void Add(Person person)
+        {
+            _context.Persons.Add(person);
             _context.SaveChanges();
         }
 
         public Person GetPerson(int id)
         {
             return _context.Persons.First(p => p.Id == id);
+        }
+
+        public IEnumerable<Person> GetAll()
+        {
+            return _context.Persons;
         }
     }
 }

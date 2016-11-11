@@ -16,7 +16,7 @@ namespace AppCBMP.Registration.ViewModel.Components
         private ValidatablePerson _simplePerson;
         private Person _currentlyRegisteredPerson;
         private readonly UnitOfWork _unitOfWork;
-
+        private readonly List<Person> _persons;
         public RelayCommand AddPersonCommand { get; set; }
 
         public PersonalDataRegistrationViewModel()
@@ -27,6 +27,7 @@ namespace AppCBMP.Registration.ViewModel.Components
             _currentlyRegisteredPerson = new Person();
             _getPerson = true;
             AddPersonCommand=new RelayCommand(AddPerson,CanAdd);
+            _persons= new List<Person>(_unitOfWork.Person.GetAll());
         }
 
         public ValidatablePerson SimplePerson
@@ -34,7 +35,7 @@ namespace AppCBMP.Registration.ViewModel.Components
             get
             {
                 if (string.IsNullOrEmpty(_simplePerson.Pesel)
-                    || _getPerson != true
+                    || _getPerson == false
                     || _simplePerson.Pesel.Length != 11)
                     return _simplePerson;
                 _getPerson = false;
@@ -44,6 +45,7 @@ namespace AppCBMP.Registration.ViewModel.Components
             set
             {
                 Set(ref _simplePerson, value);
+                _getPerson = true;
             }
         }
         
@@ -57,10 +59,12 @@ namespace AppCBMP.Registration.ViewModel.Components
 
         private void GetPerson(ValidatablePerson person)
         {
-            if (!_unitOfWork.Person.CheckIfExists(person.Pesel))
-                return;
-            CurrentlyRegisteredPerson = _unitOfWork.Person.GetPerson(person.Pesel);
-            ComplexPersonToSimplePerson(CurrentlyRegisteredPerson, SimplePerson);
+            //if (_persons.Any(p => p.Pesel == person.Pesel))
+              //  return _persons.First(p => p.Pesel == person.Pesel);
+//            if (!_unitOfWork.Person.CheckIfExists(person.Pesel))
+//                return;
+//            CurrentlyRegisteredPerson = _unitOfWork.Person.GetPerson(person.Pesel);
+//            ComplexPersonToSimplePerson(CurrentlyRegisteredPerson, SimplePerson);
         }
 
         private void ComplexPersonToSimplePerson(Person source, ValidatablePerson target)
@@ -107,9 +111,11 @@ namespace AppCBMP.Registration.ViewModel.Components
                 && string.IsNullOrEmpty(SimplePerson.LastName))
                 return;
             SimplePersonToComplexPerson(_simplePerson, _currentlyRegisteredPerson);
-            _unitOfWork.Person.AddOrUpdate(_currentlyRegisteredPerson);
+            _currentlyRegisteredPerson = _unitOfWork.Person.AddOrUpdate(_currentlyRegisteredPerson);
             Messenger.Default.Send(_currentlyRegisteredPerson);
             Messenger.Default.Send(RegistrationNavigationEnum.CompanyAndReferralViewModel);
+            _currentlyRegisteredPerson = new Person();
+            _simplePerson = new ValidatablePerson();
         }
 
         private void ClearPersons()

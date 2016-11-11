@@ -16,7 +16,6 @@ using AppCBMP.Model;
 using AppCBMP.Registration.ViewModel;
 using AppCBMP.Registration.ViewModel.Components;
 using AppCBMP.Registration.ViewModel.Components.ServiceComponents;
-using AppCBMP.ViewModel.RegistrationViewModelFolder;
 
 namespace AppCBMP.ViewModel
 {
@@ -41,9 +40,6 @@ namespace AppCBMP.ViewModel
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
             }
-            SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<RegistrationViewModel>();
-            SimpleIoc.Default.Register<InvoiceViewModel>();
             SimpleIoc.Default.Register<PersonalDataRegistrationViewModel>();
             SimpleIoc.Default.Register<RegistrationWindowViewModel>();
             SimpleIoc.Default.Register<CompanyAndReferralViewModel>();
@@ -52,19 +48,9 @@ namespace AppCBMP.ViewModel
             SimpleIoc.Default.Register<ServiceSelectorViewModel>();
             SimpleIoc.Default.Register<RegistrationMenuViewModel>();
             SimpleIoc.Default.Register<PersonListViewModel>();
+            SimpleIoc.Default.Register<NewRegistrationViewModel>();
         }
 
-        /// <summary>
-        /// Gets the Main property.
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
-            "CA1822:MarkMembersAsStatic",
-            Justification = "This non-static member is needed for data binding purposes.")]
-        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
-
-        public RegistrationViewModel Registration => ServiceLocator.Current.GetInstance<RegistrationViewModel>();
-
-        public InvoiceViewModel Invoice => ServiceLocator.Current.GetInstance<InvoiceViewModel>();
 
         public RegistrationWindowViewModel RegistrationWindowViewModel
         {
@@ -101,6 +87,11 @@ namespace AppCBMP.ViewModel
         {
             get { return ServiceLocator.Current.GetInstance<PersonListViewModel>(); }
         }
+        public NewRegistrationViewModel NewRegistrationViewModel
+        {
+            get { return ServiceLocator.Current.GetInstance<NewRegistrationViewModel>(); }
+        }
+
         /// <summary>
         /// Cleans up all the resources.
         /// </summary>

@@ -76,7 +76,7 @@
                 <HierarchicalDataTemplate.ItemTemplate>
                     <DataTemplate DataType="{x:Type Model:PsychologicalService}">
                         <StackPanel Orientation="Horizontal" x:Name="ServicePanel">
-                        <TextBlock Text="{Binding Positions ,Converter={StaticResource CollectionToStringConverter}}"/>
+                            <TextBlock Text="{Binding Positions ,Converter={StaticResource CollectionToStringConverter},  Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
                         <Button DataContext="{Binding PersonListViewModel, Source={StaticResource Locator}}"
                                     Command="{Binding PrintSingleServiceCommand}"
                                     CommandParameter="{Binding Persons/PsychologicalServices/}"

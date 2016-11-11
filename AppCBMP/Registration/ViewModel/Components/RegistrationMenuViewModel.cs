@@ -12,46 +12,20 @@ namespace AppCBMP.Registration.ViewModel.Components
 {
     public class RegistrationMenuViewModel:ViewModelBase
     {
-        private readonly UnitOfWork _unitOfWork;
-        private Psychologist _psychologist;
+        
         private RelayCommand<RegistrationNavigationEnum> _navigationCommand;
-        private Localization _localization;
+        
 
         public RegistrationMenuViewModel()
         {
-            _unitOfWork = new UnitOfWork(new AppDataContext());
-            Psychologists = _unitOfWork.Psychologist.GetAll().
-                ToList();
-            Localizations = _unitOfWork.Localization.GetAllLocalizations().ToList();
             _navigationCommand = new RelayCommand<RegistrationNavigationEnum>(Navigate);
         }
 
-        private void Navigate(RegistrationNavigationEnum message)
+        private void Navigate(RegistrationNavigationEnum destination)
         {
-            if (Localization == null)
-                return;
-            if (Psychologist == null)
-                return;
-            Messenger.Default.Send(message);
-            Messenger.Default.Send(new LocalizationPsychologistMessage()
-            {
-                Localization = Localization,
-                Psychologist = Psychologist
-            });
-        }
+            Messenger.Default.Send(destination);
 
-        public Psychologist Psychologist
-        {
-            get { return _psychologist; }
-            set { Set(ref _psychologist, value); }
         }
-        public Localization Localization
-        {
-            get { return _localization; }
-            set { Set(ref _localization, value); }
-        }
-        public List<Psychologist> Psychologists { get; set; }
-        public List<Localization> Localizations { get; set; }
 
         public RelayCommand<RegistrationNavigationEnum> NavigationCommand
         {

@@ -12,30 +12,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0"
-               Grid.Row="0"
-               Content="Lokalizacja" />
-        <ComboBox ItemsSource="{Binding Localizations, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                  DisplayMemberPath="Name"
-                  SelectedItem="{Binding Localization}"
-                  Grid.Column="1"
-                  Grid.Row="0"/>
-        <Label Grid.Column="0"
-               Grid.Row="1"
-               Content="Psycholog" />
-        <ComboBox ItemsSource="{Binding Psychologists, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                  DisplayMemberPath="Initials"
-                  SelectedItem="{Binding Psychologist}"
-                  Grid.Column="1"
-                  Grid.Row="1"/>
-        <Button Grid.Column="1" Grid.Row="2" Content="Rejestracja" Command="{Binding NavigationCommand}" CommandParameter="{x:Static navigationEnums:RegistrationNavigationEnum.PersonalDataRegistrationViewModel }"/>
-        <Button Grid.Column="1" Grid.Row="3" Content="Under Construction" IsEnabled="False"/>
+        
+        <Button Grid.Column="1" Grid.Row="0" Content="Rejestracja" Command="{Binding NavigationCommand}" CommandParameter="{x:Static navigationEnums:RegistrationNavigationEnum.NewRegistrationMenuViewmodel }"/>
+        <Button Grid.Column="1" Grid.Row="1" Content="Under Construction" IsEnabled="False"/>
     </Grid>
 </UserControl>
