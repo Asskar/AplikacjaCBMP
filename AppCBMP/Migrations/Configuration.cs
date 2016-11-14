@@ -1,11 +1,10 @@
 using DAL;
+using Model;
+using System.Collections.Generic;
 
 namespace AppCBMP.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<AppDataContext>
     {
@@ -28,6 +27,26 @@ namespace AppCBMP.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            var psychologists = new List<Psychologist> {
+                new Psychologist() { Initials = "KK"},
+                new Psychologist() { Initials = "TK" }};
+            var localizations = new List<Localization>
+            {
+                new Localization()
+                {
+                    Name = "Nasza Przychodnia",
+                    City = "Czêstochowa",
+                    PostCode = "42-215",
+                    Street = "Wolnoœci",
+                    HouseNumber = "46",
+                    PhoneNumber = "535-930-370"
+                }
+            };
+
+            context.Psychologists.AddRange(psychologists);
+            context.Localizations.AddRange(localizations);
+            context.SaveChanges();
         }
     }
 }

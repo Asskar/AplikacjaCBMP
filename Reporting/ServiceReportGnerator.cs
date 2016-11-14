@@ -1,6 +1,5 @@
 ﻿using Model;
-using RazorEngine;
-using RazorEngine.Templating;
+using Nustache.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -29,7 +28,7 @@ namespace Reporting
             //    result = service.RunCompile(report, "key", typeof(PsychologicalService), psychologicalService);
             //}
 
-            var result = Engine.Razor.RunCompile(report, "key", typeof(PsychologicalService), psychologicalService);
+            var result = Render.StringToString(report, psychologicalService);
 
 
             var outputPath = Path.Combine(ReportingConfiguration.OutputFilesPath, DateTime.Now.ToString("yy-MM-dd"));
