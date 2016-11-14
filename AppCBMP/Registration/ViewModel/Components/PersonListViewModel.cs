@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Windows;
-using AppCBMP.Registration.ViewModel.Components.ServiceComponents;
+﻿using AppCBMP.Registration.ViewModel.Components.ServiceComponents;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Model;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 
 namespace AppCBMP.Registration.ViewModel.Components
 {
@@ -32,19 +29,28 @@ namespace AppCBMP.Registration.ViewModel.Components
             RemoveSingleServiceCommand = new RelayCommand<PsychologicalService>(RemoveSingleService);
 
             //design data
-            Persons.Add(new Person()
+            var person = new Person()
             {
-                FirstName = new FirstName() {Name = "123"},
-                LastName = "dupa",
-                PsychologicalServices =
-                    new ObservableCollection<PsychologicalService>()
-                    {
-                        new PsychologicalService()
-                        {
-                            Positions = new ObservableCollection<Position>() {new Position() {Name = "dupa13212"}}
-                        }
-                    }
-            });
+                Pesel = "86030403770",
+                FirstName = new FirstName {Name = "Piotr"},
+                LastName = "Kiliński",
+                BirthPlace = "Częstochowa",
+                PhoneNumber = 535930370,
+                Street = "Irzykowskiego",
+                City = "Częstochowa",
+                PostCode = "42-217",
+                HouseNumber = "3/24",
+                Education = "średnie"
+            };
+            person.PsychologicalServices = new ObservableCollection<PsychologicalService>()
+            {
+                new PsychologicalService()
+                {
+                    Positions = new ObservableCollection<Position>() {new Position() {Name = "dupa13212"}},
+                    Person = person
+                }
+            };
+            Persons.Add(person);
 
         }
 
@@ -83,12 +89,13 @@ namespace AppCBMP.Registration.ViewModel.Components
         {
             MessageBox.Show("Drukuje wszystko");
             //TODO PIOTREK
+
         }
 
         private void PrintSingleService(PsychologicalService psychologicalService)
         {
             MessageBox.Show("Drukuje jedno badanie");
-            //TODO PIOTREK
+            psychologicalService.Print();
         }
 
         private void RemovePerson(Person person)

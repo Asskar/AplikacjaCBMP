@@ -64,10 +64,6 @@
       <Project>{5b16972d-97e5-4aea-a7d8-27f55a297b9d}</Project>
       <Name>Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Reporting\Reporting.csproj">
-      <Project>{43e5a750-2b28-4bc0-ab5b-e0f27bf653e2}</Project>
-      <Name>Reporting</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

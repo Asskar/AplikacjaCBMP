@@ -28,9 +28,27 @@ namespace AppCBMP.Migrations
             //    );
             //
 
+            var persons = new List<Person>
+            {
+                new Person
+                {
+                    Pesel = "86030403770",
+                    FirstName = new FirstName {Name = "Piotr"},
+                    LastName = "Kiliñski",
+                    BirthPlace = "Czêstochowa",
+                    PhoneNumber = 535930370,
+                    Street = "Irzykowskiego",
+                    City = "Czêstochowa",
+                    PostCode = "42-217",
+                    HouseNumber = "3/24",
+                    Education = "œrednie"
+                }
+            };
+
             var psychologists = new List<Psychologist> {
                 new Psychologist() { Initials = "KK"},
                 new Psychologist() { Initials = "TK" }};
+
             var localizations = new List<Localization>
             {
                 new Localization()
@@ -46,6 +64,7 @@ namespace AppCBMP.Migrations
 
             context.Psychologists.AddRange(psychologists);
             context.Localizations.AddRange(localizations);
+            context.Persons.AddRange(persons);
             context.SaveChanges();
         }
     }

@@ -1,6 +1,6 @@
 ﻿using Model;
-using Reporting;
 using System.Collections.Generic;
+using Model.Reporting;
 
 namespace ReportingTestConsoleApp
 {
@@ -10,7 +10,7 @@ namespace ReportingTestConsoleApp
         {
             
 
-            var repoting = new ServiceReportGnerator();
+            var repoting = new ServiceReportGenerator();
             var psychologicalService = new PsychologicalService();
             psychologicalService.Person = new Person();
             psychologicalService.Person.Pesel = "86030403771";

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Model.Reporting;
+using System.Collections.Generic;
 
 namespace Model
 {
@@ -16,7 +17,6 @@ namespace Model
         public string HouseNumber { get; set; }
         public string Education { get; set; }
         public long? PhoneNumber { get; set; }
-
         public ICollection<PsychologicalService> PsychologicalServices { get; set; }
     }
 }
