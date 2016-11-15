@@ -26,7 +26,6 @@ namespace DAL
         }
 
         public DbSet<Person> Persons { get; set; }
-        public DbSet<FirstName> FirstNames { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Referral> Referrals { get; set; }
         public DbSet<Position> Positions { get; set; }

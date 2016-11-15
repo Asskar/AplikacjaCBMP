@@ -140,6 +140,10 @@
     <Compile Include="Migrations\201610101732219_LocalizationModel.Designer.cs">
       <DependentUpon>201610101732219_LocalizationModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611151653339_removedFirstNameModel.cs" />
+    <Compile Include="Migrations\201611151653339_removedFirstNameModel.Designer.cs">
+      <DependentUpon>201611151653339_removedFirstNameModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Data\DataItem.cs" />
     <Compile Include="Model\Data\DataService.cs" />
@@ -306,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610101732219_LocalizationModel.resx">
       <DependentUpon>201610101732219_LocalizationModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611151653339_removedFirstNameModel.resx">
+      <DependentUpon>201611151653339_removedFirstNameModel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

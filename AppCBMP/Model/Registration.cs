@@ -26,8 +26,7 @@ namespace AppCBMP.Model
         private List<Position> _positions;
         private List<Referral> _referrals;
         private List<PsychologicalServiceType> _psychologicalServiceTypes;
-        private List<Psychologist> _psychologists;
-        private List<FirstName> _firstNames; 
+        private List<Psychologist> _psychologists; 
         private ObservableCollection<Position> _currentlySelectedPositions;
         private ObservableCollection<Person> _persons;
         
@@ -141,11 +140,6 @@ namespace AppCBMP.Model
         {
             get { return _psychologicalServiceTypes; }
             set { Set(() => PsychologicalServiceTypes, ref _psychologicalServiceTypes, value); }
-        }
-        public List<FirstName> FirstNames
-        {
-            get { return _firstNames; }
-            set { Set(() => FirstNames, ref _firstNames, value); }
         }
 
         public List<Psychologist> Psychologists

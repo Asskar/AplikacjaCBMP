@@ -40,7 +40,8 @@ namespace Model
 
         public void Print()
         {
-            var path = _serviceReportGenerator.Generate(this);
+            //var path = _serviceReportGenerator.Generate(this);
+            var path = @"C:\CBMP\test.pdf";
             ProcessStartInfo info = new ProcessStartInfo();
             info.Verb = "print";
             info.FileName = path;

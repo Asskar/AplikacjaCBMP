@@ -33,7 +33,7 @@ namespace AppCBMP.Migrations
                 new Person
                 {
                     Pesel = "86030403770",
-                    FirstName = new FirstName {Name = "Piotr"},
+                    FirstName = "Piotr",
                     LastName = "Kiliñski",
                     BirthPlace = "Czêstochowa",
                     PhoneNumber = 535930370,

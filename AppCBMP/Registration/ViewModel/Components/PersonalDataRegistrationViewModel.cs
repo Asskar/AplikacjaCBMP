@@ -22,7 +22,6 @@ namespace AppCBMP.Registration.ViewModel.Components
         public PersonalDataRegistrationViewModel()
         {
             _unitOfWork = new UnitOfWork(new AppDataContext());
-            FirstNames = _unitOfWork.FirstName.GetAllNames().ToList();
             _simplePerson = new ValidatablePerson();
             _currentlyRegisteredPerson = new Person();
             _getPerson = true;
@@ -49,8 +48,6 @@ namespace AppCBMP.Registration.ViewModel.Components
             }
         }
         
-        public List<FirstName> FirstNames { get; private set; }
-
         private Person CurrentlyRegisteredPerson
         {
             get { return _currentlyRegisteredPerson; }
@@ -71,7 +68,7 @@ namespace AppCBMP.Registration.ViewModel.Components
         {
             target.Id = source.Id;
             target.Pesel = source.Pesel;
-            target.FirstName = _unitOfWork.FirstName.GetName(source.FirstNameId).Name;
+            target.FirstName = source.FirstName;
             target.LastName = source.LastName;
             target.BirthPlace = source.BirthPlace;
             target.PostCode = source.PostCode;
@@ -86,13 +83,7 @@ namespace AppCBMP.Registration.ViewModel.Components
         private void SimplePersonToComplexPerson(ValidatablePerson source, Person target)
         {
             target.Id = source.Id;
-            if (!_unitOfWork.FirstName.CheckIfExists(source.FirstName))
-            {
-                _unitOfWork.FirstName.Add(new FirstName() {Name = source.FirstName});
-            }
-            FirstName firstName = _unitOfWork.FirstName.GetName(source.FirstName);
-            target.FirstNameId = firstName.Id;
-            target.FirstName = firstName;
+            target.FirstName = source.FirstName;
             target.Pesel = source.Pesel;
             target.LastName = source.LastName;
             target.BirthPlace = source.BirthPlace;

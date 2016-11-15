@@ -32,7 +32,7 @@ namespace AppCBMP.Registration.ViewModel.Components
             var person = new Person()
             {
                 Pesel = "86030403770",
-                FirstName = new FirstName {Name = "Piotr"},
+                FirstName = "Piotr",
                 LastName = "Kiliński",
                 BirthPlace = "Częstochowa",
                 PhoneNumber = 535930370,

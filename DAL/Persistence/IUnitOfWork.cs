@@ -5,7 +5,6 @@ namespace DAL.Persistence
     public interface IUnitOfWork
     {
         CompanyRepository Company { get; set; }
-        FirstNameRepository FirstName { get; set; }
         PersonRepository Person { get; set; }
         PositionRepository Position { get; set; }
         PsychologicalServiceRepository PsychologicalService { get; set; }

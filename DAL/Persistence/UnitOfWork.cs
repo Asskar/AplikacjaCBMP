@@ -16,7 +16,6 @@ namespace DAL.Persistence
             PsychologicalService = new PsychologicalServiceRepository(context);
             PsychologicalServiceTypes = new PsychologicalServiceTypesRepository(context);
             Psychologist= new PsychologistRepository(context);
-            FirstName= new FirstNameRepository(context);
             Localization= new LocalizationRepository(context);
         }
 
@@ -28,7 +27,6 @@ namespace DAL.Persistence
         public PsychologicalServiceRepository PsychologicalService { get; set; }
         public PsychologicalServiceTypesRepository PsychologicalServiceTypes { get; set; }
         public PsychologistRepository Psychologist { get; set; }
-        public FirstNameRepository FirstName { get; set; }
 
         public void Complete()
         {

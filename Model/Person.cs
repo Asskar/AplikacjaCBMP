@@ -7,8 +7,7 @@ namespace Model
     {
         public int Id { get; set; }
         public string Pesel { get; set; }
-        public int FirstNameId { get; set; }
-        public FirstName FirstName { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
         public string BirthPlace { get; set; }
         public string PostCode { get; set; }
